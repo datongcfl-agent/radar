@@ -94,6 +94,12 @@ python3 -m unittest discover -s tests -v
 
 10 个用例覆盖：pack/seeds 校验、URL 规范化、单源上限、双源 strong、mention/none、gaps、CLI run、diff。
 
+## 交给其他 Agent
+
+- [HANDOFF.md](HANDOFF.md)：三种交接方式（DSH skill / CLI / 只读）；
+- [AGENT-TASK.md](AGENT-TASK.md)：给对方的任务书；
+- `./make_handoff.sh`：打一个可发送的 tar.gz。
+
 ## 设计依据
 
 - 雷达总纲：[RADAR-NOTES.md](../elv-mgmt/radar-meta/RADAR-NOTES.md)
