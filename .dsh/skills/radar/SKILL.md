@@ -20,6 +20,8 @@ python3 -m radar run ... --gitee --limit 3 --max-queries 3
 # 可选：forward snowballing / 网络刷新
 python3 -m radar run ... --snowball --snowball-max 5
 python3 -m radar run ... --fetch --fetch-limit 5
+# 可选：公开网页正文 + 许可提示
+python3 -m radar run ... --web --web-limit 5
 python3 -m radar scan --pack packs/weak-current/pack.json --seeds seeds/weak-current.json \
   --title "弱电管理系统" --out runs/weak-current-demo-v2 --since runs/weak-current-demo
 python3 -m radar diff --from runs/a --to runs/b --out runs/diff.md

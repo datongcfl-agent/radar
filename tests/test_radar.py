@@ -16,6 +16,7 @@ from radar.state import compare_sources, render_changes
 from radar.adapters import parse_gitee_items, gitee_search
 from radar.fetch import apply_fetch, parse_headers
 from radar.snowball import parse_github_repo, fork_source, snowball as run_snowball
+from radar.web import extract_html, detect_license, apply_web
 from radar.diff import diff_runs
 from radar.model import (RadarError, canonical_url, load_pack, load_seeds,
                          validate_source)
@@ -177,6 +178,31 @@ class TestCoverage(unittest.TestCase):
         text = render_report(pack, [low], cov, state)
         self.assertIn("低星但高覆盖", text)
         self.assertIn("覆盖 2 格", text)
+
+
+class TestWeb(unittest.TestCase):
+    def test_extract_html(self):
+        page = extract_html("<html><head><title>弱电报价</title>"
+                            "<meta name='description' content='这是一个用于弱电工程报价与成本管理的页面内容'>"
+                            "</head><body><script>bad()</script><p>弱电工程报价清单与成本管理说明。</p></body></html>")
+        self.assertEqual(page["title"], "弱电报价")
+        self.assertNotIn("bad()", page["text"])
+        self.assertTrue(page["quotes"])
+
+    def test_detect_license(self):
+        self.assertEqual(detect_license("MIT License")[:2], ("MIT", "clear"))
+        self.assertEqual(detect_license("Apache License 2.0")[:2], ("Apache-2.0", "clear"))
+        self.assertEqual(detect_license("All rights reserved.")[:2], ("proprietary", "proprietary"))
+        self.assertEqual(detect_license("hello")[:2], ("unknown", "needs_review"))
+
+    def test_apply_web(self):
+        out = apply_web({"id": "A", "url": "https://example.com", "title": "x",
+                         "license": "unknown", "license_status": "needs_review"},
+                        {"title": "T", "description": "", "text": "MIT License",
+                         "quotes": ["q"]})
+        self.assertEqual(out["license"], "MIT")
+        self.assertEqual(out["license_status"], "clear")
+        self.assertIn("q", out["quotes"])
 
 
 class TestFetch(unittest.TestCase):

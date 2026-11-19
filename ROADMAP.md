@@ -32,7 +32,7 @@
 - 无 token 明确跳过；
 - 21 个单测。
 
-## v0.2.4 — Forward snowballing（本 PR）
+## v0.2.4 — Forward snowballing（已合并）
 
 - GitHub forks：从已选 GitHub 来源取 fork；
 - 继承 parent 的 `covers`，`why_selected=forward: fork of <id>`；
@@ -40,7 +40,7 @@
 - 可选 `--snowball --snowball-per-source --snowball-max`；
 - **不做**：GitHub dependents、Gitee forks、引用图（后续）。
 
-## v0.2.5 — 网络 --fetch（本 PR）
+## v0.2.5 — 网络 --fetch（已合并）
 
 - `--fetch`：curl 抓 URL 的 ETag/Last-Modified/正文 hash；
 - 更新 `http_status/last_seen/content_hash/etag/last_modified`；
@@ -61,7 +61,16 @@
 
 验收：同一批来源，改一个页面/一个 release，`scan` 只报那一处变化。
 
-## v0.3 — 多平台
+## v0.3 — 网页抽取 + 许可提示（本 PR）
+
+- `--web`：curl 抓公开 HTML，stdlib 解析 title/description/正文/短引用；
+- `--web-limit` 控制条数；
+- 最小许可识别：MIT/Apache/GPL/AGPL/LGPL/MPL/BSD/Unlicense/CC0/proprietary；
+- 许可只做提示，不替代人工复核；不执行 JS、不绕登录；
+- 29 个单测；
+- **不做**：Playwright/登录页/PDF/OCR/ScanCode 依赖。
+
+## v0.3 — 多平台（原方向）
 
 目标：不只 GitHub。
 
