@@ -1,0 +1,460 @@
+{
+  "modules": [
+    {
+      "id": "M01",
+      "name": "采集与导入",
+      "kind": "module",
+      "level": "evidence",
+      "source_count": 2,
+      "evidence_count": 2,
+      "independent_count": 1,
+      "sources": [
+        "SRC-001",
+        "SRC-017"
+      ],
+      "strongest": "SRC-017",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "M02",
+      "name": "语音转写",
+      "kind": "module",
+      "level": "evidence",
+      "source_count": 9,
+      "evidence_count": 4,
+      "independent_count": 1,
+      "sources": [
+        "SRC-001",
+        "SRC-002",
+        "SRC-003",
+        "SRC-004",
+        "SRC-005",
+        "SRC-015",
+        "SRC-016",
+        "SRC-022",
+        "SRC-024"
+      ],
+      "strongest": "SRC-022",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "M03",
+      "name": "文本结构化",
+      "kind": "module",
+      "level": "evidence",
+      "source_count": 3,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "sources": [
+        "SRC-014",
+        "SRC-015",
+        "SRC-018"
+      ],
+      "strongest": "SRC-018",
+      "reusable": true,
+      "single_source": true
+    },
+    {
+      "id": "M04",
+      "name": "知识库存储",
+      "kind": "module",
+      "level": "evidence",
+      "source_count": 4,
+      "evidence_count": 2,
+      "independent_count": 2,
+      "sources": [
+        "SRC-006",
+        "SRC-008",
+        "SRC-028",
+        "SRC-029"
+      ],
+      "strongest": "SRC-028",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "M05",
+      "name": "归类与关联",
+      "kind": "module",
+      "level": "evidence",
+      "source_count": 3,
+      "evidence_count": 2,
+      "independent_count": 2,
+      "sources": [
+        "SRC-008",
+        "SRC-010",
+        "SRC-029"
+      ],
+      "strongest": "SRC-029",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "M06",
+      "name": "检索与问答",
+      "kind": "module",
+      "level": "evidence",
+      "source_count": 6,
+      "evidence_count": 3,
+      "independent_count": 1,
+      "sources": [
+        "SRC-009",
+        "SRC-010",
+        "SRC-011",
+        "SRC-012",
+        "SRC-021",
+        "SRC-027"
+      ],
+      "strongest": "SRC-021",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "M07",
+      "name": "跨端与同步",
+      "kind": "module",
+      "level": "evidence",
+      "source_count": 2,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "sources": [
+        "SRC-006",
+        "SRC-028"
+      ],
+      "strongest": "SRC-028",
+      "reusable": true,
+      "single_source": true
+    },
+    {
+      "id": "M08",
+      "name": "学习闭环",
+      "kind": "module",
+      "level": "evidence",
+      "source_count": 2,
+      "evidence_count": 2,
+      "independent_count": 2,
+      "sources": [
+        "SRC-013",
+        "SRC-030"
+      ],
+      "strongest": "SRC-030",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "M09",
+      "name": "隐私与本地化",
+      "kind": "module",
+      "level": "evidence",
+      "source_count": 4,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "sources": [
+        "SRC-008",
+        "SRC-012",
+        "SRC-019",
+        "SRC-025"
+      ],
+      "strongest": "SRC-019",
+      "reusable": true,
+      "single_source": true
+    },
+    {
+      "id": "M10",
+      "name": "部署与运维",
+      "kind": "module",
+      "level": "evidence",
+      "source_count": 2,
+      "evidence_count": 2,
+      "independent_count": 1,
+      "sources": [
+        "SRC-007",
+        "SRC-019"
+      ],
+      "strongest": "SRC-019",
+      "reusable": true,
+      "single_source": false
+    }
+  ],
+  "subsystems": [
+    {
+      "id": "S01",
+      "name": "字幕优先抓取",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 1,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "sources": [
+        "SRC-017"
+      ],
+      "strongest": "SRC-017",
+      "reusable": true,
+      "single_source": true
+    },
+    {
+      "id": "S02",
+      "name": "视频下载",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 2,
+      "evidence_count": 2,
+      "independent_count": 1,
+      "sources": [
+        "SRC-001",
+        "SRC-017"
+      ],
+      "strongest": "SRC-017",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "S03",
+      "name": "Whisper 转写引擎",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 7,
+      "evidence_count": 3,
+      "independent_count": 1,
+      "sources": [
+        "SRC-001",
+        "SRC-002",
+        "SRC-003",
+        "SRC-004",
+        "SRC-005",
+        "SRC-016",
+        "SRC-024"
+      ],
+      "strongest": "SRC-016",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "S04",
+      "name": "说话人分离",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 4,
+      "evidence_count": 3,
+      "independent_count": 1,
+      "sources": [
+        "SRC-003",
+        "SRC-015",
+        "SRC-022",
+        "SRC-023"
+      ],
+      "strongest": "SRC-023",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "S05",
+      "name": "长音频切分/VAD",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 2,
+      "evidence_count": 2,
+      "independent_count": 1,
+      "sources": [
+        "SRC-022",
+        "SRC-023"
+      ],
+      "strongest": "SRC-023",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "S06",
+      "name": "LLM 摘要与大纲",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 2,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "sources": [
+        "SRC-014",
+        "SRC-018"
+      ],
+      "strongest": "SRC-018",
+      "reusable": true,
+      "single_source": true
+    },
+    {
+      "id": "S07",
+      "name": "结构化笔记模板",
+      "kind": "subsystem",
+      "level": "mention",
+      "source_count": 1,
+      "evidence_count": 0,
+      "independent_count": 0,
+      "sources": [
+        "SRC-002"
+      ],
+      "strongest": "SRC-002",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "S08",
+      "name": "Markdown/双链存储",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 3,
+      "evidence_count": 2,
+      "independent_count": 2,
+      "sources": [
+        "SRC-006",
+        "SRC-028",
+        "SRC-029"
+      ],
+      "strongest": "SRC-028",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "S09",
+      "name": "自动标签与聚类",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 1,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "sources": [
+        "SRC-010"
+      ],
+      "strongest": "SRC-010",
+      "reusable": true,
+      "single_source": true
+    },
+    {
+      "id": "S10",
+      "name": "向量化/embedding",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 4,
+      "evidence_count": 2,
+      "independent_count": 1,
+      "sources": [
+        "SRC-010",
+        "SRC-011",
+        "SRC-020",
+        "SRC-026"
+      ],
+      "strongest": "SRC-020",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "S11",
+      "name": "RAG 问答",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 7,
+      "evidence_count": 3,
+      "independent_count": 1,
+      "sources": [
+        "SRC-009",
+        "SRC-011",
+        "SRC-012",
+        "SRC-020",
+        "SRC-021",
+        "SRC-026",
+        "SRC-027"
+      ],
+      "strongest": "SRC-021",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "S12",
+      "name": "桌面客户端",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 1,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "sources": [
+        "SRC-009"
+      ],
+      "strongest": "SRC-009",
+      "reusable": true,
+      "single_source": true
+    },
+    {
+      "id": "S13",
+      "name": "移动端",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 1,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "sources": [
+        "SRC-030"
+      ],
+      "strongest": "SRC-030",
+      "reusable": false,
+      "single_source": true
+    },
+    {
+      "id": "S14",
+      "name": "同步机制",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 2,
+      "evidence_count": 2,
+      "independent_count": 2,
+      "sources": [
+        "SRC-028",
+        "SRC-029"
+      ],
+      "strongest": "SRC-028",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "S15",
+      "name": "复习/闪卡",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 2,
+      "evidence_count": 2,
+      "independent_count": 2,
+      "sources": [
+        "SRC-013",
+        "SRC-030"
+      ],
+      "strongest": "SRC-030",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "S16",
+      "name": "本地模型运行",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 2,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "sources": [
+        "SRC-019",
+        "SRC-025"
+      ],
+      "strongest": "SRC-019",
+      "reusable": true,
+      "single_source": true
+    }
+  ],
+  "summary": {
+    "none": 0,
+    "mention": 1,
+    "evidence": 25,
+    "strong": 0
+  },
+  "sources": 30,
+  "platforms": {
+    "github": 23,
+    "docs": 7
+  }
+}

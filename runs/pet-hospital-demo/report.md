@@ -1,6 +1,6 @@
 # 宠物医院管理系统 · 雷达运行报告
 
-Run: `20261120-024916` · Pack: `pet-hospital` v0.1.0 · Radar: v0.6.1
+Run: `20261120-025946` · Pack: `pet-hospital` v0.1.0 · Radar: v0.7.0
 
 ## 一句话
 
