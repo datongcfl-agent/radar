@@ -114,6 +114,13 @@ class TestModel(unittest.TestCase):
         self.assertEqual(len(pack["subsystems"]), 6)
         self.assertEqual(len(seeds), 3)
 
+    def test_video_pack_valid(self):
+        pack = load_pack(ROOT / "packs/video-kb/pack.json")
+        seeds = load_seeds(ROOT / "seeds/video-kb.json", pack)
+        self.assertEqual(len(pack["modules"]), 10)
+        self.assertEqual(len(pack["subsystems"]), 16)
+        self.assertEqual(len(seeds), 30)
+
     def test_minimal_seed_defaults(self):
         pack = load_pack(PACK)
         with tempfile.TemporaryDirectory() as tmp:
@@ -619,9 +626,9 @@ class TestCLI(unittest.TestCase):
             state = json.loads((scan_out / "state.json").read_text(encoding="utf-8"))
             self.assertEqual(state["mode"], "scan")
             self.assertEqual(state["since"], str(out1))
-            self.assertEqual(state["radar_version"], "0.6.1")
+            self.assertEqual(state["radar_version"], "0.7.0")
             self.assertIn("radar_commit", state)
-            self.assertIn("Radar: v0.6.1", (scan_out / "report.md").read_text(encoding="utf-8"))
+            self.assertIn("Radar: v0.7.0", (scan_out / "report.md").read_text(encoding="utf-8"))
 
             claims_file = tmp / "claims.json"
             claims_file.write_text(json.dumps({
@@ -636,7 +643,7 @@ class TestCLI(unittest.TestCase):
                            capture_output=True, text=True)
             self.assertTrue((claims_out / "claims.md").exists())
             self.assertTrue((claims_out / "review.csv").exists())
-            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "0.6.1")
+            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "0.7.0")
 
 
 class TestAudit(unittest.TestCase):

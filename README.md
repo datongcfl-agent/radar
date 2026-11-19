@@ -1,4 +1,4 @@
-# radar · 最小行业雷达（v0.6.1）
+# radar · 最小行业雷达（v0.7.0）
 
 **A minimal industry radar: does every module in your industry outline actually have evidence?**
 
@@ -61,6 +61,15 @@ runs/weak-current-demo/
 ├── report.md         # 汇总/低星发现/许可问题/来源清单
 └── state.json        # run 元数据、pack/seeds 哈希
 ```
+
+## video-kb 第二真实 pack（v0.7）
+
+- **30 条公开来源**：22 selected / 8 needs_review；
+- 覆盖：**0 strong / 25 evidence / 1 mention / 0 none**；
+- 9 个单源：M03、M07、M09、S01、S06、S09、S12、S13、S16；
+- 同一套引擎，换 pack 不改代码；基线见 [docs/BASELINE-VIDEO-KB.md](docs/BASELINE-VIDEO-KB.md)。
+
+strong 为 0 是因为没有跑 `--web` 机器验证，不是数据缺失。
 
 ## 多个 pack 证明可替换
 
@@ -174,7 +183,7 @@ token 只通过 `Authorization: Bearer` 发送，不拼进 URL、不写日志；
 
 `report.md` 头部也会显示 `Radar: v...`。这样别人拿到一个 run，能知道是哪个版本/commit 跑出来的。
 
-当前代码版本 `0.6.1`。tag 由仓库 owner 打；Agent 不自行打标签。
+当前代码版本 `0.7.0`。tag 由仓库 owner 打；Agent 不自行打标签。
 
 ## Claim 账本（v0.4）
 
@@ -213,7 +222,7 @@ python3 -m radar claims \
 python3 -m unittest discover -s tests -v
 ```
 
-61 个用例覆盖：pack/seeds 校验、Seed Lite 默认值、`--strict` 拒绝最小字段、URL 规范化、单源上限、双源 strong、mention/none、gaps、来源级变更、Gitee metadata 映射、fetch 状态、snowball fork 映射、HTML 抽取、中文 quote、404 不冒充成功、license 提示、claim 覆盖校验/双向矛盾/CSV 注入、merge 并集/ID 唯一/canonical/平台推断/许可顺序、独立 host/单源口径、坏访问、reusable、CLI 报错、残留清理、账本审计、CLI run/scan/diff。
+62 个用例覆盖：pack/seeds 校验、Seed Lite 默认值、`--strict` 拒绝最小字段、URL 规范化、单源上限、双源 strong、mention/none、gaps、来源级变更、Gitee metadata 映射、fetch 状态、snowball fork 映射、HTML 抽取、中文 quote、404 不冒充成功、license 提示、claim 覆盖校验/双向矛盾/CSV 注入、merge 并集/ID 唯一/canonical/平台推断/许可顺序、独立 host/单源口径、坏访问、reusable、CLI 报错、残留清理、账本审计、CLI run/scan/diff。
 
 ## 交给其他 Agent
 
@@ -235,7 +244,7 @@ radar/
 ├── radar/            # CLI + 校验 + 覆盖度 + diff
 ├── packs/            # weak-current / pet-hospital
 ├── seeds/            # 两个行业的种子来源
-├── tests/            # 61 个单测
+├── tests/            # 62 个单测
 ├── docs/             # PACK / MVP
 ├── .dsh/skills/radar # Skill
 └── runs/             # demo 输出

@@ -103,14 +103,22 @@
 
 验收：每条关键主张有 URL + quote + 置信度；矛盾不被强行合并。
 
-## v0.6.1 — 防伪 hardening（本 PR）
+## v0.7.0 — 第二真实 pack：video-kb（本 PR）
+
+- video-kb 从 15 → **30 条**公开来源；
+- 10 模块 / 16 子系统：0 strong / 25 evidence / 1 mention / 0 none；
+- 9 个单源，S07 是唯一 mention；
+- 同一套引擎，不改代码；基线：[docs/BASELINE-VIDEO-KB.md](docs/BASELINE-VIDEO-KB.md)；
+- 62 个单测。
+
+## v0.6.1 — 防伪 hardening（已合并，v0.6.1）
 
 - `--require-web-verify`：忽略 seeds 自带验证标记，只认本次 `--web`；
 - claims 层 proprietary cap 0.40；
 - `canonical_url` 默认端口 80/443 归一；
 - rejected 来源不再把 covers/quotes 并进 selected；
 - `.gitattributes`：JSON/JSONL 强制 LF；
-- 61 个单测。
+- 62 个单测。
 
 ## v0.6.0 — Quote 验证（已合并，v0.6.0）
 
@@ -118,7 +126,7 @@
 - strong 要求至少 2 host + `quote_verified: true`；
 - `--web` 做归一化子串校验；
 - seeds 不再有人工 true；当前 strong=0，等 --web 机器验证；
-- 61 个单测。
+- 62 个单测。
 
 ## v0.5 — 弱电真实来源（已合并）
 
@@ -128,7 +136,7 @@
 - 已删除不属于通用弱电主线的 S24；
 - 新增来源以公开 README/metadata 为主，4 条许可 needs_review；
 - 基线：[docs/BASELINE.md](docs/BASELINE.md)；
-- 61 个单测。
+- 62 个单测。
 
 ## v0.5b — 第二真实行业包（待定）
 

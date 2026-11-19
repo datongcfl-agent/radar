@@ -5,9 +5,15 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
+import argparse
 ROOT = Path(__file__).resolve().parents[1]
-pack = json.loads((ROOT / "packs/weak-current/pack.json").read_text(encoding="utf-8"))
-seeds = json.loads((ROOT / "seeds/weak-current.json").read_text(encoding="utf-8"))["sources"]
+ap = argparse.ArgumentParser()
+ap.add_argument("--pack", default="packs/weak-current/pack.json")
+ap.add_argument("--seeds", default="seeds/weak-current.json")
+ap.add_argument("--run", default="runs/weak-current-demo")
+args = ap.parse_args()
+pack = json.loads((ROOT / args.pack).read_text(encoding="utf-8"))
+seeds = json.loads((ROOT / args.seeds).read_text(encoding="utf-8"))["sources"]
 units = {x["id"]: x["name"] for x in pack["modules"] + pack["subsystems"]}
 support = defaultdict(list)
 for s in seeds:
@@ -28,12 +34,12 @@ print("no_quote (mention-ok): %s" % ([s["id"] for s in no_quote] or "none"))
 print("bad_quote_verified: %s" % ([s["id"] for s in bad_qv] or "none"))
 print("bad_quote_verified_by: %s" % ([s["id"] for s in bad_by] or "none"))
 
-state_path = ROOT / "runs/weak-current-demo/state.json"
+state_path = ROOT / args.run / "state.json"
 if state_path.exists():
     state = json.loads(state_path.read_text(encoding="utf-8"))
     import hashlib
-    seed_hash = hashlib.sha256((ROOT / "seeds/weak-current.json").read_bytes()).hexdigest()
-    pack_hash = hashlib.sha256((ROOT / "packs/weak-current/pack.json").read_bytes()).hexdigest()
+    seed_hash = hashlib.sha256((ROOT / args.seeds).read_bytes()).hexdigest()
+    pack_hash = hashlib.sha256((ROOT / args.pack).read_bytes()).hexdigest()
     hash_ok = state.get("seeds_sha256") == seed_hash and state.get("pack_sha256") == pack_hash
     print("state_hashes: %s" % ("OK" if hash_ok else "MISMATCH"))
 else:
