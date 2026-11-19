@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "pack": "video-kb",
+  "version": "0.1.0",
+  "title": "视频转知识库（学习用途）",
+  "aliases": ["视频转文字", "视频笔记", "video to notes", "个人知识库", "PKM"],
+  "modules": [
+    {"id": "M01", "name": "采集与导入", "artifacts": ["code", "manual"], "keywords": ["bilibili", "yt-dlp", "字幕", "download", "导入"]},
+    {"id": "M02", "name": "语音转写", "artifacts": ["code", "manual"], "keywords": ["whisper", "asr", "transcribe", "转写", "听写"]},
+    {"id": "M03", "name": "文本结构化", "artifacts": ["readme", "code"], "keywords": ["summary", "outline", "摘要", "大纲", "要点"]},
+    {"id": "M04", "name": "知识库存储", "artifacts": ["docs", "code"], "keywords": ["markdown", "notes", "wiki", "笔记"]},
+    {"id": "M05", "name": "归类与关联", "artifacts": ["readme", "code"], "keywords": ["tag", "标签", "backlink", "知识图谱", "聚类"]},
+    {"id": "M06", "name": "检索与问答", "artifacts": ["code", "benchmark"], "keywords": ["rag", "vector", "search", "问答"]},
+    {"id": "M07", "name": "跨端与同步", "artifacts": ["manual", "ui_reference"], "keywords": ["mobile", "android", "ios", "sync", "同步"]},
+    {"id": "M08", "name": "学习闭环", "artifacts": ["readme", "ui_reference"], "keywords": ["spaced repetition", "复习", "闪卡", "quiz"]},
+    {"id": "M09", "name": "隐私与本地化", "artifacts": ["manual", "code"], "keywords": ["offline", "local", "私有", "自托管"]},
+    {"id": "M10", "name": "部署与运维", "artifacts": ["manual", "code"], "keywords": ["docker", "self-host", "backup"]}
+  ],
+  "subsystems": [
+    {"id": "S01", "name": "字幕优先抓取", "artifacts": ["code"], "keywords": ["subtitle", "字幕", "cc"]},
+    {"id": "S02", "name": "视频下载", "artifacts": ["code"], "keywords": ["yt-dlp", "download", "下载"]},
+    {"id": "S03", "name": "Whisper 转写引擎", "artifacts": ["code"], "keywords": ["whisper", "ctranslate2"]},
+    {"id": "S04", "name": "说话人分离", "artifacts": ["code"], "keywords": ["diarization", "speaker", "说话人"]},
+    {"id": "S05", "name": "长音频切分/VAD", "artifacts": ["code"], "keywords": ["vad", "chunk", "切分"]},
+    {"id": "S06", "name": "LLM 摘要与大纲", "artifacts": ["code"], "keywords": ["summarize", "llm", "总结"]},
+    {"id": "S07", "name": "结构化笔记模板", "artifacts": ["readme", "ui_reference"], "keywords": ["template", "笔记模板", "格式"]},
+    {"id": "S08", "name": "Markdown/双链存储", "artifacts": ["code"], "keywords": ["markdown", "wikilink", "双链"]},
+    {"id": "S09", "name": "自动标签与聚类", "artifacts": ["code"], "keywords": ["tag", "cluster", "自动分类"]},
+    {"id": "S10", "name": "向量化/embedding", "artifacts": ["code"], "keywords": ["embedding", "vector", "向量"]},
+    {"id": "S11", "name": "RAG 问答", "artifacts": ["code"], "keywords": ["rag", "retrieval", "检索"]},
+    {"id": "S12", "name": "桌面客户端", "artifacts": ["ui_reference"], "keywords": ["desktop", "electron", "tauri"]},
+    {"id": "S13", "name": "移动端", "artifacts": ["ui_reference"], "keywords": ["android", "ios", "pwa", "手机"]},
+    {"id": "S14", "name": "同步机制", "artifacts": ["manual"], "keywords": ["sync", "webdav", "同步"]},
+    {"id": "S15", "name": "复习/闪卡", "artifacts": ["ui_reference"], "keywords": ["spaced repetition", "anki", "闪卡"]},
+    {"id": "S16", "name": "本地模型运行", "artifacts": ["code"], "keywords": ["ollama", "llama.cpp", "本地模型"]}
+  ],
+  "source_map": {
+    "github": ["video transcribe whisper", "视频 转 文字", "personal knowledge base markdown notes", "local AI knowledge management", "spaced repetition notes"],
+    "web": ["视频转文字 开源 对比", "AI 笔记 知识库 学习 工作流", "PKM 双链笔记 移动端"]
+  },
+  "query_templates": [
+    "{module} {artifact} 开源 对比",
+    "{industry} {module} 视频转文字",
+    "{subsystem} github star",
+    "视频 转 笔记 {module} 自托管"
+  ]
+}
