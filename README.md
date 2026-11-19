@@ -26,10 +26,10 @@ python3 -m radar scan \
   --seeds seeds/weak-current.json \
   --title "弱电管理系统" \
   --out runs/weak-current-demo-v2 \
-  --base runs/weak-current-demo
+  --since runs/weak-current-demo
 ```
 
-`scan` 会在新 run 里多写一个 `diff.md`（新增/移除/覆盖变化）。
+`scan` 会在新 run 里多写 `changes.md`（来源级新增/移除/变化）和 `diff.md`（覆盖变化）。
 
 输出：
 
@@ -37,6 +37,7 @@ python3 -m radar scan \
 runs/weak-current-demo/
 ├── sources.jsonl     # 每条来源：平台/URL/许可/访问/证据/覆盖
 ├── coverage.json     # 模块×来源的覆盖矩阵
+├── changes.md        # scan --since：来源级变更（新增/移除/字段变化）
 ├── toc.md            # 目录：模块/子系统 + 覆盖状态
 ├── coverage.md       # 覆盖明细
 ├── gaps.md           # 无证据 + 单源待印证
@@ -87,8 +88,8 @@ GITHUB_TOKEN=... python3 -m radar run ... --github --limit 3 --max-queries 3
 
 ## 当前 MVP 的边界
 
-- **包含**：Seed Lite（最小 6 字段 + 默认值 + `--strict`）、pack/seeds 校验、URL 去重、覆盖度、目录/缺口/报告、`scan --base` 增量 diff、可选 GitHub 搜索；
-- **不包含**：Gitee/浏览器/登录、全量爬虫、UI、自动 PRD、OCR、定时任务（scan 是手动触发）；
+- **包含**：Seed Lite（最小 6 字段 + 默认值 + `--strict`）、pack/seeds 校验、URL 去重、覆盖度、目录/缺口/报告、`scan --since` 账本层变更检测 + 覆盖 diff、可选 GitHub 搜索；
+- **不包含**：Gitee/浏览器/登录、全量爬虫、UI、自动 PRD、OCR、定时任务（scan 是手动触发）、网络 `--fetch`（v0.2.2 只做账本层）；
 - **来源**：seeds 是人工/agent 填的；`--github` 只到 metadata，不读正文；
 - **许可**：专有来源只进参考池，不能复用；`needs_review` 要人工复核。
 
@@ -111,7 +112,7 @@ GITHUB_TOKEN=... python3 -m radar run ... --github --limit 3 --max-queries 3
 python3 -m unittest discover -s tests -v
 ```
 
-12 个用例覆盖：pack/seeds 校验、Seed Lite 默认值、`--strict` 拒绝最小字段、URL 规范化、单源上限、双源 strong、mention/none、gaps、CLI run、diff。
+19 个用例覆盖：pack/seeds 校验、Seed Lite 默认值、`--strict` 拒绝最小字段、URL 规范化、单源上限、双源 strong、mention/none、gaps、来源级变更、CLI run/scan/diff。
 
 ## 交给其他 Agent
 
@@ -133,7 +134,7 @@ radar/
 ├── radar/            # CLI + 校验 + 覆盖度 + diff
 ├── packs/            # weak-current / pet-hospital
 ├── seeds/            # 两个行业的种子来源
-├── tests/            # 12 个单测
+├── tests/            # 19 个单测
 ├── docs/             # PACK / MVP
 ├── .dsh/skills/radar # Skill
 └── runs/             # demo 输出

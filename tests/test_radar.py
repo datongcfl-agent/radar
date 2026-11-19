@@ -11,6 +11,7 @@ sys.path.insert(0, str(ROOT))
 
 from radar.coverage import compute_coverage, gap_rows
 from radar.report import render_gaps, render_report
+from radar.state import compare_sources, render_changes
 from radar.diff import diff_runs
 from radar.model import (RadarError, canonical_url, load_pack, load_seeds,
                          validate_source)
@@ -174,6 +175,28 @@ class TestCoverage(unittest.TestCase):
         self.assertIn("覆盖 2 格", text)
 
 
+class TestChanges(unittest.TestCase):
+    def test_added_removed_changed(self):
+        a = src("A", ["M01"]); a["quotes"] = ["old"]
+        b = src("B", ["S01"])
+        a2 = src("A", ["M01"]); a2["quotes"] = ["new"]
+        c = src("C", ["M01"])
+        result = compare_sources([a, b], [a2, c])
+        self.assertEqual([x["id"] for x in result["added"]], ["C"])
+        self.assertEqual([x["id"] for x in result["removed"]], ["B"])
+        self.assertEqual(len(result["changed"]), 1)
+        self.assertIn("quotes", result["changed"][0]["fields"])
+        self.assertIn("新增", render_changes(result))
+
+    def test_no_change(self):
+        a = src("A", ["M01"])
+        result = compare_sources([a], [dict(a)])
+        self.assertEqual(result["added"], [])
+        self.assertEqual(result["removed"], [])
+        self.assertEqual(result["changed"], [])
+        self.assertEqual(result["unchanged"], 1)
+
+
 class TestCLI(unittest.TestCase):
     def test_run_and_diff(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -203,12 +226,14 @@ class TestCLI(unittest.TestCase):
             scan_out = tmp / "scan"
             subprocess.run([sys.executable, "-m", "radar", "scan", "--pack", str(PACK),
                             "--seeds", str(seeds2), "--title", "测试", "--out", str(scan_out),
-                            "--base", str(out1)], cwd=ROOT, check=True, capture_output=True, text=True)
+                            "--since", str(out1)], cwd=ROOT, check=True, capture_output=True, text=True)
             self.assertTrue((scan_out / "diff.md").exists())
+            self.assertTrue((scan_out / "changes.md").exists())
             self.assertIn("SRC-013", (scan_out / "diff.md").read_text(encoding="utf-8"))
+            self.assertIn("SRC-013", (scan_out / "changes.md").read_text(encoding="utf-8"))
             state = json.loads((scan_out / "state.json").read_text(encoding="utf-8"))
             self.assertEqual(state["mode"], "scan")
-            self.assertEqual(state["base"], str(out1))
+            self.assertEqual(state["since"], str(out1))
 
 
 if __name__ == "__main__":

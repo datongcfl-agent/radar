@@ -16,6 +16,13 @@
 - `--strict` 保留 v0.1 完整校验；
 - 12 个单测。
 
+## v0.2.2 — 账本层 scan --since（本 PR）
+
+- 来源级变更：新增、移除、字段变化（`evidence_level/covers/quotes/license/access/version/content_hash/etag`）；
+- `scan --since <旧 run>` 写 `changes.md` + `changes.json`，同时保留覆盖 diff；
+- 19 个单测；
+- **明确不做**：网络 `--fetch`，不假装已经抓网页；抓取留给 adapter。
+
 ## v0.2 — 可迭代
 
 目标：从“手动重跑”变成“只处理变化”。

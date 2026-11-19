@@ -16,7 +16,7 @@ python3 -m radar validate --pack packs/weak-current/pack.json --seeds seeds/weak
 python3 -m radar run --pack packs/weak-current/pack.json --seeds seeds/weak-current.json \
   --title "弱电管理系统" --out runs/weak-current-demo
 python3 -m radar scan --pack packs/weak-current/pack.json --seeds seeds/weak-current.json \
-  --title "弱电管理系统" --out runs/weak-current-demo-v2 --base runs/weak-current-demo
+  --title "弱电管理系统" --out runs/weak-current-demo-v2 --since runs/weak-current-demo
 python3 -m radar diff --from runs/a --to runs/b --out runs/diff.md
 ```
 
@@ -27,7 +27,7 @@ python3 -m radar diff --from runs/a --to runs/b --out runs/diff.md
 - `gaps.md`：无证据 + 单源待印证；
 - `report.md`：汇总/低星/许可/来源清单；
 - `sources.jsonl`：机器可读账本；
-- `scan` 额外写 `diff.md`（新增/移除/覆盖变化）。
+- `scan` 额外写 `changes.md`（来源级新增/移除/变化）和 `diff.md`（覆盖变化）。
 
 ## 硬规则
 
