@@ -4,6 +4,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -13,6 +14,8 @@ from radar.coverage import compute_coverage, gap_rows
 from radar.report import render_gaps, render_report
 from radar.state import compare_sources, render_changes
 from radar.adapters import parse_gitee_items, gitee_search
+from radar.fetch import apply_fetch, parse_headers
+from radar.snowball import parse_github_repo, fork_source, snowball as run_snowball
 from radar.diff import diff_runs
 from radar.model import (RadarError, canonical_url, load_pack, load_seeds,
                          validate_source)
@@ -174,6 +177,50 @@ class TestCoverage(unittest.TestCase):
         text = render_report(pack, [low], cov, state)
         self.assertIn("低星但高覆盖", text)
         self.assertIn("覆盖 2 格", text)
+
+
+class TestFetch(unittest.TestCase):
+    def test_parse_headers_and_apply(self):
+        headers = parse_headers("HTTP/2 200\r\nETag: \"abc\"\r\nLast-Modified: Wed, 01 Jan 2026 00:00:00 GMT\r\n")
+        self.assertEqual(headers["etag"], '"abc"')
+        out = apply_fetch({"id": "A", "url": "https://example.com"}, 200, headers, "hash1")
+        self.assertEqual(out["access_status"], "public")
+        self.assertEqual(out["content_hash"], "hash1")
+        self.assertEqual(out["etag"], '"abc"')
+        self.assertIn("last_seen", out)
+
+    def test_apply_fetch_auth_statuses(self):
+        self.assertEqual(apply_fetch({}, 401, {}, None)["access_status"], "login_required")
+        self.assertEqual(apply_fetch({}, 403, {}, None)["access_status"], "blocked")
+        self.assertEqual(apply_fetch({}, 404, {}, None)["access_status"], "deleted")
+
+
+class TestSnowball(unittest.TestCase):
+    def test_parse_github_repo(self):
+        self.assertEqual(parse_github_repo("https://github.com/demo/elv"), "demo/elv")
+        self.assertIsNone(parse_github_repo("https://gitee.com/demo/elv"))
+
+    def test_fork_source_inherits_covers(self):
+        parent = src("A", ["M01", "S01"])
+        parent["url"] = "https://github.com/demo/elv"
+        fork = {"full_name": "other/elv", "html_url": "https://github.com/other/elv",
+                "stargazers_count": 1, "language": "Python", "license": {"spdx_id": "MIT"}}
+        out = fork_source(fork, parent, 1)
+        self.assertEqual(out["platform"], "github")
+        self.assertEqual(out["covers"], ["M01", "S01"])
+        self.assertEqual(out["license_status"], "clear")
+        self.assertIn("fork of A", out["why_selected"])
+
+    def test_snowball_uses_forks(self):
+        parent = src("A", ["M01"])
+        parent["url"] = "https://github.com/demo/elv"
+        forks = [{"full_name": "other/elv", "html_url": "https://github.com/other/elv",
+                  "stargazers_count": 1, "license": {"spdx_id": "MIT"}}]
+        with mock.patch("radar.snowball.github_forks", return_value=(forks, None)):
+            out, warns = run_snowball([parent], {"modules": [{"id": "M01", "name": "项目", "keywords": ["项目"]}], "subsystems": [{"id": "S01", "name": "子系统", "keywords": ["子系统"]}]})
+        self.assertEqual(len(out), 1)
+        self.assertEqual(warns, [])
+        self.assertEqual(out[0]["covers"], ["M01"])
 
 
 class TestGitee(unittest.TestCase):
