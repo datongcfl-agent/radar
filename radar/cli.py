@@ -8,7 +8,7 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-from .adapters import collect_github
+from .adapters import collect_github, collect_gitee
 from .coverage import compute_coverage
 from .diff import diff_runs
 from .model import (RadarError, load_json, load_pack, load_seeds, merge_sources,
@@ -21,6 +21,16 @@ def _now():
     return datetime.now().astimezone()
 
 
+def _gitee_token():
+    token = os.environ.get("GITEE_TOKEN")
+    if token:
+        return token.strip()
+    path = Path.home() / ".config" / "radar" / "gitee_token"
+    if path.exists():
+        return path.read_text(encoding="utf-8").strip()
+    return None
+
+
 def cmd_run(args):
     pack = load_pack(args.pack)
     seeds = load_seeds(args.seeds, pack, strict=args.strict)
@@ -30,6 +40,12 @@ def cmd_run(args):
         got, warns = collect_github(pack, limit_per_query=args.limit,
                                     max_queries=args.max_queries,
                                     token=os.environ.get("GITHUB_TOKEN"))
+        sources.extend(got)
+        warnings.extend(warns)
+    if args.gitee:
+        got, warns = collect_gitee(pack, limit_per_query=args.limit,
+                                   max_queries=args.max_queries,
+                                   token=_gitee_token())
         sources.extend(got)
         warnings.extend(warns)
     sources = merge_sources(sources)
@@ -47,8 +63,9 @@ def cmd_run(args):
         "seeds_sha256": sha256_file(args.seeds),
         "mode": "run",
         "base": None,
-        "options": {"github": bool(args.github), "limit": args.limit,
-                    "max_queries": args.max_queries, "strict": bool(args.strict)},
+        "options": {"github": bool(args.github), "gitee": bool(args.gitee),
+                    "limit": args.limit, "max_queries": args.max_queries,
+                    "strict": bool(args.strict)},
         "counts": {"sources": len(sources), "modules": len(coverage["modules"]),
                    "subsystems": len(coverage["subsystems"])},
         "warnings": warnings,
@@ -117,6 +134,7 @@ def build_parser():
         p.add_argument("--title", required=True)
         p.add_argument("--out", required=True)
         p.add_argument("--github", action="store_true", help="可选：加 GitHub 搜索")
+        p.add_argument("--gitee", action="store_true", help="可选：加 Gitee 搜索（需要 GITEE_TOKEN）")
         p.add_argument("--limit", type=int, default=3)
         p.add_argument("--max-queries", type=int, default=3)
         p.add_argument("--strict", action="store_true", help="要求 v0.1 的完整 12 字段")

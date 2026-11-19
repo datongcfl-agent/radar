@@ -66,11 +66,24 @@ python3 -m radar validate --pack <pack.json> --seeds <seeds.json>
 python3 -m radar diff --from <run-a> --to <run-b> --out <diff.md>
 ```
 
-可选 GitHub 搜索（默认关闭，避免限流）：
+可选 GitHub / Gitee 搜索（默认关闭，避免限流）：
 
 ```bash
 GITHUB_TOKEN=... python3 -m radar run ... --github --limit 3 --max-queries 3
+GITEE_TOKEN=...  python3 -m radar run ... --gitee  --limit 3 --max-queries 3
 ```
+
+### Gitee（可选）
+
+1. Gitee → 设置 → 私人令牌 → 新建，最小权限（只读 projects/仓库读取；不要给 admin/hook）；
+2. 二选一：
+   - `export GITEE_TOKEN=...`；
+   - 写入 `~/.config/radar/gitee_token`，`chmod 600`；
+3. 运行时加 `--gitee`。
+
+token 只通过 `Authorization: Bearer` 发送，不拼进 URL、不写日志；没有 token 时 `--gitee` 会明确跳过，不会静默返回空。
+
+细节见 [docs/GITEE.md](docs/GITEE.md)。
 
 ## 覆盖度规则
 
@@ -88,8 +101,8 @@ GITHUB_TOKEN=... python3 -m radar run ... --github --limit 3 --max-queries 3
 
 ## 当前 MVP 的边界
 
-- **包含**：Seed Lite（最小 6 字段 + 默认值 + `--strict`）、pack/seeds 校验、URL 去重、覆盖度、目录/缺口/报告、`scan --since` 账本层变更检测 + 覆盖 diff、可选 GitHub 搜索；
-- **不包含**：Gitee/浏览器/登录、全量爬虫、UI、自动 PRD、OCR、定时任务（scan 是手动触发）、网络 `--fetch`（v0.2.2 只做账本层）；
+- **包含**：Seed Lite（最小 6 字段 + 默认值 + `--strict`）、pack/seeds 校验、URL 去重、覆盖度、目录/缺口/报告、`scan --since` 账本层变更检测 + 覆盖 diff、可选 GitHub/Gitee metadata 搜索；
+- **不包含**：浏览器/登录、全量爬虫、UI、自动 PRD、OCR、定时任务（scan 是手动触发）、网络 `--fetch`（v0.2.2 只做账本层）；Gitee 只做公开仓库 metadata 搜索；
 - **来源**：seeds 是人工/agent 填的；`--github` 只到 metadata，不读正文；
 - **许可**：专有来源只进参考池，不能复用；`needs_review` 要人工复核。
 
@@ -112,7 +125,7 @@ GITHUB_TOKEN=... python3 -m radar run ... --github --limit 3 --max-queries 3
 python3 -m unittest discover -s tests -v
 ```
 
-19 个用例覆盖：pack/seeds 校验、Seed Lite 默认值、`--strict` 拒绝最小字段、URL 规范化、单源上限、双源 strong、mention/none、gaps、来源级变更、CLI run/scan/diff。
+21 个用例覆盖：pack/seeds 校验、Seed Lite 默认值、`--strict` 拒绝最小字段、URL 规范化、单源上限、双源 strong、mention/none、gaps、来源级变更、Gitee metadata 映射、CLI run/scan/diff。
 
 ## 交给其他 Agent
 
@@ -134,7 +147,7 @@ radar/
 ├── radar/            # CLI + 校验 + 覆盖度 + diff
 ├── packs/            # weak-current / pet-hospital
 ├── seeds/            # 两个行业的种子来源
-├── tests/            # 19 个单测
+├── tests/            # 21 个单测
 ├── docs/             # PACK / MVP
 ├── .dsh/skills/radar # Skill
 └── runs/             # demo 输出

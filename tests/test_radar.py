@@ -12,6 +12,7 @@ sys.path.insert(0, str(ROOT))
 from radar.coverage import compute_coverage, gap_rows
 from radar.report import render_gaps, render_report
 from radar.state import compare_sources, render_changes
+from radar.adapters import parse_gitee_items, gitee_search
 from radar.diff import diff_runs
 from radar.model import (RadarError, canonical_url, load_pack, load_seeds,
                          validate_source)
@@ -173,6 +174,28 @@ class TestCoverage(unittest.TestCase):
         text = render_report(pack, [low], cov, state)
         self.assertIn("低星但高覆盖", text)
         self.assertIn("覆盖 2 格", text)
+
+
+class TestGitee(unittest.TestCase):
+    def test_parse_gitee_items(self):
+        pack = load_pack(PACK)
+        items = [{
+            "full_name": "demo/elv-quote", "html_url": "https://gitee.com/demo/elv-quote",
+            "description": "弱电 报价 清单", "stargazers_count": 3,
+            "updated_at": "2026-11-01T00:00:00+08:00", "language": "Python",
+        }]
+        out = parse_gitee_items(items, pack, "弱电 报价")
+        self.assertEqual(len(out), 1)
+        self.assertEqual(out[0]["platform"], "gitee")
+        self.assertEqual(out[0]["license"], "unknown")
+        self.assertEqual(out[0]["license_status"], "needs_review")
+        self.assertIn("M06", out[0]["covers"])
+
+    def test_gitee_without_token_is_explicit(self):
+        pack = load_pack(PACK)
+        got, warn = gitee_search("弱电", pack, token=None)
+        self.assertEqual(got, [])
+        self.assertIn("GITEE_TOKEN", warn)
 
 
 class TestChanges(unittest.TestCase):
