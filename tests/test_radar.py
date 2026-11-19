@@ -17,6 +17,7 @@ from radar.adapters import parse_gitee_items, gitee_search
 from radar.fetch import apply_fetch, parse_headers
 from radar.snowball import parse_github_repo, fork_source, snowball as run_snowball
 from radar.web import extract_html, detect_license, apply_web, enrich_web
+from radar.claims import compute_confidence, evaluate_claims, write_claims
 from radar.diff import diff_runs
 from radar.model import (RadarError, canonical_url, load_pack, load_seeds,
                          validate_source)
@@ -178,6 +179,53 @@ class TestCoverage(unittest.TestCase):
         text = render_report(pack, [low], cov, state)
         self.assertIn("低星但高覆盖", text)
         self.assertIn("覆盖 2 格", text)
+
+
+class TestClaims(unittest.TestCase):
+    def _strong(self, sid, host):
+        s = src(sid, ["M01"], evidence="real_artifact", quotes=["q"])
+        s["url"] = "https://%s.example/x" % host
+        return s
+
+    def test_strong_two_hosts(self):
+        by = {"A": self._strong("A", "a"), "B": self._strong("B", "b")}
+        claim = {"id": "C1", "statement": "s", "covers": ["M01"],
+                 "sources": ["A", "B"], "contradicts": []}
+        r = compute_confidence(claim, by)
+        self.assertEqual(r["confidence"], 0.8)
+        self.assertEqual(r["label"], "high")
+        self.assertEqual(r["reasons"], [])
+
+    def test_single_source_cap(self):
+        by = {"A": self._strong("A", "a")}
+        claim = {"id": "C1", "statement": "s", "covers": ["M01"],
+                 "sources": ["A"], "contradicts": []}
+        r = compute_confidence(claim, by)
+        self.assertEqual(r["confidence"], 0.55)
+        self.assertIn("single_source", r["reasons"])
+
+    def test_no_quote_cap(self):
+        s = self._strong("A", "a"); s["quotes"] = []
+        claim = {"id": "C1", "statement": "s", "covers": ["M01"],
+                 "sources": ["A"], "contradicts": []}
+        r = compute_confidence(claim, {"A": s})
+        self.assertEqual(r["confidence"], 0.3)
+        self.assertIn("no_quote", r["reasons"])
+
+    def test_contradiction_contested(self):
+        by = {"A": self._strong("A", "a"), "B": self._strong("B", "b")}
+        claim = {"id": "C1", "statement": "s", "covers": ["M01"],
+                 "sources": ["A", "B"], "contradicts": ["C2"]}
+        r = compute_confidence(claim, by)
+        self.assertEqual(r["status"], "contested")
+        self.assertEqual(r["confidence"], 0.4)
+
+    def test_unknown_source_rejected(self):
+        pack = load_pack(PACK)
+        data = {"schema_version": 1, "pack": "weak-current", "claims": [{
+            "id": "C1", "statement": "s", "covers": ["M01"], "sources": ["NOPE"]}]}
+        with self.assertRaises(RadarError):
+            evaluate_claims(data, pack, [])
 
 
 class TestWeb(unittest.TestCase):
@@ -353,9 +401,24 @@ class TestCLI(unittest.TestCase):
             state = json.loads((scan_out / "state.json").read_text(encoding="utf-8"))
             self.assertEqual(state["mode"], "scan")
             self.assertEqual(state["since"], str(out1))
-            self.assertEqual(state["radar_version"], "0.3.0")
+            self.assertEqual(state["radar_version"], "0.4.0")
             self.assertIn("radar_commit", state)
-            self.assertIn("Radar: v0.3.0", (scan_out / "report.md").read_text(encoding="utf-8"))
+            self.assertIn("Radar: v0.4.0", (scan_out / "report.md").read_text(encoding="utf-8"))
+
+            claims_file = tmp / "claims.json"
+            claims_file.write_text(json.dumps({
+                "schema_version": 1, "pack": "weak-current",
+                "claims": [{"id": "C1", "statement": "测试主张", "covers": ["M01"],
+                            "sources": ["SRC-001"], "contradicts": []}],
+            }, ensure_ascii=False), encoding="utf-8")
+            claims_out = tmp / "claims"
+            subprocess.run([sys.executable, "-m", "radar", "claims", "--pack", str(PACK),
+                            "--run", str(out1), "--claims", str(claims_file),
+                            "--out", str(claims_out)], cwd=ROOT, check=True,
+                           capture_output=True, text=True)
+            self.assertTrue((claims_out / "claims.md").exists())
+            self.assertTrue((claims_out / "review.csv").exists())
+            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "0.4.0")
 
 
 if __name__ == "__main__":

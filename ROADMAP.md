@@ -61,7 +61,7 @@
 
 验收：同一批来源，改一个页面/一个 release，`scan` 只报那一处变化。
 
-## v0.3 — 网页抽取 + 许可提示（部分完成，代码版本 0.3.0）
+## v0.3 — 网页抽取 + 许可提示（已合并，v0.3.0）
 
 - `--web`：curl 抓公开 HTML，stdlib 解析 title/description/正文/短引用；
 - `--web-limit` 控制条数；
@@ -82,7 +82,16 @@
 
 验收：同一模块至少来自 2 个平台；许可状态可解释；不绕过登录。
 
-## v0.4 — 证据层
+## v0.4 — Claim 账本（本 PR）
+
+- `radar claims` 读取已有 run + 手工 claim 文件；
+- 置信度规则：strong 0.80 / evidence 0.60 / mention 0.30；
+- 单源/同 host 上限 0.55，无 quote 上限 0.40，矛盾上限 0.40；
+- `contradicts` 非空 → `contested`；
+- 输出 `claims.md`、`claims.json`、`review.csv`；
+- 36 个单测。
+
+## v0.4 — 证据层（原方向）
 
 目标：从“来源清单”变成“主张账本”。
 
