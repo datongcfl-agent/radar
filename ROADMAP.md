@@ -9,6 +9,13 @@
 - 可选 GitHub metadata；
 - 10 个单测。
 
+## v0.2.1 — Seed Lite（本 PR）
+
+- 最小 6 字段：`id/url/evidence_level/covers/quotes/status`；
+- 其余字段默认值；
+- `--strict` 保留 v0.1 完整校验；
+- 12 个单测。
+
 ## v0.2 — 可迭代
 
 目标：从“手动重跑”变成“只处理变化”。

@@ -49,6 +49,42 @@ class TestModel(unittest.TestCase):
         self.assertEqual(len(pack["subsystems"]), 6)
         self.assertEqual(len(seeds), 3)
 
+    def test_minimal_seed_defaults(self):
+        pack = load_pack(PACK)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "minimal.json"
+            path.write_text(json.dumps({
+                "schema_version": 1, "pack": "weak-current",
+                "sources": [{
+                    "id": "MIN-001", "url": "https://example.com/doc",
+                    "evidence_level": "docs", "covers": ["M01"],
+                    "quotes": [], "status": "selected",
+                }],
+            }), encoding="utf-8")
+            seeds = load_seeds(path, pack)
+        item = seeds[0]
+        self.assertEqual(item["platform"], "web")
+        self.assertEqual(item["artifact_type"], "article")
+        self.assertEqual(item["access_status"], "public")
+        self.assertEqual(item["license"], "unknown")
+        self.assertEqual(item["license_status"], "needs_review")
+        self.assertEqual(item["why_selected"], "")
+
+    def test_strict_rejects_minimal(self):
+        pack = load_pack(PACK)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "minimal.json"
+            path.write_text(json.dumps({
+                "schema_version": 1, "pack": "weak-current",
+                "sources": [{
+                    "id": "MIN-001", "url": "https://example.com/doc",
+                    "evidence_level": "docs", "covers": ["M01"],
+                    "quotes": [], "status": "selected",
+                }],
+            }), encoding="utf-8")
+            with self.assertRaises(RadarError):
+                load_seeds(path, pack, strict=True)
+
     def test_bad_cover_rejected(self):
         pack = load_pack(PACK)
         with self.assertRaises(RadarError):
@@ -87,6 +123,7 @@ class TestCoverage(unittest.TestCase):
         text = render_gaps(self.pack, cov)
         self.assertIn("单源待印证", text)
         self.assertIn("M01", text)
+
 
     def test_gap_query_artifact_not_joined_list(self):
         # {artifact} 插值应取第一个 artifact，而不是把数组拼成 "readme, docs"

@@ -26,22 +26,9 @@
 
 - `modules` id 用 `M01`…；`subsystems` id 用 `S01`…；不能重复；
 - 每个模块/子系统至少有 1 个 `artifact` 和 1 个 `keyword`；
-- **keywords 每格至少一中一英**：GitHub 以英文索引为主，单语 keywords 会砍掉一半召回（中文行话如"说话人分离"，英文黑话是 diarization）；
 - `keywords` 用于 GitHub 结果自动映射覆盖；
 - `source_map` 只是建议查询，不是硬编码；
 - `query_templates` 用于 `gaps.md` 的下一轮建议。
-
-## 最小起步法
-
-不要一步写满格子。第一版 pack 建议：
-
-1. **10 格左右**（模块 + 子系统合计），按价值链切；
-2. 跑一轮 `run`，看两个信号：
-   - **查询命中率**：多少格子搜出 ≥1 来源；命中率 <50% 说明 keywords 拟错了，先改词再补搜；
-   - **缺口分布**：全是 none 说明格子太细，合并；全是 evidence 以上说明太粗，该拆；
-3. 根据信号细化/合并格子，升 pack 版本（0.1 → 0.2），再跑第二轮。
-
-pack 的质量决定召回上限：keywords 拟得烂，搜索照样低召回——只是低得**可见、可修正**。
 
 ## 种子来源
 
@@ -70,14 +57,32 @@ pack 的质量决定召回上限：keywords 拟得烂，搜索照样低召回—
 复制一个 pack，改模块/子系统/关键词/来源地图；引擎代码不动。`packs/pet-hospital` 就是最小示例。
 
 
-## 最小种子字段（现状 vs 目标）
+## 最小种子字段（v0.2.1 已实现）
 
-当前 `v0.1` 校验要求 12 个字段（`id/platform/url/title/artifact_type/access_status/license/license_status/evidence_level/covers/status/why_selected`）。
+最小 6 个字段就能录入：
 
-`v0.2` 目标是最小 6 个字段就能录入：
-
-```text
-id / url / evidence_level / covers / quotes / status
+```json
+{
+  "id": "SRC-001",
+  "url": "https://example.com/doc",
+  "evidence_level": "docs",
+  "covers": ["M01"],
+  "quotes": [],
+  "status": "selected"
+}
 ```
 
-其余由 adapter 补默认值（platform、title、artifact_type、access_status、license 等），避免“账本录入太贵 → 人懒得记 → 退回聊天记录”。
+其余字段自动补默认值：
+
+- `platform`：按 URL 推断 github/gitee/npm/pypi/docs/web；
+- `title`：从 URL 路径推断；
+- `artifact_type`：代码平台默认 `code`，其他默认 `article`；
+- `access_status=public`、`license=unknown`、`license_status=needs_review`、`why_selected=""`。
+
+需要 v0.1 的完整 12 字段时，加 `--strict`：
+
+```bash
+python3 -m radar validate --pack ... --seeds ... --strict
+```
+
+这样避免“账本录入太贵 → 人懒得记 → 退回聊天记录”。

@@ -22,7 +22,7 @@ def _now():
 
 def cmd_run(args):
     pack = load_pack(args.pack)
-    seeds = load_seeds(args.seeds, pack)
+    seeds = load_seeds(args.seeds, pack, strict=args.strict)
     warnings = []
     sources = list(seeds)
     if args.github:
@@ -47,7 +47,7 @@ def cmd_run(args):
         "mode": "run",
         "base": None,
         "options": {"github": bool(args.github), "limit": args.limit,
-                    "max_queries": args.max_queries},
+                    "max_queries": args.max_queries, "strict": bool(args.strict)},
         "counts": {"sources": len(sources), "modules": len(coverage["modules"]),
                    "subsystems": len(coverage["subsystems"])},
         "warnings": warnings,
@@ -65,7 +65,7 @@ def cmd_run(args):
 
 def cmd_validate(args):
     pack = load_pack(args.pack)
-    seeds = load_seeds(args.seeds, pack)
+    seeds = load_seeds(args.seeds, pack, strict=args.strict)
     return {
         "pack": pack["pack"],
         "pack_version": pack.get("version"),
@@ -109,6 +109,7 @@ def build_parser():
         p.add_argument("--github", action="store_true", help="可选：加 GitHub 搜索")
         p.add_argument("--limit", type=int, default=3)
         p.add_argument("--max-queries", type=int, default=3)
+        p.add_argument("--strict", action="store_true", help="要求 v0.1 的完整 12 字段")
 
     r = sub.add_parser("run", help="跑一次雷达")
     add_run_args(r)
@@ -122,6 +123,7 @@ def build_parser():
     v = sub.add_parser("validate", help="只校验 pack/seeds")
     v.add_argument("--pack", required=True)
     v.add_argument("--seeds", required=True)
+    v.add_argument("--strict", action="store_true", help="要求 v0.1 的完整 12 字段")
     v.set_defaults(func=cmd_validate)
 
     d = sub.add_parser("diff", help="比较两次 run")
