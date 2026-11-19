@@ -86,3 +86,15 @@ python3 -m radar validate --pack ... --seeds ... --strict
 ```
 
 这样避免“账本录入太贵 → 人懒得记 → 退回聊天记录”。
+
+
+## 来源状态字段（v0.2.2）
+
+`scan --since` 会比较以下可选字段；没有就视为空：
+
+```text
+last_seen / etag / content_hash / version / license_hash
+```
+
+v0.2.2 只做**账本层**比较：你更新 seeds 里的这些字段，`scan --since` 告诉你新增/移除/变化。
+它不负责发 HTTP 请求；网络抓取是后续 adapter 的事。

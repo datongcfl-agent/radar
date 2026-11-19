@@ -14,6 +14,7 @@ from .diff import diff_runs
 from .model import (RadarError, load_json, load_pack, load_seeds, merge_sources,
                     sha256_file, write_json)
 from .report import write_run
+from .state import compare_sources, read_sources, write_changes
 
 
 def _now():
@@ -83,12 +84,21 @@ def cmd_scan(args):
     out = Path(args.out)
     diff_path = out / "diff.md"
     text = diff_runs(args.base, str(out), out=str(diff_path))
+    old_sources = read_sources(args.base)
+    new_sources = read_sources(out)
+    changes = compare_sources(old_sources, new_sources)
+    write_changes(out, changes)
     state = load_json(out / "state.json")
     state["mode"] = "scan"
     state["base"] = args.base
+    state["since"] = args.base
     write_json(out / "state.json", state)
     result["diff"] = str(diff_path)
     result["diff_bytes"] = len(text)
+    result["changes"] = {"added": len(changes["added"]),
+                         "removed": len(changes["removed"]),
+                         "changed": len(changes["changed"]),
+                         "unchanged": changes["unchanged"]}
     return result
 
 
@@ -117,7 +127,7 @@ def build_parser():
 
     sc = sub.add_parser("scan", help="增量扫描：新 run + 与 base diff")
     add_run_args(sc)
-    sc.add_argument("--base", required=True, help="上一次 run 目录")
+    sc.add_argument("--base", "--since", dest="base", required=True, help="上一次 run 目录（--since 同义）")
     sc.set_defaults(func=cmd_scan)
 
     v = sub.add_parser("validate", help="只校验 pack/seeds")
