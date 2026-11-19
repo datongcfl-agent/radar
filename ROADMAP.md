@@ -82,7 +82,7 @@
 
 验收：同一模块至少来自 2 个平台；许可状态可解释；不绕过登录。
 
-## v0.4 — Claim 账本（本 PR）
+## v0.4 — Claim 账本（已合并，v0.4.0）
 
 - `radar claims` 读取已有 run + 手工 claim 文件；
 - 置信度规则：strong 0.80 / evidence 0.60 / mention 0.30；
@@ -103,7 +103,17 @@
 
 验收：每条关键主张有 URL + quote + 置信度；矛盾不被强行合并。
 
-## v0.5 — 真实行业包
+## v0.5 — 弱电真实来源（本 PR）
+
+- 13 → 34 条公开来源；
+- 3 strong / 21 evidence / 8 mention / 5 none；
+- 11 个单源、5 个无证据；缺口是真实方向，不再用宽 covers/短 quote 凑 strong；
+- 已删除不属于通用弱电主线的 S24；
+- 新增来源以公开 README/metadata 为主，4 条许可 needs_review；
+- 基线：[docs/BASELINE.md](docs/BASELINE.md)；
+- 40 个单测。
+
+## v0.5b — 第二真实行业包（待定）
 
 目标：证明换行业不是 smoke test。
 

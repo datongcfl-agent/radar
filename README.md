@@ -1,4 +1,4 @@
-# radar · 最小行业雷达（v0.4.0）
+# radar · 最小行业雷达（v0.5.0）
 
 **A minimal industry radar: does every module in your industry outline actually have evidence?**
 
@@ -24,7 +24,7 @@ python3 -m radar run --pack packs/weak-current/pack.json \
 ## 快速开始
 
 ```bash
-cd radar
+cd <repo>
 
 python3 -m radar validate \
   --pack packs/weak-current/pack.json \
@@ -54,7 +54,7 @@ python3 -m radar scan \
 runs/weak-current-demo/
 ├── sources.jsonl     # 每条来源：平台/URL/许可/访问/证据/覆盖
 ├── coverage.json     # 模块×来源的覆盖矩阵
-├── changes.md        # scan --since：来源级变更（新增/移除/字段变化）
+├── changes.md        # 仅 scan 生成：来源级变更（新增/移除/字段变化）
 ├── toc.md            # 目录：模块/子系统 + 覆盖状态
 ├── coverage.md       # 覆盖明细
 ├── gaps.md           # 无证据 + 单源待印证
@@ -62,7 +62,7 @@ runs/weak-current-demo/
 └── state.json        # run 元数据、pack/seeds 哈希
 ```
 
-## 两个 pack 证明可替换
+## 多个 pack 证明可替换
 
 ```bash
 python3 -m radar run \
@@ -73,6 +73,25 @@ python3 -m radar run \
 ```
 
 同一套代码，换 pack 就能跑；弱电和宠物医院互不写死。
+
+## 弱电 pack 现状（v0.5）
+
+- **34 条公开来源**：30 selected / 4 needs_review；
+- 覆盖：**3 strong / 21 evidence / 8 mention / 5 none**；
+- 11 个单源、5 个无证据；`gaps.md` 有真实缺口，不再写“无缺口”；
+- 审计：无 `covers ≥5` 的万金油来源、无 <40 字的空壳 quote；
+- 来源包含弱电工程系统、报价/成本、设备台账、楼宇自控、视频、停车、IPTV、背景音乐、监控、工单等；
+- 完整基线：[docs/BASELINE.md](docs/BASELINE.md)。
+
+这不是“完整”，是“当前证据地图”。运行 `python3 tools/audit_ledger.py` 可复查这条基线。
+
+### 缺口先分诊
+
+`gaps.md` 只说明“没有证据/单源”，不代表下一轮一定要搜。先判断三种动作：
+
+1. 补来源；2. 删模块；3. 改 pack 边界。
+
+S24 智能厨房排油烟就是例子：它来自酒店弱电清单，偏厨房/暖通，不是通用弱电主线；正确动作是删掉，而不是去搜“商用厨房排油烟”。见 [docs/GAP-TRIAGE.md](docs/GAP-TRIAGE.md)。
 
 ## 命令
 
@@ -130,7 +149,7 @@ token 只通过 `Authorization: Bearer` 发送，不拼进 URL、不写日志；
 
 ## 当前 MVP 的边界
 
-- **包含**：Seed Lite（最小 6 字段 + 默认值 + `--strict`）、pack/seeds 校验、URL 去重、覆盖度、目录/缺口/报告、`scan --since` 账本层变更检测 + 覆盖 diff、可选 GitHub/Gitee metadata 搜索、`--snowball`（GitHub forks）、`--fetch`（ETag/content_hash）、`--web`（静态正文抽取 + 许可提示，可选 `--respect-robots`）；
+- **包含**：Seed Lite（最小 6 字段 + 默认值 + `--strict`）、pack/seeds 校验、URL 去重、覆盖度、目录/缺口/报告、`scan --since` 账本层变更检测 + 覆盖 diff、可选 GitHub/Gitee metadata 搜索、`--snowball`（GitHub forks）、`--fetch`（ETag/content_hash）、`--web`（静态正文抽取 + 许可提示，可选 `--respect-robots`）、`claims`（claim 账本 + 置信度/复核队列）；
 - **不包含**：浏览器/登录、全量爬虫、UI、自动 PRD、OCR、定时任务（scan 是手动触发）、Gitee forks、GitHub dependents/引用图；`--fetch` 只抓公开 URL 的头/体 hash；`--web` 只做静态 HTML，不执行 JS、不绕登录；Playwright/docling/ScanCode 未做，v0.3 是**部分完成**；
 - **来源**：seeds 是人工/agent 填的；`--github` 只到 metadata，不读正文；
 - **许可**：专有来源只进参考池，不能复用；`needs_review` 要人工复核。
@@ -145,7 +164,7 @@ token 只通过 `Authorization: Bearer` 发送，不拼进 URL、不写日志；
 
 `report.md` 头部也会显示 `Radar: v...`。这样别人拿到一个 run，能知道是哪个版本/commit 跑出来的。
 
-当前代码版本 `0.4.0`。tag 由仓库 owner 打；Agent 不自行打标签。
+当前代码版本 `0.5.0`。tag 由仓库 owner 打；Agent 不自行打标签。
 
 ## Claim 账本（v0.4）
 
@@ -169,11 +188,11 @@ python3 -m radar claims \
 
 | 版本 | 主题 | 关键交付 |
 | --- | --- | --- |
-| v0.1 | MVP（当前） | pack/seeds、覆盖度、缺口、`scan --base`、GitHub metadata |
+| v0.1 | MVP（已合并） | pack/seeds、覆盖度、缺口、`scan --base`、GitHub metadata |
 | v0.2 | 可迭代 | `scan --since`、来源 hash/ETag、定时触发 |
 | v0.3 | 多平台 | Gitee、网页/浏览器、docling、grant/ScanCode |
 | v0.4 | 证据层 | claim/置信度/矛盾/复核队列 |
-| v0.5 | 真实行业包 | 第二个真实行业 + 人工基线对比 |
+| v0.5 | 弱电真实来源（当前） | 13→34 条来源 + 基线；第二行业待定 |
 | v1.0 | 稳定契约 | schema 冻结、迁移、handoff、可选 plugin/MCP |
 
 详见 [ROADMAP.md](ROADMAP.md)。不承诺日期，也不承诺“收集所有开源信息”。
@@ -184,7 +203,7 @@ python3 -m radar claims \
 python3 -m unittest discover -s tests -v
 ```
 
-39 个用例覆盖：pack/seeds 校验、Seed Lite 默认值、`--strict` 拒绝最小字段、URL 规范化、单源上限、双源 strong、mention/none、gaps、来源级变更、Gitee metadata 映射、fetch 状态、snowball fork 映射、HTML 抽取、中文 quote、404 不冒充成功、license 提示、claim 覆盖校验/双向矛盾/CSV 注入、CLI run/scan/diff。
+40 个用例覆盖：pack/seeds 校验、Seed Lite 默认值、`--strict` 拒绝最小字段、URL 规范化、单源上限、双源 strong、mention/none、gaps、来源级变更、Gitee metadata 映射、fetch 状态、snowball fork 映射、HTML 抽取、中文 quote、404 不冒充成功、license 提示、claim 覆盖校验/双向矛盾/CSV 注入、账本审计、CLI run/scan/diff。
 
 ## 交给其他 Agent
 
@@ -206,7 +225,7 @@ radar/
 ├── radar/            # CLI + 校验 + 覆盖度 + diff
 ├── packs/            # weak-current / pet-hospital
 ├── seeds/            # 两个行业的种子来源
-├── tests/            # 39 个单测
+├── tests/            # 40 个单测
 ├── docs/             # PACK / MVP
 ├── .dsh/skills/radar # Skill
 └── runs/             # demo 输出
