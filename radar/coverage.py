@@ -1,6 +1,8 @@
 """Coverage matrix: module/subsystem x sources."""
 from __future__ import annotations
 
+from urllib.parse import urlsplit
+
 from .model import LEVELS, level_for_source
 
 # 存在性阶梯（existence ladder），不是质量排序：production 只证明“东西存在”，
@@ -15,26 +17,34 @@ def _pick_strongest(sources):
     return sorted(sources, key=key, reverse=True)[0] if sources else None
 
 
+def _host(src):
+    return (urlsplit(src.get("url", "")).hostname or "").lower()
+
+
 def _row(item, kind, sources):
     matched = [s for s in sources if item["id"] in s.get("covers", []) and s.get("status") != "rejected"]
     level = "none"
     if matched:
         level = max((level_for_source(s) for s in matched), key=lambda x: LEVELS[x])
-    # Single source cannot be "strong": corroboration is part of strength.
-    if level == "strong" and len(matched) < 2:
+    evidence = [s for s in matched if LEVELS[level_for_source(s)] >= LEVELS["evidence"]]
+    independent = len({_host(s) for s in evidence if _host(s)})
+    # Strong needs corroboration from different hosts, not just two URLs.
+    if level == "strong" and (len(evidence) < 2 or independent < 2):
         level = "evidence"
     strongest = _pick_strongest(matched)
-    reusable = any(s.get("license_status") in {"clear", "needs_review"} for s in matched)
+    reusable = any(s.get("license_status") == "clear" for s in matched)
     return {
         "id": item["id"],
         "name": item["name"],
         "kind": kind,
         "level": level,
         "source_count": len(matched),
+        "evidence_count": len(evidence),
+        "independent_count": independent,
         "sources": [s["id"] for s in matched],
         "strongest": strongest["id"] if strongest else None,
         "reusable": reusable,
-        "single_source": len(matched) == 1,
+        "single_source": len(evidence) == 1,
     }
 
 

@@ -6,12 +6,14 @@
       "kind": "module",
       "level": "strong",
       "source_count": 2,
+      "evidence_count": 2,
+      "independent_count": 2,
       "sources": [
         "SRC-001",
         "SRC-008"
       ],
       "strongest": "SRC-001",
-      "reusable": true,
+      "reusable": false,
       "single_source": false
     },
     {
@@ -20,11 +22,13 @@
       "kind": "module",
       "level": "evidence",
       "source_count": 1,
+      "evidence_count": 1,
+      "independent_count": 1,
       "sources": [
         "SRC-008"
       ],
       "strongest": "SRC-008",
-      "reusable": true,
+      "reusable": false,
       "single_source": true
     },
     {
@@ -33,14 +37,16 @@
       "kind": "module",
       "level": "evidence",
       "source_count": 3,
+      "evidence_count": 1,
+      "independent_count": 1,
       "sources": [
         "SRC-006",
         "SRC-011",
         "SRC-012"
       ],
       "strongest": "SRC-006",
-      "reusable": true,
-      "single_source": false
+      "reusable": false,
+      "single_source": true
     },
     {
       "id": "M04",
@@ -48,12 +54,14 @@
       "kind": "module",
       "level": "mention",
       "source_count": 1,
+      "evidence_count": 0,
+      "independent_count": 0,
       "sources": [
         "SRC-005"
       ],
       "strongest": "SRC-005",
       "reusable": true,
-      "single_source": true
+      "single_source": false
     },
     {
       "id": "M05",
@@ -61,12 +69,14 @@
       "kind": "module",
       "level": "mention",
       "source_count": 1,
+      "evidence_count": 0,
+      "independent_count": 0,
       "sources": [
         "SRC-005"
       ],
       "strongest": "SRC-005",
       "reusable": true,
-      "single_source": true
+      "single_source": false
     },
     {
       "id": "M06",
@@ -74,6 +84,8 @@
       "kind": "module",
       "level": "strong",
       "source_count": 4,
+      "evidence_count": 3,
+      "independent_count": 2,
       "sources": [
         "SRC-001",
         "SRC-003",
@@ -90,13 +102,15 @@
       "kind": "module",
       "level": "evidence",
       "source_count": 2,
+      "evidence_count": 1,
+      "independent_count": 1,
       "sources": [
         "SRC-003",
         "SRC-007"
       ],
       "strongest": "SRC-003",
       "reusable": true,
-      "single_source": false
+      "single_source": true
     },
     {
       "id": "M08",
@@ -104,6 +118,8 @@
       "kind": "module",
       "level": "evidence",
       "source_count": 5,
+      "evidence_count": 4,
+      "independent_count": 1,
       "sources": [
         "SRC-010",
         "SRC-018",
@@ -121,12 +137,14 @@
       "kind": "module",
       "level": "mention",
       "source_count": 1,
+      "evidence_count": 0,
+      "independent_count": 0,
       "sources": [
         "SRC-015"
       ],
       "strongest": "SRC-015",
       "reusable": true,
-      "single_source": true
+      "single_source": false
     },
     {
       "id": "M10",
@@ -134,13 +152,15 @@
       "kind": "module",
       "level": "evidence",
       "source_count": 2,
+      "evidence_count": 1,
+      "independent_count": 1,
       "sources": [
         "SRC-008",
         "SRC-012"
       ],
       "strongest": "SRC-008",
-      "reusable": true,
-      "single_source": false
+      "reusable": false,
+      "single_source": true
     },
     {
       "id": "M11",
@@ -148,13 +168,15 @@
       "kind": "module",
       "level": "evidence",
       "source_count": 2,
+      "evidence_count": 1,
+      "independent_count": 1,
       "sources": [
         "SRC-003",
         "SRC-005"
       ],
       "strongest": "SRC-003",
       "reusable": true,
-      "single_source": false
+      "single_source": true
     },
     {
       "id": "M12",
@@ -162,12 +184,14 @@
       "kind": "module",
       "level": "mention",
       "source_count": 1,
+      "evidence_count": 0,
+      "independent_count": 0,
       "sources": [
         "SRC-007"
       ],
       "strongest": "SRC-007",
       "reusable": true,
-      "single_source": true
+      "single_source": false
     },
     {
       "id": "M13",
@@ -175,6 +199,8 @@
       "kind": "module",
       "level": "strong",
       "source_count": 5,
+      "evidence_count": 5,
+      "independent_count": 2,
       "sources": [
         "SRC-001",
         "SRC-021",
@@ -192,6 +218,8 @@
       "kind": "module",
       "level": "evidence",
       "source_count": 3,
+      "evidence_count": 2,
+      "independent_count": 1,
       "sources": [
         "SRC-004",
         "SRC-010",
@@ -209,6 +237,8 @@
       "kind": "subsystem",
       "level": "evidence",
       "source_count": 6,
+      "evidence_count": 4,
+      "independent_count": 1,
       "sources": [
         "SRC-002",
         "SRC-006",
@@ -227,6 +257,8 @@
       "kind": "subsystem",
       "level": "evidence",
       "source_count": 3,
+      "evidence_count": 2,
+      "independent_count": 1,
       "sources": [
         "SRC-002",
         "SRC-018",
@@ -242,6 +274,8 @@
       "kind": "subsystem",
       "level": "evidence",
       "source_count": 3,
+      "evidence_count": 2,
+      "independent_count": 1,
       "sources": [
         "SRC-002",
         "SRC-024",
@@ -257,6 +291,8 @@
       "kind": "subsystem",
       "level": "none",
       "source_count": 0,
+      "evidence_count": 0,
+      "independent_count": 0,
       "sources": [],
       "strongest": null,
       "reusable": false,
@@ -268,6 +304,8 @@
       "kind": "subsystem",
       "level": "mention",
       "source_count": 2,
+      "evidence_count": 0,
+      "independent_count": 0,
       "sources": [
         "SRC-009",
         "SRC-013"
@@ -282,6 +320,8 @@
       "kind": "subsystem",
       "level": "mention",
       "source_count": 2,
+      "evidence_count": 0,
+      "independent_count": 0,
       "sources": [
         "SRC-009",
         "SRC-013"
@@ -296,6 +336,8 @@
       "kind": "subsystem",
       "level": "evidence",
       "source_count": 3,
+      "evidence_count": 1,
+      "independent_count": 1,
       "sources": [
         "SRC-014",
         "SRC-015",
@@ -303,7 +345,7 @@
       ],
       "strongest": "SRC-027",
       "reusable": true,
-      "single_source": false
+      "single_source": true
     },
     {
       "id": "S08",
@@ -311,13 +353,15 @@
       "kind": "subsystem",
       "level": "evidence",
       "source_count": 2,
+      "evidence_count": 1,
+      "independent_count": 1,
       "sources": [
         "SRC-014",
         "SRC-027"
       ],
       "strongest": "SRC-027",
       "reusable": true,
-      "single_source": false
+      "single_source": true
     },
     {
       "id": "S09",
@@ -325,6 +369,8 @@
       "kind": "subsystem",
       "level": "none",
       "source_count": 0,
+      "evidence_count": 0,
+      "independent_count": 0,
       "sources": [],
       "strongest": null,
       "reusable": false,
@@ -336,6 +382,8 @@
       "kind": "subsystem",
       "level": "evidence",
       "source_count": 9,
+      "evidence_count": 7,
+      "independent_count": 1,
       "sources": [
         "SRC-013",
         "SRC-014",
@@ -357,6 +405,8 @@
       "kind": "subsystem",
       "level": "none",
       "source_count": 0,
+      "evidence_count": 0,
+      "independent_count": 0,
       "sources": [],
       "strongest": null,
       "reusable": false,
@@ -368,6 +418,8 @@
       "kind": "subsystem",
       "level": "evidence",
       "source_count": 2,
+      "evidence_count": 2,
+      "independent_count": 1,
       "sources": [
         "SRC-019",
         "SRC-020"
@@ -382,6 +434,8 @@
       "kind": "subsystem",
       "level": "evidence",
       "source_count": 7,
+      "evidence_count": 6,
+      "independent_count": 1,
       "sources": [
         "SRC-009",
         "SRC-016",
@@ -401,6 +455,8 @@
       "kind": "subsystem",
       "level": "none",
       "source_count": 0,
+      "evidence_count": 0,
+      "independent_count": 0,
       "sources": [],
       "strongest": null,
       "reusable": false,
@@ -412,11 +468,13 @@
       "kind": "subsystem",
       "level": "evidence",
       "source_count": 1,
+      "evidence_count": 1,
+      "independent_count": 1,
       "sources": [
         "SRC-028"
       ],
       "strongest": "SRC-028",
-      "reusable": true,
+      "reusable": false,
       "single_source": true
     },
     {
@@ -425,6 +483,8 @@
       "kind": "subsystem",
       "level": "evidence",
       "source_count": 1,
+      "evidence_count": 1,
+      "independent_count": 1,
       "sources": [
         "SRC-031"
       ],
@@ -438,13 +498,15 @@
       "kind": "subsystem",
       "level": "evidence",
       "source_count": 2,
+      "evidence_count": 1,
+      "independent_count": 1,
       "sources": [
         "SRC-009",
         "SRC-031"
       ],
       "strongest": "SRC-031",
       "reusable": true,
-      "single_source": false
+      "single_source": true
     },
     {
       "id": "S18",
@@ -452,13 +514,15 @@
       "kind": "subsystem",
       "level": "evidence",
       "source_count": 2,
+      "evidence_count": 1,
+      "independent_count": 1,
       "sources": [
         "SRC-032",
         "SRC-033"
       ],
       "strongest": "SRC-032",
       "reusable": true,
-      "single_source": false
+      "single_source": true
     },
     {
       "id": "S19",
@@ -466,12 +530,14 @@
       "kind": "subsystem",
       "level": "mention",
       "source_count": 1,
+      "evidence_count": 0,
+      "independent_count": 0,
       "sources": [
         "SRC-013"
       ],
       "strongest": "SRC-013",
       "reusable": false,
-      "single_source": true
+      "single_source": false
     },
     {
       "id": "S20",
@@ -479,12 +545,14 @@
       "kind": "subsystem",
       "level": "mention",
       "source_count": 1,
+      "evidence_count": 0,
+      "independent_count": 0,
       "sources": [
         "SRC-034"
       ],
       "strongest": "SRC-034",
       "reusable": true,
-      "single_source": true
+      "single_source": false
     },
     {
       "id": "S21",
@@ -492,11 +560,13 @@
       "kind": "subsystem",
       "level": "evidence",
       "source_count": 1,
+      "evidence_count": 1,
+      "independent_count": 1,
       "sources": [
         "SRC-028"
       ],
       "strongest": "SRC-028",
-      "reusable": true,
+      "reusable": false,
       "single_source": true
     },
     {
@@ -505,6 +575,8 @@
       "kind": "subsystem",
       "level": "none",
       "source_count": 0,
+      "evidence_count": 0,
+      "independent_count": 0,
       "sources": [],
       "strongest": null,
       "reusable": false,
@@ -516,6 +588,8 @@
       "kind": "subsystem",
       "level": "evidence",
       "source_count": 1,
+      "evidence_count": 1,
+      "independent_count": 1,
       "sources": [
         "SRC-030"
       ],

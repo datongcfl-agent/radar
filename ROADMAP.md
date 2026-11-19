@@ -107,11 +107,11 @@
 
 - 13 → 34 条公开来源；
 - 3 strong / 21 evidence / 8 mention / 5 none；
-- 11 个单源、5 个无证据；缺口是真实方向，不再用宽 covers/短 quote 凑 strong；
+- 13 个单源、8 个同源待印证、5 个无证据；缺口是真实方向，不再用宽 covers/短 quote 凑 strong；
 - 已删除不属于通用弱电主线的 S24；
 - 新增来源以公开 README/metadata 为主，4 条许可 needs_review；
 - 基线：[docs/BASELINE.md](docs/BASELINE.md)；
-- 45 个单测。
+- 51 个单测。
 
 ## v0.5b — 第二真实行业包（待定）
 

@@ -1,4 +1,4 @@
-# radar · 最小行业雷达（v0.5.1）
+# radar · 最小行业雷达（v0.5.2）
 
 **A minimal industry radar: does every module in your industry outline actually have evidence?**
 
@@ -78,7 +78,7 @@ python3 -m radar run \
 
 - **34 条公开来源**：30 selected / 4 needs_review；
 - 覆盖：**3 strong / 21 evidence / 8 mention / 5 none**；
-- 11 个单源、5 个无证据；`gaps.md` 有真实缺口，不再写“无缺口”；
+- 13 个单源、8 个同源待印证、5 个无证据；`gaps.md` 有真实缺口，不再写“无缺口”；
 - 审计：无 `covers ≥5` 的万金油来源、无 <40 字的空壳 quote；
 - 来源包含弱电工程系统、报价/成本、设备台账、楼宇自控、视频、停车、IPTV、背景音乐、监控、工单等；
 - 完整基线：[docs/BASELINE.md](docs/BASELINE.md)。
@@ -164,7 +164,7 @@ token 只通过 `Authorization: Bearer` 发送，不拼进 URL、不写日志；
 
 `report.md` 头部也会显示 `Radar: v...`。这样别人拿到一个 run，能知道是哪个版本/commit 跑出来的。
 
-当前代码版本 `0.5.1`。tag 由仓库 owner 打；Agent 不自行打标签。
+当前代码版本 `0.5.2`。tag 由仓库 owner 打；Agent 不自行打标签。
 
 ## Claim 账本（v0.4）
 
@@ -203,7 +203,7 @@ python3 -m radar claims \
 python3 -m unittest discover -s tests -v
 ```
 
-45 个用例覆盖：pack/seeds 校验、Seed Lite 默认值、`--strict` 拒绝最小字段、URL 规范化、单源上限、双源 strong、mention/none、gaps、来源级变更、Gitee metadata 映射、fetch 状态、snowball fork 映射、HTML 抽取、中文 quote、404 不冒充成功、license 提示、claim 覆盖校验/双向矛盾/CSV 注入、merge 并集/ID 唯一/canonical/平台推断/许可顺序、账本审计、CLI run/scan/diff。
+51 个用例覆盖：pack/seeds 校验、Seed Lite 默认值、`--strict` 拒绝最小字段、URL 规范化、单源上限、双源 strong、mention/none、gaps、来源级变更、Gitee metadata 映射、fetch 状态、snowball fork 映射、HTML 抽取、中文 quote、404 不冒充成功、license 提示、claim 覆盖校验/双向矛盾/CSV 注入、merge 并集/ID 唯一/canonical/平台推断/许可顺序、独立 host/单源口径、坏访问、reusable、CLI 报错、残留清理、账本审计、CLI run/scan/diff。
 
 ## 交给其他 Agent
 
@@ -225,7 +225,7 @@ radar/
 ├── radar/            # CLI + 校验 + 覆盖度 + diff
 ├── packs/            # weak-current / pet-hospital
 ├── seeds/            # 两个行业的种子来源
-├── tests/            # 45 个单测
+├── tests/            # 51 个单测
 ├── docs/             # PACK / MVP
 ├── .dsh/skills/radar # Skill
 └── runs/             # demo 输出

@@ -80,6 +80,16 @@ def render_coverage(pack, sources, coverage):
     for row in coverage["subsystems"]:
         lines.append("- **%s %s** — %s（%d 个来源）" % (
             row["id"], row["name"], row["level"], row["source_count"]))
+    same = [r for r in coverage["modules"] + coverage["subsystems"]
+            if r.get("independent_count", 0) < 2 and r.get("evidence_count", 0) >= 2]
+    lines.extend(["", "## 同源待印证", "",
+                  "这些模块有 ≥2 条证据，但来自同一 host；不能当独立互证。", ""])
+    if same:
+        for row in same:
+            lines.append("- `%s` %s（独立 host %d）" % (
+                row["id"], row["name"], row.get("independent_count", 0)))
+    else:
+        lines.append("- 无")
     lines.append("")
     return "\n".join(lines)
 
@@ -113,6 +123,16 @@ def render_gaps(pack, coverage):
         for row in single:
             lines.append("- `%s` %s（%s，来源 `%s`）" % (
                 row["id"], row["name"], row["level"], ", ".join(row["sources"])))
+    else:
+        lines.append("- 无")
+    same = [r for r in coverage["modules"] + coverage["subsystems"]
+            if r.get("independent_count", 0) < 2 and r.get("evidence_count", 0) >= 2]
+    lines.extend(["", "## 同源待印证", "",
+                  "这些模块有 ≥2 条证据，但来自同一 host；不能当独立互证。", ""])
+    if same:
+        for row in same:
+            lines.append("- `%s` %s（独立 host %d）" % (
+                row["id"], row["name"], row.get("independent_count", 0)))
     else:
         lines.append("- 无")
     lines.append("")
@@ -197,6 +217,10 @@ def render_report(pack, sources, coverage, state):
 def write_run(out_dir, pack, sources, coverage, state):
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
+    for stale in ("changes.md", "changes.json", "diff.md"):
+        path = out / stale
+        if path.exists():
+            path.unlink()
     with (out / "sources.jsonl").open("w", encoding="utf-8") as fh:
         for s in sources:
             fh.write(json.dumps(s, ensure_ascii=False) + "\n")
