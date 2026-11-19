@@ -1,0 +1,594 @@
+{
+  "modules": [
+    {
+      "id": "M01",
+      "name": "项目与往来单位",
+      "kind": "module",
+      "level": "strong",
+      "source_count": 4,
+      "sources": [
+        "SRC-001",
+        "SRC-003",
+        "SRC-007",
+        "SRC-008"
+      ],
+      "strongest": "SRC-001",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "M02",
+      "name": "立项与项目台账",
+      "kind": "module",
+      "level": "strong",
+      "source_count": 3,
+      "sources": [
+        "SRC-001",
+        "SRC-003",
+        "SRC-008"
+      ],
+      "strongest": "SRC-001",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "M03",
+      "name": "现场勘测与图纸",
+      "kind": "module",
+      "level": "strong",
+      "source_count": 5,
+      "sources": [
+        "SRC-001",
+        "SRC-003",
+        "SRC-006",
+        "SRC-011",
+        "SRC-012"
+      ],
+      "strongest": "SRC-001",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "M04",
+      "name": "询价与产品库",
+      "kind": "module",
+      "level": "strong",
+      "source_count": 4,
+      "sources": [
+        "SRC-001",
+        "SRC-003",
+        "SRC-005",
+        "SRC-007"
+      ],
+      "strongest": "SRC-001",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "M05",
+      "name": "预估成本与容量",
+      "kind": "module",
+      "level": "strong",
+      "source_count": 3,
+      "sources": [
+        "SRC-001",
+        "SRC-003",
+        "SRC-005"
+      ],
+      "strongest": "SRC-001",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "M06",
+      "name": "报价与投标",
+      "kind": "module",
+      "level": "strong",
+      "source_count": 5,
+      "sources": [
+        "SRC-001",
+        "SRC-003",
+        "SRC-004",
+        "SRC-005",
+        "SRC-007"
+      ],
+      "strongest": "SRC-001",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "M07",
+      "name": "合同与变更",
+      "kind": "module",
+      "level": "strong",
+      "source_count": 3,
+      "sources": [
+        "SRC-001",
+        "SRC-003",
+        "SRC-007"
+      ],
+      "strongest": "SRC-001",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "M08",
+      "name": "采购与材料设备",
+      "kind": "module",
+      "level": "strong",
+      "source_count": 4,
+      "sources": [
+        "SRC-001",
+        "SRC-003",
+        "SRC-007",
+        "SRC-010"
+      ],
+      "strongest": "SRC-001",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "M09",
+      "name": "施工与进度",
+      "kind": "module",
+      "level": "strong",
+      "source_count": 5,
+      "sources": [
+        "SRC-001",
+        "SRC-003",
+        "SRC-006",
+        "SRC-008",
+        "SRC-011"
+      ],
+      "strongest": "SRC-001",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "M10",
+      "name": "竣工与验收",
+      "kind": "module",
+      "level": "strong",
+      "source_count": 4,
+      "sources": [
+        "SRC-001",
+        "SRC-003",
+        "SRC-008",
+        "SRC-012"
+      ],
+      "strongest": "SRC-001",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "M11",
+      "name": "实际成本与毛利",
+      "kind": "module",
+      "level": "strong",
+      "source_count": 4,
+      "sources": [
+        "SRC-001",
+        "SRC-003",
+        "SRC-005",
+        "SRC-007"
+      ],
+      "strongest": "SRC-001",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "M12",
+      "name": "发票与收付款",
+      "kind": "module",
+      "level": "evidence",
+      "source_count": 2,
+      "sources": [
+        "SRC-003",
+        "SRC-007"
+      ],
+      "strongest": "SRC-007",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "M13",
+      "name": "售后与运维",
+      "kind": "module",
+      "level": "strong",
+      "source_count": 4,
+      "sources": [
+        "SRC-001",
+        "SRC-003",
+        "SRC-011",
+        "SRC-012"
+      ],
+      "strongest": "SRC-001",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "M14",
+      "name": "权限、审计与备份",
+      "kind": "module",
+      "level": "strong",
+      "source_count": 5,
+      "sources": [
+        "SRC-001",
+        "SRC-003",
+        "SRC-004",
+        "SRC-008",
+        "SRC-010"
+      ],
+      "strongest": "SRC-001",
+      "reusable": true,
+      "single_source": false
+    }
+  ],
+  "subsystems": [
+    {
+      "id": "S01",
+      "name": "综合布线",
+      "kind": "subsystem",
+      "level": "strong",
+      "source_count": 5,
+      "sources": [
+        "SRC-001",
+        "SRC-002",
+        "SRC-003",
+        "SRC-005",
+        "SRC-012"
+      ],
+      "strongest": "SRC-001",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "S02",
+      "name": "计算机网络/无线WIFI",
+      "kind": "subsystem",
+      "level": "strong",
+      "source_count": 4,
+      "sources": [
+        "SRC-001",
+        "SRC-002",
+        "SRC-005",
+        "SRC-006"
+      ],
+      "strongest": "SRC-001",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "S03",
+      "name": "综合管路",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 1,
+      "sources": [
+        "SRC-002"
+      ],
+      "strongest": "SRC-002",
+      "reusable": false,
+      "single_source": true
+    },
+    {
+      "id": "S04",
+      "name": "机房/UPS",
+      "kind": "subsystem",
+      "level": "strong",
+      "source_count": 4,
+      "sources": [
+        "SRC-001",
+        "SRC-002",
+        "SRC-003",
+        "SRC-005"
+      ],
+      "strongest": "SRC-001",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "S05",
+      "name": "视频监控",
+      "kind": "subsystem",
+      "level": "strong",
+      "source_count": 9,
+      "sources": [
+        "SRC-001",
+        "SRC-002",
+        "SRC-003",
+        "SRC-005",
+        "SRC-006",
+        "SRC-009",
+        "SRC-011",
+        "SRC-012",
+        "SRC-013"
+      ],
+      "strongest": "SRC-001",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "S06",
+      "name": "门禁一卡通/出入口",
+      "kind": "subsystem",
+      "level": "strong",
+      "source_count": 8,
+      "sources": [
+        "SRC-001",
+        "SRC-002",
+        "SRC-003",
+        "SRC-005",
+        "SRC-006",
+        "SRC-009",
+        "SRC-011",
+        "SRC-013"
+      ],
+      "strongest": "SRC-001",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "S07",
+      "name": "入侵/防盗报警",
+      "kind": "subsystem",
+      "level": "strong",
+      "source_count": 2,
+      "sources": [
+        "SRC-001",
+        "SRC-002"
+      ],
+      "strongest": "SRC-001",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "S08",
+      "name": "周界防范",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 1,
+      "sources": [
+        "SRC-002"
+      ],
+      "strongest": "SRC-002",
+      "reusable": false,
+      "single_source": true
+    },
+    {
+      "id": "S09",
+      "name": "电子巡更",
+      "kind": "subsystem",
+      "level": "strong",
+      "source_count": 2,
+      "sources": [
+        "SRC-001",
+        "SRC-002"
+      ],
+      "strongest": "SRC-001",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "S10",
+      "name": "楼宇自控 BA",
+      "kind": "subsystem",
+      "level": "strong",
+      "source_count": 4,
+      "sources": [
+        "SRC-001",
+        "SRC-002",
+        "SRC-005",
+        "SRC-013"
+      ],
+      "strongest": "SRC-001",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "S11",
+      "name": "环境监控",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 1,
+      "sources": [
+        "SRC-002"
+      ],
+      "strongest": "SRC-002",
+      "reusable": false,
+      "single_source": true
+    },
+    {
+      "id": "S12",
+      "name": "智能照明",
+      "kind": "subsystem",
+      "level": "strong",
+      "source_count": 3,
+      "sources": [
+        "SRC-001",
+        "SRC-002",
+        "SRC-005"
+      ],
+      "strongest": "SRC-001",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "S13",
+      "name": "能源管理",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 3,
+      "sources": [
+        "SRC-002",
+        "SRC-005",
+        "SRC-009"
+      ],
+      "strongest": "SRC-005",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "S14",
+      "name": "信息发布",
+      "kind": "subsystem",
+      "level": "strong",
+      "source_count": 2,
+      "sources": [
+        "SRC-001",
+        "SRC-002"
+      ],
+      "strongest": "SRC-001",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "S15",
+      "name": "程控电话/通讯",
+      "kind": "subsystem",
+      "level": "strong",
+      "source_count": 2,
+      "sources": [
+        "SRC-001",
+        "SRC-002"
+      ],
+      "strongest": "SRC-001",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "S16",
+      "name": "IPTV",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 1,
+      "sources": [
+        "SRC-001"
+      ],
+      "strongest": "SRC-001",
+      "reusable": false,
+      "single_source": true
+    },
+    {
+      "id": "S17",
+      "name": "有线电视",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 2,
+      "sources": [
+        "SRC-002",
+        "SRC-009"
+      ],
+      "strongest": "SRC-002",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "S18",
+      "name": "停车场",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 1,
+      "sources": [
+        "SRC-002"
+      ],
+      "strongest": "SRC-002",
+      "reusable": false,
+      "single_source": true
+    },
+    {
+      "id": "S19",
+      "name": "会议/多功能厅",
+      "kind": "subsystem",
+      "level": "strong",
+      "source_count": 4,
+      "sources": [
+        "SRC-001",
+        "SRC-002",
+        "SRC-005",
+        "SRC-013"
+      ],
+      "strongest": "SRC-001",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "S20",
+      "name": "背景音乐",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 1,
+      "sources": [
+        "SRC-001"
+      ],
+      "strongest": "SRC-001",
+      "reusable": false,
+      "single_source": true
+    },
+    {
+      "id": "S21",
+      "name": "五方对讲",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 1,
+      "sources": [
+        "SRC-001"
+      ],
+      "strongest": "SRC-001",
+      "reusable": false,
+      "single_source": true
+    },
+    {
+      "id": "S22",
+      "name": "客控系统",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 1,
+      "sources": [
+        "SRC-001"
+      ],
+      "strongest": "SRC-001",
+      "reusable": false,
+      "single_source": true
+    },
+    {
+      "id": "S23",
+      "name": "公区温控联网",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 1,
+      "sources": [
+        "SRC-001"
+      ],
+      "strongest": "SRC-001",
+      "reusable": false,
+      "single_source": true
+    },
+    {
+      "id": "S24",
+      "name": "智能厨房排油烟",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 1,
+      "sources": [
+        "SRC-001"
+      ],
+      "strongest": "SRC-001",
+      "reusable": false,
+      "single_source": true
+    }
+  ],
+  "summary": {
+    "none": 0,
+    "mention": 0,
+    "evidence": 13,
+    "strong": 25
+  },
+  "sources": 13,
+  "platforms": {
+    "gitee": 3,
+    "web": 4,
+    "github": 5,
+    "docs": 1
+  }
+}

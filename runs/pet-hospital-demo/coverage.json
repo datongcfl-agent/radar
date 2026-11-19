@@ -1,0 +1,162 @@
+{
+  "modules": [
+    {
+      "id": "M01",
+      "name": "预约与接诊",
+      "kind": "module",
+      "level": "mention",
+      "source_count": 2,
+      "sources": [
+        "VET-001",
+        "VET-002"
+      ],
+      "strongest": "VET-002",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "M02",
+      "name": "病历与诊断",
+      "kind": "module",
+      "level": "mention",
+      "source_count": 2,
+      "sources": [
+        "VET-001",
+        "VET-002"
+      ],
+      "strongest": "VET-002",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "M03",
+      "name": "处方与药品",
+      "kind": "module",
+      "level": "mention",
+      "source_count": 1,
+      "sources": [
+        "VET-003"
+      ],
+      "strongest": "VET-003",
+      "reusable": true,
+      "single_source": true
+    },
+    {
+      "id": "M04",
+      "name": "收费与保险",
+      "kind": "module",
+      "level": "mention",
+      "source_count": 1,
+      "sources": [
+        "VET-002"
+      ],
+      "strongest": "VET-002",
+      "reusable": true,
+      "single_source": true
+    },
+    {
+      "id": "M05",
+      "name": "库存与疫苗",
+      "kind": "module",
+      "level": "mention",
+      "source_count": 1,
+      "sources": [
+        "VET-003"
+      ],
+      "strongest": "VET-003",
+      "reusable": true,
+      "single_source": true
+    },
+    {
+      "id": "M06",
+      "name": "复诊与随访",
+      "kind": "module",
+      "level": "mention",
+      "source_count": 1,
+      "sources": [
+        "VET-001"
+      ],
+      "strongest": "VET-001",
+      "reusable": true,
+      "single_source": true
+    }
+  ],
+  "subsystems": [
+    {
+      "id": "S01",
+      "name": "门诊",
+      "kind": "subsystem",
+      "level": "none",
+      "source_count": 0,
+      "sources": [],
+      "strongest": null,
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "S02",
+      "name": "住院",
+      "kind": "subsystem",
+      "level": "none",
+      "source_count": 0,
+      "sources": [],
+      "strongest": null,
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "S03",
+      "name": "手术",
+      "kind": "subsystem",
+      "level": "none",
+      "source_count": 0,
+      "sources": [],
+      "strongest": null,
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "S04",
+      "name": "影像",
+      "kind": "subsystem",
+      "level": "none",
+      "source_count": 0,
+      "sources": [],
+      "strongest": null,
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "S05",
+      "name": "检验",
+      "kind": "subsystem",
+      "level": "none",
+      "source_count": 0,
+      "sources": [],
+      "strongest": null,
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "S06",
+      "name": "宠主门户",
+      "kind": "subsystem",
+      "level": "none",
+      "source_count": 0,
+      "sources": [],
+      "strongest": null,
+      "reusable": false,
+      "single_source": false
+    }
+  ],
+  "summary": {
+    "none": 6,
+    "mention": 6,
+    "evidence": 0,
+    "strong": 0
+  },
+  "sources": 3,
+  "platforms": {
+    "web": 3
+  }
+}

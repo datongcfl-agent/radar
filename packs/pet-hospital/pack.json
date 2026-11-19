@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "pack": "pet-hospital",
+  "version": "0.1.0",
+  "title": "宠物医院管理",
+  "aliases": ["宠物医院", "动物诊所", "兽医", "vet clinic"],
+  "modules": [
+    {"id": "M01", "name": "预约与接诊", "artifacts": ["预约单", "接诊记录"], "keywords": ["预约", "接诊", "挂号", "门诊"]},
+    {"id": "M02", "name": "病历与诊断", "artifacts": ["SOAP 病历", "诊断记录"], "keywords": ["病历", "诊断", "SOAP", "主诉"]},
+    {"id": "M03", "name": "处方与药品", "artifacts": ["处方", "药品目录", "用药禁忌"], "keywords": ["处方", "药品", "用药", "剂量"]},
+    {"id": "M04", "name": "收费与保险", "artifacts": ["收费单", "保险理赔"], "keywords": ["收费", "保险", "理赔", "账单"]},
+    {"id": "M05", "name": "库存与疫苗", "artifacts": ["库存", "疫苗计划"], "keywords": ["库存", "疫苗", "耗材", "效期"]},
+    {"id": "M06", "name": "复诊与随访", "artifacts": ["复诊计划", "随访记录"], "keywords": ["复诊", "随访", "提醒", "会员"]}
+  ],
+  "subsystems": [
+    {"id": "S01", "name": "门诊", "artifacts": ["门诊流程"], "keywords": ["门诊", "诊室"]},
+    {"id": "S02", "name": "住院", "artifacts": ["住院记录"], "keywords": ["住院", "笼位", "护理"]},
+    {"id": "S03", "name": "手术", "artifacts": ["手术记录"], "keywords": ["手术", "麻醉", "术前"]},
+    {"id": "S04", "name": "影像", "artifacts": ["X 光/超声"], "keywords": ["影像", "X光", "超声", "DR"]},
+    {"id": "S05", "name": "检验", "artifacts": ["血检/生化"], "keywords": ["检验", "血检", "生化", "化验"]},
+    {"id": "S06", "name": "宠主门户", "artifacts": ["预约/报告查询"], "keywords": ["宠主", "门户", "报告查询"]}
+  ],
+  "source_map": {
+    "web": ["veterinary practice management requirements", "宠物医院 管理系统 需求", "veterinary SOAP medical record"],
+    "github": ["veterinary practice management in:readme", "pet clinic management in:readme"]
+  },
+  "query_templates": [
+    "{industry} {module} 需求 文档",
+    "{subsystem} 流程 规范",
+    "{industry} {artifact} 模板"
+  ]
+}
