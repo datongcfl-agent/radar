@@ -16,6 +16,7 @@ from radar.state import compare_sources, render_changes
 from radar.adapters import parse_gitee_items, gitee_search
 from radar.fetch import apply_fetch, parse_headers
 from radar.snowball import parse_github_repo, fork_source, snowball as run_snowball
+from radar.web import extract_html, detect_license, apply_web, enrich_web
 from radar.diff import diff_runs
 from radar.model import (RadarError, canonical_url, load_pack, load_seeds,
                          validate_source)
@@ -177,6 +178,54 @@ class TestCoverage(unittest.TestCase):
         text = render_report(pack, [low], cov, state)
         self.assertIn("低星但高覆盖", text)
         self.assertIn("覆盖 2 格", text)
+
+
+class TestWeb(unittest.TestCase):
+    def test_extract_html(self):
+        page = extract_html("<html><head><title>弱电报价</title>"
+                            "<meta name='description' content='这是一个用于弱电工程报价与成本管理的页面内容'>"
+                            "</head><body><script>bad()</script><p>弱电工程报价清单与成本管理说明。</p></body></html>")
+        self.assertEqual(page["title"], "弱电报价")
+        self.assertNotIn("bad()", page["text"])
+        self.assertTrue(page["quotes"])
+
+    def test_detect_license(self):
+        mit = "Permission is hereby granted, free of charge, to any person obtaining a copy"
+        self.assertEqual(detect_license(mit)[:2], ("MIT", "clear"))
+        self.assertEqual(detect_license("licensed under the Apache License, Version 2.0")[:2],
+                         ("Apache-2.0", "clear"))
+        self.assertEqual(detect_license("All rights reserved.")[:2], ("proprietary", "proprietary"))
+        self.assertEqual(detect_license("A 项目采用 Apache 协议")[:2], ("Apache-2.0", "needs_review"))
+        self.assertEqual(detect_license("MIT License")[:2], ("MIT", "needs_review"))
+        self.assertEqual(detect_license("hello")[:2], ("unknown", "needs_review"))
+
+    def test_apply_web(self):
+        out = apply_web({"id": "A", "url": "https://example.com", "title": "x",
+                         "license": "unknown", "license_status": "needs_review"},
+                        {"title": "T", "description": "",
+                         "text": "Permission is hereby granted, free of charge, to any person obtaining a copy",
+                         "quotes": ["q"]})
+        self.assertEqual(out["license"], "MIT")
+        self.assertEqual(out["license_status"], "clear")
+        self.assertIn("q", out["quotes"])
+
+    def test_chinese_quotes_not_glued(self):
+        text = ("这是弱电工程报价与成本管理的第一段内容，覆盖询价、清单和毛利。"
+                "这是第二段内容，说明合同、采购和施工进度的边界。")
+        page = extract_html("<p>%s</p>" % text)
+        self.assertGreaterEqual(len(page["quotes"]), 2)
+        for q in page["quotes"]:
+            self.assertLessEqual(len(q), 241)
+
+    def test_web_404_not_success(self):
+        src = {"id": "W1", "url": "https://example.com/404", "platform": "web",
+               "status": "selected", "access_status": "public", "title": "x"}
+        with mock.patch("radar.web.fetch_text", return_value=(None, 404, "HTTP 404")):
+            out, warnings = enrich_web([src], limit=1)
+        self.assertEqual(out[0]["web_error"], "HTTP 404")
+        self.assertEqual(out[0]["http_status"], 404)
+        self.assertNotEqual(out[0]["access_status"], "public")
+        self.assertTrue(warnings)
 
 
 class TestFetch(unittest.TestCase):

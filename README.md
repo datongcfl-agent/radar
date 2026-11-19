@@ -77,7 +77,12 @@ GITHUB_TOKEN=... python3 -m radar run ... --snowball --snowball-per-source 2 --s
 
 # 可选：抓 URL 的 ETag/content_hash（网络）
 python3 -m radar run ... --fetch --fetch-limit 5
+
+# 可选：抽取公开网页正文 + 许可提示（网络，可遵守 robots）
+python3 -m radar run ... --web --web-limit 5 --respect-robots
 ```
+
+网络选项（`--github/--gitee/--snowball/--fetch/--web`）需要本机有 `curl`；没有会直接报错，不会逐条伪装成 `web_error`。
 
 ### Gitee（可选）
 
@@ -107,8 +112,8 @@ token 只通过 `Authorization: Bearer` 发送，不拼进 URL、不写日志；
 
 ## 当前 MVP 的边界
 
-- **包含**：Seed Lite（最小 6 字段 + 默认值 + `--strict`）、pack/seeds 校验、URL 去重、覆盖度、目录/缺口/报告、`scan --since` 账本层变更检测 + 覆盖 diff、可选 GitHub/Gitee metadata 搜索、`--snowball`（GitHub forks）、`--fetch`（ETag/content_hash）；
-- **不包含**：浏览器/登录、全量爬虫、UI、自动 PRD、OCR、定时任务（scan 是手动触发）、Gitee forks、GitHub dependents/引用图；`--fetch` 只抓公开 URL 的头/体 hash；
+- **包含**：Seed Lite（最小 6 字段 + 默认值 + `--strict`）、pack/seeds 校验、URL 去重、覆盖度、目录/缺口/报告、`scan --since` 账本层变更检测 + 覆盖 diff、可选 GitHub/Gitee metadata 搜索、`--snowball`（GitHub forks）、`--fetch`（ETag/content_hash）、`--web`（静态正文抽取 + 许可提示，可选 `--respect-robots`）；
+- **不包含**：浏览器/登录、全量爬虫、UI、自动 PRD、OCR、定时任务（scan 是手动触发）、Gitee forks、GitHub dependents/引用图；`--fetch` 只抓公开 URL 的头/体 hash；`--web` 只做静态 HTML，不执行 JS、不绕登录；Playwright/docling/ScanCode 未做，v0.3 是**部分完成**；
 - **来源**：seeds 是人工/agent 填的；`--github` 只到 metadata，不读正文；
 - **许可**：专有来源只进参考池，不能复用；`needs_review` 要人工复核。
 
@@ -131,7 +136,7 @@ token 只通过 `Authorization: Bearer` 发送，不拼进 URL、不写日志；
 python3 -m unittest discover -s tests -v
 ```
 
-26 个用例覆盖：pack/seeds 校验、Seed Lite 默认值、`--strict` 拒绝最小字段、URL 规范化、单源上限、双源 strong、mention/none、gaps、来源级变更、Gitee metadata 映射、fetch 状态、snowball fork 映射、CLI run/scan/diff。
+31 个用例覆盖：pack/seeds 校验、Seed Lite 默认值、`--strict` 拒绝最小字段、URL 规范化、单源上限、双源 strong、mention/none、gaps、来源级变更、Gitee metadata 映射、fetch 状态、snowball fork 映射、HTML 抽取、中文 quote、404 不冒充成功、license 提示、CLI run/scan/diff。
 
 ## 交给其他 Agent
 
@@ -153,7 +158,7 @@ radar/
 ├── radar/            # CLI + 校验 + 覆盖度 + diff
 ├── packs/            # weak-current / pet-hospital
 ├── seeds/            # 两个行业的种子来源
-├── tests/            # 26 个单测
+├── tests/            # 31 个单测
 ├── docs/             # PACK / MVP
 ├── .dsh/skills/radar # Skill
 └── runs/             # demo 输出

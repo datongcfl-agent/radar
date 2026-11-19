@@ -54,8 +54,8 @@ def fetch_one(url, timeout=20):
         hdr = Path(tmp) / "headers.txt"
         body = Path(tmp) / "body.bin"
         cmd = ["curl", "-sS", "-L", "--max-time", str(timeout),
-               "--max-filesize", "8388608", "-D", str(hdr), "-o", str(body),
-               "-w", "%{http_code}", url]
+               "-H", "User-Agent: radar-mvp/0.3", "--max-filesize", "8388608",
+               "-D", str(hdr), "-o", str(body), "-w", "%{http_code}", url]
         try:
             proc = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout + 5)
         except Exception as exc:

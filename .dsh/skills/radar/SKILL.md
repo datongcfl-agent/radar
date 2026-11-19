@@ -20,6 +20,8 @@ python3 -m radar run ... --gitee --limit 3 --max-queries 3
 # 可选：forward snowballing / 网络刷新
 python3 -m radar run ... --snowball --snowball-max 5
 python3 -m radar run ... --fetch --fetch-limit 5
+# 可选：公开网页正文 + 许可提示
+python3 -m radar run ... --web --web-limit 5 --respect-robots
 python3 -m radar scan --pack packs/weak-current/pack.json --seeds seeds/weak-current.json \
   --title "弱电管理系统" --out runs/weak-current-demo-v2 --since runs/weak-current-demo
 python3 -m radar diff --from runs/a --to runs/b --out runs/diff.md
@@ -39,6 +41,7 @@ python3 -m radar diff --from runs/a --to runs/b --out runs/diff.md
 - 单源最高 `evidence`，不能 `strong`；
 - 专有来源只进参考池，不能复用；
 - `needs_review` 要人工复核；
+- 网络选项需要 curl；非 2xx 不能当成功；
 - 不绕过登录/付费/验证码；
 - 不把行业结论写进引擎，写进 pack；
 - 没有 quote 的来源最多 `mention`。
