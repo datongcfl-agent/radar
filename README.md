@@ -7,7 +7,7 @@
 ## 快速开始
 
 ```bash
-cd /root/插件/repos/radar
+cd radar
 
 python3 -m radar validate \
   --pack packs/weak-current/pack.json \

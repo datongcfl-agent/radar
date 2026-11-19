@@ -4,7 +4,7 @@
 
 ```bash
 # 目标 agent 的工作区
-bash /root/插件/repos/radar/install.sh <target-workspace>
+bash <radar-repo>/install.sh <target-workspace>
 ```
 
 然后新开一个会话，让 agent 读 `.dsh/skills/radar/SKILL.md`，按 `AGENT-TASK.md` 执行。
@@ -54,7 +54,7 @@ python3 -m radar run --pack packs/weak-current/pack.json --seeds seeds/weak-curr
 
 ## 版本
 
-- 仓库：`/root/插件/repos/radar`
+- 仓库：`<radar-repo>`
 - 当前提交：以 `git log -1` 为准
 - 运行模式：`run` / `scan --base` / `diff`
 

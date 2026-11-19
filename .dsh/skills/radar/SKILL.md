@@ -10,7 +10,7 @@ description: 用行业 pack + 来源账本 + 覆盖度矩阵，产出目录/缺�
 ## 怎么用
 
 ```bash
-cd /root/插件/repos/radar
+cd <radar-repo>
 python3 -m radar validate --pack packs/weak-current/pack.json --seeds seeds/weak-current.json
 python3 -m radar run --pack packs/weak-current/pack.json --seeds seeds/weak-current.json \
   --title "弱电管理系统" --out runs/weak-current-demo
