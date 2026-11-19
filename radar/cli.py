@@ -251,6 +251,6 @@ def main(argv=None):
         result = args.func(args)
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0
-    except RadarError as exc:
+    except (RadarError, OSError, ValueError) as exc:
         print("[fail] %s" % exc, file=sys.stderr)
         return 1

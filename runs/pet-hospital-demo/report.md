@@ -1,6 +1,6 @@
 # 宠物医院管理系统 · 雷达运行报告
 
-Run: `20261120-022640` · Pack: `pet-hospital` v0.1.0 · Radar: v0.5.1
+Run: `20261120-023009` · Pack: `pet-hospital` v0.1.0 · Radar: v0.5.2
 
 ## 一句话
 
@@ -26,10 +26,7 @@ Run: `20261120-022640` · Pack: `pet-hospital` v0.1.0 · Radar: v0.5.1
 
 ## 单源模块
 
-- `M03` 处方与药品（mention）
-- `M04` 收费与保险（mention）
-- `M05` 库存与疫苗（mention）
-- `M06` 复诊与随访（mention）
+- 无
 
 ## 来源清单
 

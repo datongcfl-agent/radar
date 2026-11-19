@@ -112,13 +112,28 @@
 这些模块只有 1 个来源；按单源规则，最高只能算 `evidence`，需要第二源。
 
 - `M02` 立项与项目台账（evidence，来源 `SRC-008`）
-- `M04` 询价与产品库（mention，来源 `SRC-005`）
-- `M05` 预估成本与容量（mention，来源 `SRC-005`）
-- `M09` 施工与进度（mention，来源 `SRC-015`）
-- `M12` 发票与收付款（mention，来源 `SRC-007`）
+- `M03` 现场勘测与图纸（evidence，来源 `SRC-006, SRC-011, SRC-012`）
+- `M07` 合同与变更（evidence，来源 `SRC-003, SRC-007`）
+- `M10` 竣工与验收（evidence，来源 `SRC-008, SRC-012`）
+- `M11` 实际成本与毛利（evidence，来源 `SRC-003, SRC-005`）
+- `S07` 入侵/防盗报警（evidence，来源 `SRC-014, SRC-015, SRC-027`）
+- `S08` 周界防范（evidence，来源 `SRC-014, SRC-027`）
 - `S15` 程控电话/通讯（evidence，来源 `SRC-028`）
 - `S16` IPTV（evidence，来源 `SRC-031`）
-- `S19` 会议/多功能厅（mention，来源 `SRC-013`）
-- `S20` 背景音乐（mention，来源 `SRC-034`）
+- `S17` 有线电视（evidence，来源 `SRC-009, SRC-031`）
+- `S18` 停车场（evidence，来源 `SRC-032, SRC-033`）
 - `S21` 五方对讲（evidence，来源 `SRC-028`）
 - `S23` 公区温控联网（evidence，来源 `SRC-030`）
+
+## 同源待印证
+
+这些模块有 ≥2 条证据，但来自同一 host；不能当独立互证。
+
+- `M08` 采购与材料设备（独立 host 1）
+- `M14` 权限、审计与备份（独立 host 1）
+- `S01` 综合布线（独立 host 1）
+- `S02` 计算机网络/无线WIFI（独立 host 1）
+- `S03` 综合管路（独立 host 1）
+- `S10` 楼宇自控 BA（独立 host 1）
+- `S12` 智能照明（独立 host 1）
+- `S13` 能源管理（独立 host 1）

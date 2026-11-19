@@ -209,6 +209,8 @@ def load_seeds(path, pack, strict=False):
 def level_for_source(src):
     if src.get("status") == "rejected":
         return "none"
+    if src.get("access_status") in {"deleted", "blocked", "unreachable"}:
+        return "mention"
     has_quote = bool(src.get("quotes"))
     ev = src.get("evidence_level")
     if has_quote and ev in {"real_artifact", "code_tests", "production"}:

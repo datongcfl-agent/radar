@@ -138,12 +138,43 @@ class TestCoverage(unittest.TestCase):
         self.assertTrue(row["single_source"])
 
     def test_two_sources_can_be_strong(self):
+        b = src("B", ["M01"], evidence="docs")
+        b["url"] = "https://other.example/B"
         cov = compute_coverage(self.pack, [
             src("A", ["M01"], evidence="real_artifact"),
-            src("B", ["M01"], evidence="docs"),
+            b,
         ])
         self.assertEqual(cov["modules"][0]["level"], "strong")
         self.assertFalse(cov["modules"][0]["single_source"])
+
+    def test_same_host_is_not_strong(self):
+        b = src("B", ["M01"], evidence="real_artifact")
+        b["url"] = "https://example.com/B2"
+        cov = compute_coverage(self.pack, [
+            src("A", ["M01"], evidence="real_artifact"), b,
+        ])
+        self.assertEqual(cov["modules"][0]["level"], "evidence")
+        self.assertEqual(cov["modules"][0]["independent_count"], 1)
+
+    def test_mention_does_not_erase_single_source(self):
+        a = src("A", ["M01"], evidence="real_artifact")
+        b = src("B", ["M01"], quotes=[])
+        b["url"] = "https://other.example/B"
+        cov = compute_coverage(self.pack, [a, b])
+        self.assertTrue(cov["modules"][0]["single_source"])
+        self.assertEqual(cov["modules"][0]["evidence_count"], 1)
+
+    def test_bad_access_is_mention(self):
+        a = src("A", ["M01"], evidence="production")
+        a["access_status"] = "deleted"
+        cov = compute_coverage(self.pack, [a])
+        self.assertEqual(cov["modules"][0]["level"], "mention")
+
+    def test_reusable_requires_clear(self):
+        a = src("A", ["M01"]); a["license_status"] = "needs_review"
+        b = src("B", ["M01"]); b["license_status"] = "clear"; b["url"] = "https://other.example/B"
+        cov = compute_coverage(self.pack, [a, b])
+        self.assertTrue(cov["modules"][0]["reusable"])
 
     def test_no_quote_is_mention(self):
         cov = compute_coverage(self.pack, [src("A", ["M01"], quotes=[])])
@@ -422,6 +453,27 @@ class TestGitee(unittest.TestCase):
         self.assertIn("GITEE_TOKEN", warn)
 
 
+class TestCLIErrors(unittest.TestCase):
+    def test_missing_run_prints_fail_not_traceback(self):
+        proc = subprocess.run([sys.executable, "-m", "radar", "diff", "--from", "/nope/a",
+                               "--to", "/nope/b"], cwd=ROOT, capture_output=True, text=True)
+        self.assertEqual(proc.returncode, 1)
+        self.assertIn("[fail]", proc.stderr)
+        self.assertNotIn("Traceback", proc.stderr)
+
+    def test_run_cleans_stale_scan_files(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "run"
+            cmd = [sys.executable, "-m", "radar", "run", "--pack", str(PACK),
+                   "--seeds", str(SEEDS), "--title", "T", "--out", str(out)]
+            subprocess.run(cmd, cwd=ROOT, check=True, capture_output=True, text=True)
+            (out / "changes.md").write_text("stale", encoding="utf-8")
+            (out / "diff.md").write_text("stale", encoding="utf-8")
+            subprocess.run(cmd, cwd=ROOT, check=True, capture_output=True, text=True)
+            self.assertFalse((out / "changes.md").exists())
+            self.assertFalse((out / "diff.md").exists())
+
+
 class TestChanges(unittest.TestCase):
     def test_added_removed_changed(self):
         a = src("A", ["M01"]); a["quotes"] = ["old"]
@@ -481,9 +533,9 @@ class TestCLI(unittest.TestCase):
             state = json.loads((scan_out / "state.json").read_text(encoding="utf-8"))
             self.assertEqual(state["mode"], "scan")
             self.assertEqual(state["since"], str(out1))
-            self.assertEqual(state["radar_version"], "0.5.1")
+            self.assertEqual(state["radar_version"], "0.5.2")
             self.assertIn("radar_commit", state)
-            self.assertIn("Radar: v0.5.1", (scan_out / "report.md").read_text(encoding="utf-8"))
+            self.assertIn("Radar: v0.5.2", (scan_out / "report.md").read_text(encoding="utf-8"))
 
             claims_file = tmp / "claims.json"
             claims_file.write_text(json.dumps({
@@ -498,7 +550,7 @@ class TestCLI(unittest.TestCase):
                            capture_output=True, text=True)
             self.assertTrue((claims_out / "claims.md").exists())
             self.assertTrue((claims_out / "review.csv").exists())
-            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "0.5.1")
+            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "0.5.2")
 
 
 class TestAudit(unittest.TestCase):

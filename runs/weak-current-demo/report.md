@@ -1,6 +1,6 @@
 # 弱电管理系统 · 雷达运行报告
 
-Run: `20261120-022640` · Pack: `weak-current` v0.1.0 · Radar: v0.5.1
+Run: `20261120-023009` · Pack: `weak-current` v0.1.0 · Radar: v0.5.2
 
 ## 一句话
 
@@ -44,14 +44,16 @@ Run: `20261120-022640` · Pack: `weak-current` v0.1.0 · Radar: v0.5.1
 ## 单源模块
 
 - `M02` 立项与项目台账（evidence）
-- `M04` 询价与产品库（mention）
-- `M05` 预估成本与容量（mention）
-- `M09` 施工与进度（mention）
-- `M12` 发票与收付款（mention）
+- `M03` 现场勘测与图纸（evidence）
+- `M07` 合同与变更（evidence）
+- `M10` 竣工与验收（evidence）
+- `M11` 实际成本与毛利（evidence）
+- `S07` 入侵/防盗报警（evidence）
+- `S08` 周界防范（evidence）
 - `S15` 程控电话/通讯（evidence）
 - `S16` IPTV（evidence）
-- `S19` 会议/多功能厅（mention）
-- `S20` 背景音乐（mention）
+- `S17` 有线电视（evidence）
+- `S18` 停车场（evidence）
 - `S21` 五方对讲（evidence）
 - `S23` 公区温控联网（evidence）
 
