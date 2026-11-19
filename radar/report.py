@@ -133,8 +133,9 @@ def render_report(pack, sources, coverage, state):
     lines = [
         "# %s · 雷达运行报告" % state.get("title", pack["title"]),
         "",
-        "Run: `%s` · Pack: `%s` v%s" % (
-            state.get("run_id", ""), pack["pack"], pack.get("version", "")),
+        "Run: `%s` · Pack: `%s` v%s · Radar: v%s" % (
+            state.get("run_id", ""), pack["pack"], pack.get("version", ""),
+            state.get("radar_version", "?")),
         "",
         "## 一句话",
         "",
