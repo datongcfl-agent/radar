@@ -61,14 +61,15 @@
 
 验收：同一批来源，改一个页面/一个 release，`scan` 只报那一处变化。
 
-## v0.3 — 网页抽取 + 许可提示（本 PR）
+## v0.3 — 网页抽取 + 许可提示（部分完成）
 
 - `--web`：curl 抓公开 HTML，stdlib 解析 title/description/正文/短引用；
 - `--web-limit` 控制条数；
 - 最小许可识别：MIT/Apache/GPL/AGPL/LGPL/MPL/BSD/Unlicense/CC0/proprietary；
 - 许可只做提示，不替代人工复核；不执行 JS、不绕登录；
-- 29 个单测；
-- **不做**：Playwright/登录页/PDF/OCR/ScanCode 依赖。
+- 31 个单测；
+- 非 2xx 不冒充 200；中文按标点切句；许可只认强信号；
+- **未做**：Playwright/登录页/PDF/OCR/docling/ScanCode；v0.3 只完成静态网页 + 提示。
 
 ## v0.3 — 多平台（原方向）
 

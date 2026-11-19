@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import shutil
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -35,6 +36,8 @@ def _gitee_token():
 
 
 def cmd_run(args):
+    if (args.github or args.gitee or args.snowball or args.fetch or args.web) and not shutil.which("curl"):
+        raise RadarError("网络选项需要 curl；请先安装 curl，或去掉 --github/--gitee/--snowball/--fetch/--web")
     pack = load_pack(args.pack)
     seeds = load_seeds(args.seeds, pack, strict=args.strict)
     warnings = []
@@ -63,7 +66,8 @@ def cmd_run(args):
         warnings.extend(warns)
     if args.web:
         sources, warns = enrich_web(sources, limit=args.web_limit,
-                                     timeout=args.web_timeout)
+                                     timeout=args.web_timeout,
+                                     respect_robots=args.respect_robots)
         warnings.extend(warns)
     sources = merge_sources(sources)
     coverage = compute_coverage(pack, sources)
@@ -83,7 +87,8 @@ def cmd_run(args):
         "options": {"github": bool(args.github), "gitee": bool(args.gitee),
                     "snowball": bool(args.snowball), "fetch": bool(args.fetch),
                     "fetch_limit": args.fetch_limit, "web": bool(args.web),
-                    "web_limit": args.web_limit, "limit": args.limit,
+                    "web_limit": args.web_limit, "respect_robots": bool(args.respect_robots),
+                    "limit": args.limit,
                     "max_queries": args.max_queries, "strict": bool(args.strict)},
         "counts": {"sources": len(sources), "modules": len(coverage["modules"]),
                    "subsystems": len(coverage["subsystems"])},
@@ -163,6 +168,7 @@ def build_parser():
         p.add_argument("--web", action="store_true", help="可选：抽取公开网页正文 + 许可提示")
         p.add_argument("--web-limit", type=int, default=5)
         p.add_argument("--web-timeout", type=int, default=20)
+        p.add_argument("--respect-robots", action="store_true", help="可选：遵守 robots.txt")
         p.add_argument("--limit", type=int, default=3)
         p.add_argument("--max-queries", type=int, default=3)
         p.add_argument("--strict", action="store_true", help="要求 v0.1 的完整 12 字段")
