@@ -36,7 +36,7 @@ def infer_covers(text, pack, limit=6):
     return hits[:limit]
 
 
-def github_search(query, pack, limit=3, token=None):
+def github_search(query, pack, limit=3, token=None, id_offset=0):
     url = ("https://api.github.com/search/repositories?q="
            + urllib.parse.quote(query)
            + "&sort=updated&order=desc&per_page=%d" % max(1, min(limit, 10)))
@@ -54,7 +54,7 @@ def github_search(query, pack, limit=3, token=None):
             continue
         lic = (item.get("license") or {}).get("spdx_id") or "unknown"
         out.append({
-            "id": "GH-%03d" % (i + 1),
+            "id": "GH-%03d" % (id_offset + i + 1),
             "platform": "github",
             "url": item.get("html_url", ""),
             "title": item.get("full_name", ""),
@@ -81,15 +81,18 @@ def github_search(query, pack, limit=3, token=None):
 def collect_github(pack, limit_per_query=3, max_queries=3, token=None):
     sources, warnings = [], []
     queries = (pack.get("source_map") or {}).get("github", [])[:max_queries]
+    offset = 0
     for q in queries:
-        got, warn = github_search(q, pack, limit=limit_per_query, token=token)
+        got, warn = github_search(q, pack, limit=limit_per_query, token=token,
+                                  id_offset=offset)
         sources.extend(got)
+        offset += len(got)
         if warn:
             warnings.append(warn)
     return sources, warnings
 
 
-def parse_gitee_items(items, pack, query):
+def parse_gitee_items(items, pack, query, id_offset=0):
     out = []
     for i, item in enumerate(items or []):
         text = " ".join([item.get("full_name", ""), item.get("description") or ""])
@@ -98,7 +101,7 @@ def parse_gitee_items(items, pack, query):
             continue
         lic = item.get("license") if isinstance(item.get("license"), str) else "unknown"
         out.append({
-            "id": "GT-%03d" % (i + 1),
+            "id": "GT-%03d" % (id_offset + i + 1),
             "platform": "gitee",
             "url": item.get("html_url", ""),
             "title": item.get("full_name", ""),
@@ -122,7 +125,7 @@ def parse_gitee_items(items, pack, query):
     return out
 
 
-def gitee_search(query, pack, limit=3, token=None):
+def gitee_search(query, pack, limit=3, token=None, id_offset=0):
     if not token:
         return [], "Gitee 需要 GITEE_TOKEN；已跳过（不静默返回空）"
     url = ("https://gitee.com/api/v5/search/repositories?q="
@@ -136,15 +139,18 @@ def gitee_search(query, pack, limit=3, token=None):
         return [], "Gitee 返回异常: %s" % msg
     if not isinstance(data, list):
         return [], "Gitee 返回异常: %s" % str(data)[:200]
-    return parse_gitee_items(data, pack, query), None
+    return parse_gitee_items(data, pack, query, id_offset=id_offset), None
 
 
 def collect_gitee(pack, limit_per_query=3, max_queries=3, token=None):
     sources, warnings = [], []
     queries = (pack.get("source_map") or {}).get("gitee", [])[:max_queries]
+    offset = 0
     for q in queries:
-        got, warn = gitee_search(q, pack, limit=limit_per_query, token=token)
+        got, warn = gitee_search(q, pack, limit=limit_per_query, token=token,
+                                 id_offset=offset)
         sources.extend(got)
+        offset += len(got)
         if warn:
             warnings.append(warn)
     return sources, warnings
