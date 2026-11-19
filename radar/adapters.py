@@ -17,7 +17,7 @@ def _curl_json(url, token=None, accept="application/json"):
     if token:
         cmd += ["-H", "Authorization: Bearer %s" % token]
     cmd.append(url)
-    proc = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+    proc = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=30)
     if proc.returncode != 0:
         return None, proc.stderr.strip()[:300]
     try:

@@ -353,6 +353,9 @@ class TestCLI(unittest.TestCase):
             state = json.loads((scan_out / "state.json").read_text(encoding="utf-8"))
             self.assertEqual(state["mode"], "scan")
             self.assertEqual(state["since"], str(out1))
+            self.assertEqual(state["radar_version"], "0.3.0")
+            self.assertIn("radar_commit", state)
+            self.assertIn("Radar: v0.3.0", (scan_out / "report.md").read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

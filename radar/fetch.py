@@ -57,7 +57,7 @@ def fetch_one(url, timeout=20):
                "-H", "User-Agent: radar-mvp/0.3", "--max-filesize", "8388608",
                "-D", str(hdr), "-o", str(body), "-w", "%{http_code}", url]
         try:
-            proc = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout + 5)
+            proc = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=timeout + 5)
         except Exception as exc:
             return 0, {}, None, "curl 异常: %s" % exc
         status = 0

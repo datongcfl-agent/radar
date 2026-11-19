@@ -165,7 +165,7 @@ def fetch_text(url, timeout=20):
                "-H", "User-Agent: %s" % UA, "--max-filesize", "5242880",
                "-D", str(hdr), "-o", str(body), "-w", "%{http_code}", url]
         try:
-            proc = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout + 5)
+            proc = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=timeout + 5)
         except Exception as exc:
             return None, 0, "curl 异常: %s" % exc
         status = 0

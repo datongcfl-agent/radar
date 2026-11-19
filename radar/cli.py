@@ -5,10 +5,12 @@ import argparse
 import json
 import os
 import shutil
+import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
 
+from . import __version__
 from .adapters import collect_github, collect_gitee
 from .fetch import fetch_sources
 from .snowball import snowball
@@ -23,6 +25,17 @@ from .state import compare_sources, read_sources, write_changes
 
 def _now():
     return datetime.now().astimezone()
+
+
+def _git_commit():
+    try:
+        proc = subprocess.run(["git", "rev-parse", "--short", "HEAD"],
+                              cwd=Path(__file__).resolve().parent.parent,
+                              capture_output=True, text=True,
+                              encoding="utf-8", errors="replace", timeout=5)
+        return proc.stdout.strip() if proc.returncode == 0 else None
+    except Exception:
+        return None
 
 
 def _gitee_token():
@@ -76,6 +89,8 @@ def cmd_run(args):
     state = {
         "schema_version": 1,
         "run_id": run_id,
+        "radar_version": __version__,
+        "radar_commit": _git_commit(),
         "title": args.title,
         "created_at": _now().isoformat(timespec="seconds"),
         "pack": pack["pack"],

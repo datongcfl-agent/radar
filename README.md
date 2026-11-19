@@ -1,4 +1,4 @@
-# radar · 最小行业雷达（MVP）
+# radar · 最小行业雷达（v0.3.0）
 
 输入一个行业 pack 和一批来源，输出：**目录 + 来源账本 + 覆盖度 + 缺口 + 报告 + diff**。
 
@@ -116,6 +116,18 @@ token 只通过 `Authorization: Bearer` 发送，不拼进 URL、不写日志；
 - **不包含**：浏览器/登录、全量爬虫、UI、自动 PRD、OCR、定时任务（scan 是手动触发）、Gitee forks、GitHub dependents/引用图；`--fetch` 只抓公开 URL 的头/体 hash；`--web` 只做静态 HTML，不执行 JS、不绕登录；Playwright/docling/ScanCode 未做，v0.3 是**部分完成**；
 - **来源**：seeds 是人工/agent 填的；`--github` 只到 metadata，不读正文；
 - **许可**：专有来源只进参考池，不能复用；`needs_review` 要人工复核。
+
+## 版本与产物溯源
+
+每次 `run` / `scan` 的 `state.json` 会记录：
+
+- `radar_version`：当前 `radar/__init__.py` 的版本；
+- `radar_commit`：运行目录所在 git 的短 commit（没有 git 时为 null）；
+- `pack` / `pack_version` / `pack_sha256` / `seeds_sha256`。
+
+`report.md` 头部也会显示 `Radar: v...`。这样别人拿到一个 run，能知道是哪个版本/commit 跑出来的。
+
+当前代码版本 `0.3.0`。tag 由仓库 owner 打；Agent 不自行打标签。
 
 ## 路线图
 
