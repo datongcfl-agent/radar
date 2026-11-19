@@ -12,6 +12,7 @@ cd radar
 python3 -m radar validate \
   --pack packs/weak-current/pack.json \
   --seeds seeds/weak-current.json
+# 可选：--strict 要求 v0.1 的完整 12 字段
 
 python3 -m radar run \
   --pack packs/weak-current/pack.json \
@@ -43,27 +44,17 @@ runs/weak-current-demo/
 └── state.json        # run 元数据、pack/seeds 哈希
 ```
 
-## 三个 pack 证明可替换
+## 两个 pack 证明可替换
 
 ```bash
-# 工程行业：宠物医院
 python3 -m radar run \
   --pack packs/pet-hospital/pack.json \
   --seeds seeds/pet-hospital.json \
   --title "宠物医院管理系统" \
   --out runs/pet-hospital-demo
-
-# 软件产品域：视频转知识库（fixture，15 条来源，见 packs/video-kb/README.md）
-python3 -m radar run \
-  --pack packs/video-kb/pack.json \
-  --seeds seeds/video-kb.json \
-  --title "视频转知识库（学习用途）" \
-  --out runs/video-kb-demo
 ```
 
-同一套代码，换 pack 就能跑；弱电、宠物医院、视频转知识库三个域互不写死——前两个是工程行业，第三个是软件产品域，粒度与证据物类型完全不同。
-
-> `packs/video-kb` 是 **fixture 不是行业结论**：15 条来源（v0.5 要求 30–50）、只有 github 单平台、`strong=0`。用它验证换包不变性可以，引用为「该行业已调研」不行。
+同一套代码，换 pack 就能跑；弱电和宠物医院互不写死。
 
 ## 命令
 
@@ -96,7 +87,7 @@ GITHUB_TOKEN=... python3 -m radar run ... --github --limit 3 --max-queries 3
 
 ## 当前 MVP 的边界
 
-- **包含**：pack/seeds 校验、URL 去重、覆盖度、目录/缺口/报告、`scan --base` 增量 diff、可选 GitHub 搜索；
+- **包含**：Seed Lite（最小 6 字段 + 默认值 + `--strict`）、pack/seeds 校验、URL 去重、覆盖度、目录/缺口/报告、`scan --base` 增量 diff、可选 GitHub 搜索；
 - **不包含**：Gitee/浏览器/登录、全量爬虫、UI、自动 PRD、OCR、定时任务（scan 是手动触发）；
 - **来源**：seeds 是人工/agent 填的；`--github` 只到 metadata，不读正文；
 - **许可**：专有来源只进参考池，不能复用；`needs_review` 要人工复核。
@@ -120,7 +111,7 @@ GITHUB_TOKEN=... python3 -m radar run ... --github --limit 3 --max-queries 3
 python3 -m unittest discover -s tests -v
 ```
 
-10 个用例覆盖：pack/seeds 校验、URL 规范化、单源上限、双源 strong、mention/none、gaps、CLI run、diff。
+12 个用例覆盖：pack/seeds 校验、Seed Lite 默认值、`--strict` 拒绝最小字段、URL 规范化、单源上限、双源 strong、mention/none、gaps、CLI run、diff。
 
 ## 交给其他 Agent
 
@@ -130,20 +121,19 @@ python3 -m unittest discover -s tests -v
 
 ## 设计依据
 
-- 雷达总纲：[RADAR-NOTES.md](docs/context/RADAR-NOTES.md)
-- 先例核实：[PRIOR-ART.md](docs/context/PRIOR-ART.md)
-- 弱电试验：[weak-current-probe.md](docs/context/weak-current-probe.md)
+- 路线图：[ROADMAP.md](ROADMAP.md)
 - Pack 写法：[docs/PACK.md](docs/PACK.md)
 - MVP 验收：[docs/MVP.md](docs/MVP.md)
+- Agent 规矩：[AGENTS.md](AGENTS.md)
 
 ## 目录
 
 ```text
 radar/
 ├── radar/            # CLI + 校验 + 覆盖度 + diff
-├── packs/            # weak-current / pet-hospital / video-kb
+├── packs/            # weak-current / pet-hospital
 ├── seeds/            # 两个行业的种子来源
-├── tests/            # 10 个单测
+├── tests/            # 12 个单测
 ├── docs/             # PACK / MVP
 ├── .dsh/skills/radar # Skill
 └── runs/             # demo 输出
