@@ -25,6 +25,8 @@ python3 -m radar run ... --web --web-limit 5 --respect-robots
 python3 -m radar scan --pack packs/weak-current/pack.json --seeds seeds/weak-current.json \
   --title "弱电管理系统" --out runs/weak-current-demo-v2 --since runs/weak-current-demo
 python3 -m radar diff --from runs/a --to runs/b --out runs/diff.md
+python3 -m radar claims --pack packs/weak-current/pack.json --run runs/weak-current-demo \
+  --claims examples/claims.weak-current.json --out runs/claims-demo
 ```
 
 ## 输出契约
@@ -34,6 +36,7 @@ python3 -m radar diff --from runs/a --to runs/b --out runs/diff.md
 - `gaps.md`：无证据 + 单源待印证；
 - `report.md`：汇总/低星/许可/来源清单；
 - `sources.jsonl`：机器可读账本；
+- `claims.md` / `claims.json` / `review.csv`：claim 账本与复核队列；
 - `scan` 额外写 `changes.md`（来源级新增/移除/变化）和 `diff.md`（覆盖变化）。
 
 ## 硬规则

@@ -1,3 +1,3 @@
 """radar: a minimal domain radar (pack + source ledger + coverage)."""
 
-__version__ = "0.3.0"
+__version__ = "0.4.0"

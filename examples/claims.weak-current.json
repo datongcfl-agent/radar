@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "pack": "weak-current",
+  "claims": [
+    {
+      "id": "C001",
+      "statement": "弱电项目需要把报价、合同、实际成本、发票串成一条主线，而不是只做施工进度。",
+      "covers": ["M06", "M07", "M11", "M12"],
+      "sources": ["SRC-001", "SRC-003", "SRC-007"],
+      "contradicts": []
+    },
+    {
+      "id": "C002",
+      "statement": "单个项目管理系统的 README 只能证明它声称覆盖，不足以证明行业通用性。",
+      "covers": ["M01"],
+      "sources": ["SRC-003"],
+      "contradicts": []
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-# radar · 最小行业雷达（v0.3.0）
+# radar · 最小行业雷达（v0.4.0）
 
 输入一个行业 pack 和一批来源，输出：**目录 + 来源账本 + 覆盖度 + 缺口 + 报告 + diff**。
 
@@ -64,6 +64,7 @@ python3 -m radar run --pack <pack.json> --seeds <seeds.json> --title "<标题>" 
 python3 -m radar scan --pack <pack.json> --seeds <seeds.json> --title "<标题>" --out <dir> --base <旧 run>
 python3 -m radar validate --pack <pack.json> --seeds <seeds.json>
 python3 -m radar diff --from <run-a> --to <run-b> --out <diff.md>
+python3 -m radar claims --pack <pack.json> --run <run-dir> --claims <claims.json> --out <claims-dir>
 ```
 
 可选 GitHub / Gitee 搜索（默认关闭，避免限流）：
@@ -127,7 +128,25 @@ token 只通过 `Authorization: Bearer` 发送，不拼进 URL、不写日志；
 
 `report.md` 头部也会显示 `Radar: v...`。这样别人拿到一个 run，能知道是哪个版本/commit 跑出来的。
 
-当前代码版本 `0.3.0`。tag 由仓库 owner 打；Agent 不自行打标签。
+当前代码版本 `0.4.0`。tag 由仓库 owner 打；Agent 不自行打标签。
+
+## Claim 账本（v0.4）
+
+```bash
+python3 -m radar claims \
+  --pack packs/weak-current/pack.json \
+  --run runs/weak-current-demo \
+  --claims examples/claims.weak-current.json \
+  --out runs/claims-demo
+```
+
+输出：
+
+- `claims.md`：主张/置信度/状态/来源/原因；
+- `claims.json`：机器可读；
+- `review.csv`：复核队列（含 next_action）。
+
+规则见 [docs/CLAIMS.md](docs/CLAIMS.md)。
 
 ## 路线图
 
@@ -148,7 +167,7 @@ token 只通过 `Authorization: Bearer` 发送，不拼进 URL、不写日志；
 python3 -m unittest discover -s tests -v
 ```
 
-31 个用例覆盖：pack/seeds 校验、Seed Lite 默认值、`--strict` 拒绝最小字段、URL 规范化、单源上限、双源 strong、mention/none、gaps、来源级变更、Gitee metadata 映射、fetch 状态、snowball fork 映射、HTML 抽取、中文 quote、404 不冒充成功、license 提示、CLI run/scan/diff。
+39 个用例覆盖：pack/seeds 校验、Seed Lite 默认值、`--strict` 拒绝最小字段、URL 规范化、单源上限、双源 strong、mention/none、gaps、来源级变更、Gitee metadata 映射、fetch 状态、snowball fork 映射、HTML 抽取、中文 quote、404 不冒充成功、license 提示、claim 覆盖校验/双向矛盾/CSV 注入、CLI run/scan/diff。
 
 ## 交给其他 Agent
 
@@ -170,7 +189,7 @@ radar/
 ├── radar/            # CLI + 校验 + 覆盖度 + diff
 ├── packs/            # weak-current / pet-hospital
 ├── seeds/            # 两个行业的种子来源
-├── tests/            # 31 个单测
+├── tests/            # 39 个单测
 ├── docs/             # PACK / MVP
 ├── .dsh/skills/radar # Skill
 └── runs/             # demo 输出

@@ -16,6 +16,7 @@ from .fetch import fetch_sources
 from .snowball import snowball
 from .web import enrich_web
 from .coverage import compute_coverage
+from .claims import evaluate_claims, write_claims
 from .diff import diff_runs
 from .model import (RadarError, load_json, load_pack, load_seeds, merge_sources,
                     sha256_file, write_json)
@@ -120,6 +121,31 @@ def cmd_run(args):
     }
 
 
+def cmd_claims(args):
+    pack = load_pack(args.pack)
+    sources = read_sources(args.run)
+    data = load_json(args.claims)
+    results = evaluate_claims(data, pack, sources)
+    meta = {
+        "schema_version": 1,
+        "run": args.run,
+        "pack": pack["pack"],
+        "created_at": _now().isoformat(timespec="seconds"),
+        "radar_version": __version__,
+        "claims_sha256": sha256_file(args.claims),
+        "count": len(results),
+    }
+    write_claims(args.out, results, meta)
+    return {
+        "out": str(args.out),
+        "claims": len(results),
+        "high": sum(1 for r in results if r["label"] == "high"),
+        "medium": sum(1 for r in results if r["label"] == "medium"),
+        "low": sum(1 for r in results if r["label"] == "low"),
+        "contested": sum(1 for r in results if r["status"] == "contested"),
+    }
+
+
 def cmd_validate(args):
     pack = load_pack(args.pack)
     seeds = load_seeds(args.seeds, pack, strict=args.strict)
@@ -196,6 +222,13 @@ def build_parser():
     add_run_args(sc)
     sc.add_argument("--base", "--since", dest="base", required=True, help="上一次 run 目录（--since 同义）")
     sc.set_defaults(func=cmd_scan)
+
+    cl = sub.add_parser("claims", help="校验 claim 账本并计算置信度")
+    cl.add_argument("--pack", required=True)
+    cl.add_argument("--run", required=True, help="已有 run 目录")
+    cl.add_argument("--claims", required=True)
+    cl.add_argument("--out", required=True)
+    cl.set_defaults(func=cmd_claims)
 
     v = sub.add_parser("validate", help="只校验 pack/seeds")
     v.add_argument("--pack", required=True)
