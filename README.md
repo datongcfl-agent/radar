@@ -43,17 +43,27 @@ runs/weak-current-demo/
 └── state.json        # run 元数据、pack/seeds 哈希
 ```
 
-## 两个 pack 证明可替换
+## 三个 pack 证明可替换
 
 ```bash
+# 工程行业：宠物医院
 python3 -m radar run \
   --pack packs/pet-hospital/pack.json \
   --seeds seeds/pet-hospital.json \
   --title "宠物医院管理系统" \
   --out runs/pet-hospital-demo
+
+# 软件产品域：视频转知识库（fixture，15 条来源，见 packs/video-kb/README.md）
+python3 -m radar run \
+  --pack packs/video-kb/pack.json \
+  --seeds seeds/video-kb.json \
+  --title "视频转知识库（学习用途）" \
+  --out runs/video-kb-demo
 ```
 
-同一套代码，换 pack 就能跑；弱电和宠物医院互不写死。
+同一套代码，换 pack 就能跑；弱电、宠物医院、视频转知识库三个域互不写死——前两个是工程行业，第三个是软件产品域，粒度与证据物类型完全不同。
+
+> `packs/video-kb` 是 **fixture 不是行业结论**：15 条来源（v0.5 要求 30–50）、只有 github 单平台、`strong=0`。用它验证换包不变性可以，引用为「该行业已调研」不行。
 
 ## 命令
 
@@ -131,7 +141,7 @@ python3 -m unittest discover -s tests -v
 ```text
 radar/
 ├── radar/            # CLI + 校验 + 覆盖度 + diff
-├── packs/            # weak-current / pet-hospital
+├── packs/            # weak-current / pet-hospital / video-kb
 ├── seeds/            # 两个行业的种子来源
 ├── tests/            # 10 个单测
 ├── docs/             # PACK / MVP
