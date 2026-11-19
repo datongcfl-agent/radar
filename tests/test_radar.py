@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from radar.coverage import compute_coverage, gap_rows
-from radar.report import render_gaps
+from radar.report import render_gaps, render_report
 from radar.diff import diff_runs
 from radar.model import (RadarError, canonical_url, load_pack, load_seeds,
                          validate_source)
@@ -87,6 +87,54 @@ class TestCoverage(unittest.TestCase):
         text = render_gaps(self.pack, cov)
         self.assertIn("单源待印证", text)
         self.assertIn("M01", text)
+
+    def test_gap_query_artifact_not_joined_list(self):
+        # {artifact} 插值应取第一个 artifact，而不是把数组拼成 "readme, docs"
+        pack = {"title": "T",
+                "modules": [{"id": "M01", "name": "模块", "artifacts": ["readme", "docs"]}],
+                "subsystems": [{"id": "S01", "name": "子", "artifacts": ["code"]}],
+                "query_templates": ["{module} {artifact} 开源"]}
+        cov = compute_coverage(pack, [])  # M01/S01 均无来源 → 均进 gaps
+        text = render_gaps(pack, cov)
+        self.assertIn("模块 readme 开源", text)
+        self.assertNotIn("readme, docs", text)
+
+    def test_gap_query_without_artifacts_field(self):
+        # pack 项缺 artifacts 字段时不应崩溃，回退为"资料"
+        pack = {"title": "T",
+                "modules": [{"id": "M01", "name": "模块"}],
+                "subsystems": [{"id": "S01", "name": "子"}],
+                "query_templates": ["{module} {artifact} 开源"]}
+        cov = compute_coverage(pack, [])
+        text = render_gaps(pack, cov)
+        self.assertIn("模块 资料 开源", text)
+
+    def test_platform_bias_warning_single_platform(self):
+        # 90%+ 来源来自单一平台时应输出平台偏置警告
+        state = {"title": "T", "run_id": "r1"}
+        pack = {"title": "T", "modules": self.pack["modules"], "subsystems": self.pack["subsystems"], "pack": "p", "version": "0"}
+        text = render_report(pack, [src("A", ["M01"])], compute_coverage(self.pack, [src("A", ["M01"])]), state)
+        self.assertIn("平台偏置", text)
+
+    def test_platform_bias_no_warning_multi_platform(self):
+        state = {"title": "T", "run_id": "r1"}
+        pack = {"title": "T", "modules": self.pack["modules"], "subsystems": self.pack["subsystems"], "pack": "p", "version": "0"}
+        two = [src("A", ["M01"]), src("B", ["M01"])]
+        two[1]["platform"] = "gitee"
+        cov = compute_coverage(self.pack, two)
+        text = render_report(pack, two, cov, state)
+        self.assertNotIn("平台偏置", text)
+
+    def test_low_star_high_coverage_listed(self):
+        # 低星（≤50）但覆盖 ≥2 格的来源应被列出
+        state = {"title": "T", "run_id": "r1"}
+        pack = {"title": "T", "modules": self.pack["modules"], "subsystems": self.pack["subsystems"], "pack": "p", "version": "0"}
+        low = src("A", ["M01", "S01"])
+        low["stars"] = 3
+        cov = compute_coverage(self.pack, [low])
+        text = render_report(pack, [low], cov, state)
+        self.assertIn("低星但高覆盖", text)
+        self.assertIn("覆盖 2 格", text)
 
 
 class TestCLI(unittest.TestCase):

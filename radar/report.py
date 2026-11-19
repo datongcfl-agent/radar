@@ -95,12 +95,14 @@ def render_gaps(pack, coverage):
         lines.append("## %s %s — %s" % (row["id"], row["name"], row["level"]))
         lines.append("")
         lines.append("下一轮查询建议：")
+        arts = next((x.get("artifacts") for x in pack["modules"] + pack["subsystems"]
+                     if x["id"] == row["id"]), None) or ["资料"]
+        art_str = arts[0] if arts else "资料"
         for tpl in pack.get("query_templates", []):
             try:
-                q = tpl.format(module=row["name"], artifact=", ".join(
-                    next((x["artifacts"] for x in pack["modules"] + pack["subsystems"]
-                          if x["id"] == row["id"]), ["资料"])), industry=pack["title"],
-                    subsystem=row["name"], platform="github")
+                q = tpl.format(module=row["name"], artifact=art_str,
+                               industry=pack["title"],
+                               subsystem=row["name"], platform="github")
             except Exception:
                 q = tpl
             lines.append("- `%s`" % q)
@@ -118,7 +120,14 @@ def render_gaps(pack, coverage):
 
 
 def render_report(pack, sources, coverage, state):
-    low = [s for s in sources if isinstance(s.get("stars"), int) and s["stars"] <= 10]
+    # 低星但覆盖 ≥2 格：星数低但信息密度高，才值得单独提醒
+    covered_by = {}
+    for s in sources:
+        for cid in s.get("covers", []):
+            covered_by.setdefault(s["id"], set()).add(cid)
+    low = [s for s in sources
+           if isinstance(s.get("stars"), int) and s["stars"] <= 50
+           and len(covered_by.get(s["id"], set())) >= 2]
     issues = [s for s in sources if s.get("access_status") != "public"
               or s.get("license_status") != "clear"]
     lines = [
@@ -141,13 +150,22 @@ def render_report(pack, sources, coverage, state):
     ]
     for p, n in sorted(coverage["platforms"].items()):
         lines.append("| %s | %d |" % (p, n))
-    lines.extend(["", "## 低星但相关的发现", ""])
+    total = len(sources)
+    for p, n in coverage["platforms"].items():
+        if total and n / total >= 0.9 and len(coverage["platforms"]) == 1:
+            lines.extend(["",
+                          "> ⚠️ **平台偏置**：%d/%d 来源全部来自单一平台 `%s`。"
+                          "此结论只代表该平台视野，不代表行业全貌；"
+                          "换平台（gitee/web/registry）补搜可降低偏置。" % (n, total, p)])
+            break
+    lines.extend(["", "## 低星但高覆盖的发现", ""])
     if low:
         for s in low:
-            lines.append("- `%s` [%s](%s) — %d★，%s" % (
-                s["id"], _md(s["title"]), s["url"], s["stars"], s.get("why_selected", "")))
+            lines.append("- `%s` [%s](%s) — %d★，覆盖 %d 格，%s" % (
+                s["id"], _md(s["title"]), s["url"], s["stars"],
+                len(covered_by.get(s["id"], set())), s.get("why_selected", "")))
     else:
-        lines.append("- 本次没有 stars ≤ 10 的来源；这不代表没有低星好资料。")
+        lines.append("- 本次没有「低星（≤50）但覆盖 ≥2 格」的来源；这不代表没有低星好资料。")
     lines.extend(["", "## 访问/许可需要注意", ""])
     if issues:
         for s in issues:
