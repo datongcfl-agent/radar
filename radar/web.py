@@ -10,7 +10,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 from urllib.robotparser import RobotFileParser
 
-UA = "radar-mvp/0.5"
+UA = "radar-mvp/0.5.1"
 
 
 class _Extractor(HTMLParser):
@@ -78,9 +78,6 @@ def detect_license(text, url=""):
     t = (text or "").lower()
     path = (urlsplit(url).path or "").lower()
 
-    if "all rights reserved" in t or "版权所有" in t or "proprietary notice" in t:
-        return "proprietary", "proprietary", "all rights reserved / 版权所有"
-
     strong = [
         (r"permission is hereby granted, free of charge, to any person obtaining a copy", "MIT"),
         (r"licensed under the apache license,? version 2\.0", "Apache-2.0"),
@@ -110,6 +107,9 @@ def detect_license(text, url=""):
         if "2." in t and "3." not in t:
             return "BSD-2-Clause", "clear", m.group(0)
         return "BSD", "needs_review", "BSD without clause count"
+
+    if "all rights reserved" in t or "版权所有" in t or "proprietary notice" in t:
+        return "proprietary", "proprietary", "all rights reserved / 版权所有"
 
     weak = [
         (r"\bmit license\b", "MIT"),

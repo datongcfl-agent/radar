@@ -56,17 +56,26 @@ def sha256_file(path):
 
 
 def canonical_url(url):
-    """Canonicalize for dedup: lowercase host, strip www/fragment/tracking."""
+    """Canonicalize for dedup: scheme, netloc (port), query order, tracking."""
     if not url:
         return ""
     parts = urlsplit(url.strip())
     host = (parts.hostname or "").lower()
     if host.startswith("www."):
         host = host[4:]
+    scheme = (parts.scheme or "https").lower()
+    if scheme in {"http", "https"}:
+        scheme = "https"
+    try:
+        port = parts.port
+    except ValueError:
+        port = None
+    if port and not ((scheme == "https" and port == 443) or (scheme == "http" and port == 80)):
+        host = "%s:%d" % (host, port)
     path = parts.path.rstrip("/") or "/"
-    query = [(k, v) for k, v in parse_qsl(parts.query, keep_blank_values=True)
-             if k.lower() not in TRACKING]
-    return urlunsplit((parts.scheme or "https", host, path, urlencode(query), ""))
+    query = sorted((k, v) for k, v in parse_qsl(parts.query, keep_blank_values=True)
+                   if k.lower() not in TRACKING)
+    return urlunsplit((scheme, host, path, urlencode(query), ""))
 
 
 def _require(cond, msg):
@@ -102,17 +111,21 @@ def load_pack(path):
     return data
 
 
+def _is_host(host, domain):
+    return host == domain or host.endswith("." + domain)
+
+
 def _infer_platform(url):
     host = (urlsplit(url).hostname or "").lower()
-    if host.endswith("github.com"):
+    if _is_host(host, "github.com"):
         return "github"
-    if host.endswith("gitee.com"):
+    if _is_host(host, "gitee.com"):
         return "gitee"
-    if host.endswith("npmjs.com"):
+    if _is_host(host, "npmjs.com"):
         return "npm"
-    if host.endswith("pypi.org"):
+    if _is_host(host, "pypi.org"):
         return "pypi"
-    if host.endswith("openproject.org") or host.endswith("readthedocs.io"):
+    if _is_host(host, "openproject.org") or _is_host(host, "readthedocs.io"):
         return "docs"
     return "web"
 
@@ -205,25 +218,43 @@ def level_for_source(src):
     return "mention"
 
 
+ACCESS_RANK = {"public": 0, "api_limited": 1, "login_required": 2,
+               "paywalled": 3, "proprietary": 3, "blocked": 4,
+               "deleted": 5, "unreachable": 6}
+
+
+def _merge_status(a, b):
+    for value in ("selected", "needs_review", "rejected"):
+        if a == value or b == value:
+            return value
+    return a or b
+
+
 def merge_sources(sources):
-    """Dedup by canonical URL, merge covers/quotes, keep the strongest evidence."""
+    """Dedup by canonical URL; never lose covers/quotes when replacing metadata."""
     by_url = {}
     for src in sources:
-        key = canonical_url(src["url"])
-        if not key:
-            key = src["id"]
+        key = canonical_url(src["url"]) or src["id"]
         if key not in by_url:
             by_url[key] = dict(src)
             by_url[key]["_merged_from"] = [src["id"]]
             continue
         cur = by_url[key]
-        cur["_merged_from"].append(src["id"])
-        cur["covers"] = sorted(set(cur.get("covers", [])) | set(src.get("covers", [])))
-        cur["quotes"] = list(dict.fromkeys((cur.get("quotes") or []) + (src.get("quotes") or [])))
-        if LEVELS[level_for_source(src)] > LEVELS[level_for_source(cur)]:
-            keep_merged = cur["_merged_from"]
-            cur.update(src)
-            cur["_merged_from"] = keep_merged
-        if src.get("access_status") == "unreachable":
-            cur["access_status"] = "unreachable"
-    return list(by_url.values())
+        merged_from = cur["_merged_from"] + [src["id"]]
+        covers = sorted(set(cur.get("covers", [])) | set(src.get("covers", [])))
+        quotes = list(dict.fromkeys((cur.get("quotes") or []) + (src.get("quotes") or [])))
+        stronger = src if LEVELS[level_for_source(src)] > LEVELS[level_for_source(cur)] else cur
+        merged = dict(stronger)
+        merged["covers"] = covers
+        merged["quotes"] = quotes
+        merged["_merged_from"] = merged_from
+        merged["status"] = _merge_status(cur.get("status"), src.get("status"))
+        merged["access_status"] = max(
+            (cur.get("access_status"), src.get("access_status")),
+            key=lambda x: ACCESS_RANK.get(x, 0))
+        by_url[key] = merged
+    out = list(by_url.values())
+    ids = [s["id"] for s in out]
+    if len(ids) != len(set(ids)):
+        raise RadarError("来源 ID 重复: %s" % sorted({x for x in ids if ids.count(x) > 1}))
+    return out

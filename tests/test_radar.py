@@ -13,14 +13,14 @@ sys.path.insert(0, str(ROOT))
 from radar.coverage import compute_coverage, gap_rows
 from radar.report import render_gaps, render_report
 from radar.state import compare_sources, render_changes
-from radar.adapters import parse_gitee_items, gitee_search
+from radar.adapters import parse_gitee_items, gitee_search, github_search
 from radar.fetch import apply_fetch, parse_headers
 from radar.snowball import parse_github_repo, fork_source, snowball as run_snowball
 from radar.web import extract_html, detect_license, apply_web, enrich_web
 from radar.claims import compute_confidence, evaluate_claims, write_claims
 from radar.diff import diff_runs
 from radar.model import (RadarError, canonical_url, load_pack, load_seeds,
-                         validate_source)
+                         merge_sources, validate_source, _infer_platform)
 
 PACK = ROOT / "packs/weak-current/pack.json"
 SEEDS = ROOT / "seeds/weak-current.json"
@@ -41,6 +41,34 @@ class TestModel(unittest.TestCase):
         self.assertEqual(canonical_url("https://www.Example.com/a/?utm_source=x#frag"),
                          "https://example.com/a")
         self.assertEqual(canonical_url("https://example.com/a"), "https://example.com/a")
+        self.assertEqual(canonical_url("http://example.com:8080/a?b=2&a=1"),
+                         "https://example.com:8080/a?a=1&b=2")
+        self.assertEqual(canonical_url("https://user:pw@example.com/a"),
+                         "https://example.com/a")
+        self.assertEqual(canonical_url("http://example.com/a"),
+                         canonical_url("https://example.com/a"))
+
+    def test_infer_platform_exact_host(self):
+        self.assertEqual(_infer_platform("https://notgithub.com/a/b"), "web")
+        self.assertEqual(_infer_platform("https://evilgitee.com/x"), "web")
+        self.assertEqual(_infer_platform("https://www.github.com/a/b"), "github")
+
+    def test_merge_keeps_covers_and_quotes(self):
+        a = src("A", ["M01", "M02"], quotes=["qa"])
+        b = src("B", ["M03"], evidence="production", quotes=["qb"])
+        b["url"] = a["url"]
+        b["access_status"] = "blocked"
+        merged = merge_sources([a, b])
+        self.assertEqual(len(merged), 1)
+        self.assertEqual(merged[0]["covers"], ["M01", "M02", "M03"])
+        self.assertEqual(merged[0]["quotes"], ["qa", "qb"])
+        self.assertEqual(merged[0]["access_status"], "blocked")
+        self.assertEqual(merged[0]["_merged_from"], ["A", "B"])
+
+    def test_merge_rejects_duplicate_ids(self):
+        a = src("A", ["M01"]); b = src("A", ["M02"]); b["url"] = "https://example.com/other"
+        with self.assertRaises(RadarError):
+            merge_sources([a, b])
 
     def test_pack_and_seeds_valid(self):
         pack = load_pack(PACK)
@@ -274,6 +302,7 @@ class TestWeb(unittest.TestCase):
 
     def test_detect_license(self):
         mit = "Permission is hereby granted, free of charge, to any person obtaining a copy"
+        self.assertEqual(detect_license(mit + "\nAll rights reserved")[:2], ("MIT", "clear"))
         self.assertEqual(detect_license(mit)[:2], ("MIT", "clear"))
         self.assertEqual(detect_license("licensed under the Apache License, Version 2.0")[:2],
                          ("Apache-2.0", "clear"))
@@ -370,6 +399,22 @@ class TestGitee(unittest.TestCase):
         self.assertEqual(out[0]["license_status"], "needs_review")
         self.assertIn("M06", out[0]["covers"])
 
+    def test_gitee_offset_ids(self):
+        pack = load_pack(PACK)
+        items = [{"full_name": "demo/elv", "html_url": "https://gitee.com/demo/elv",
+                  "description": "弱电 报价", "stargazers_count": 1}]
+        out = parse_gitee_items(items, pack, "q", id_offset=3)
+        self.assertEqual(out[0]["id"], "GT-004")
+
+    def test_github_offset_ids(self):
+        pack = load_pack(PACK)
+        item = {"full_name": "demo/elv", "html_url": "https://github.com/demo/elv",
+                "description": "弱电 报价", "stargazers_count": 1}
+        with mock.patch("radar.adapters._curl_json", return_value=({"items": [item]}, None)):
+            out, err = github_search("q", pack, id_offset=5)
+        self.assertIsNone(err)
+        self.assertEqual(out[0]["id"], "GH-006")
+
     def test_gitee_without_token_is_explicit(self):
         pack = load_pack(PACK)
         got, warn = gitee_search("弱电", pack, token=None)
@@ -436,9 +481,9 @@ class TestCLI(unittest.TestCase):
             state = json.loads((scan_out / "state.json").read_text(encoding="utf-8"))
             self.assertEqual(state["mode"], "scan")
             self.assertEqual(state["since"], str(out1))
-            self.assertEqual(state["radar_version"], "0.5.0")
+            self.assertEqual(state["radar_version"], "0.5.1")
             self.assertIn("radar_commit", state)
-            self.assertIn("Radar: v0.5.0", (scan_out / "report.md").read_text(encoding="utf-8"))
+            self.assertIn("Radar: v0.5.1", (scan_out / "report.md").read_text(encoding="utf-8"))
 
             claims_file = tmp / "claims.json"
             claims_file.write_text(json.dumps({
@@ -453,7 +498,7 @@ class TestCLI(unittest.TestCase):
                            capture_output=True, text=True)
             self.assertTrue((claims_out / "claims.md").exists())
             self.assertTrue((claims_out / "review.csv").exists())
-            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "0.5.0")
+            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "0.5.1")
 
 
 class TestAudit(unittest.TestCase):
