@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "run_id": "20261120-024040",
-  "radar_version": "0.6.0",
-  "radar_commit": "4e0a3a0",
+  "run_id": "20261120-024916",
+  "radar_version": "0.6.1",
+  "radar_commit": "07b1953",
   "title": "弱电管理系统",
-  "created_at": "2026-11-20T02:40:40+08:00",
+  "created_at": "2026-11-20T02:49:16+08:00",
   "pack": "weak-current",
   "pack_version": "0.1.0",
   "pack_sha256": "d950e3f6f0a85905e5fff2ccab0002f285bcfb441622ecf0723426e72dafcd13",
@@ -20,6 +20,7 @@
     "web": false,
     "web_limit": 5,
     "respect_robots": false,
+    "require_web_verify": false,
     "limit": 3,
     "max_queries": 3,
     "strict": false

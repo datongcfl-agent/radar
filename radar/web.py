@@ -10,7 +10,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 from urllib.robotparser import RobotFileParser
 
-UA = "radar-mvp/0.6.0"
+UA = "radar-mvp/0.6.1"
 
 
 class _Extractor(HTMLParser):
@@ -159,6 +159,7 @@ def apply_web(source, page, status=200):
         "true" if page.get("quotes") else "unknown")
     out["quote_verified_by"] = "web"
     out["quote_verified_at"] = _now()
+    out["quote_verified_this_run"] = True
     out["web_text_chars"] = len(page.get("text", ""))
     out["web_extracted"] = True
     out["last_seen"] = _now()

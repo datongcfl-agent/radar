@@ -1,6 +1,6 @@
 # 弱电管理系统 · 雷达运行报告
 
-Run: `20261120-024040` · Pack: `weak-current` v0.1.0 · Radar: v0.6.0
+Run: `20261120-024916` · Pack: `weak-current` v0.1.0 · Radar: v0.6.1
 
 ## 一句话
 

@@ -72,7 +72,7 @@ def canonical_url(url):
         port = parts.port
     except ValueError:
         port = None
-    if port and not ((scheme == "https" and port == 443) or (scheme == "http" and port == 80)):
+    if port and port not in (80, 443):
         host = "%s:%d" % (host, port)
     path = parts.path.rstrip("/") or "/"
     query = sorted((k, v) for k, v in parse_qsl(parts.query, keep_blank_values=True)
@@ -176,6 +176,7 @@ def normalize_source(src, pack, index=0, strict=False):
         qv = "true" if qv else "false"
     out["quote_verified"] = qv
     out.setdefault("quote_verified_by", None)
+    out["quote_verified_this_run"] = False
 
     _require(str(out["id"]).strip(), "%s.id 不能为空" % where)
     _require(out["platform"] in PLATFORMS, "%s.platform 非法: %s" % (where, out["platform"]))
@@ -215,6 +216,15 @@ def load_seeds(path, pack, strict=False):
         seen.add(item["id"])
         out.append(item)
     return out
+
+
+def enforce_web_verification(sources):
+    """Ignore seed-provided marks: only quotes verified in this run can count."""
+    for src in sources:
+        if not src.get("quote_verified_this_run"):
+            src["quote_verified"] = "unknown"
+            src["quote_verified_by"] = None
+    return sources
 
 
 def level_for_source(src):
@@ -261,14 +271,25 @@ def merge_sources(sources):
             continue
         cur = by_url[key]
         merged_from = cur["_merged_from"] + [src["id"]]
-        covers = sorted(set(cur.get("covers", [])) | set(src.get("covers", [])))
-        quotes = list(dict.fromkeys((cur.get("quotes") or []) + (src.get("quotes") or [])))
-        stronger = src if LEVELS[level_for_source(src)] > LEVELS[level_for_source(cur)] else cur
+        if cur.get("status") == "rejected" and src.get("status") != "rejected":
+            covers = list(src.get("covers") or [])
+            quotes = list(src.get("quotes") or [])
+            stronger = src
+        elif src.get("status") == "rejected" and cur.get("status") != "rejected":
+            covers = list(cur.get("covers") or [])
+            quotes = list(cur.get("quotes") or [])
+            stronger = cur
+        else:
+            covers = sorted(set(cur.get("covers", [])) | set(src.get("covers", [])))
+            quotes = list(dict.fromkeys((cur.get("quotes") or []) + (src.get("quotes") or [])))
+            stronger = src if LEVELS[level_for_source(src)] > LEVELS[level_for_source(cur)] else cur
         merged = dict(stronger)
         merged["covers"] = covers
         merged["quotes"] = quotes
         merged["_merged_from"] = merged_from
         merged["status"] = _merge_status(cur.get("status"), src.get("status"))
+        merged["quote_verified_this_run"] = bool(
+            cur.get("quote_verified_this_run") or src.get("quote_verified_this_run"))
         verified = (cur.get("quote_verified", "unknown"), src.get("quote_verified", "unknown"))
         if "false" in verified:
             merged["quote_verified"] = "false"
