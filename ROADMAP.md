@@ -23,6 +23,15 @@
 - 19 个单测；
 - **明确不做**：网络 `--fetch`，不假装已经抓网页；抓取留给 adapter。
 
+## v0.2.3 — Gitee adapter（本 PR）
+
+- `GITEE_TOKEN`（env 或 `~/.config/radar/gitee_token`）；
+- `Authorization: Bearer`，token 不进 URL/日志；
+- `--gitee` + `source_map.gitee` 查询；
+- 只做公开仓库 metadata，license 默认 `needs_review`；
+- 无 token 明确跳过；
+- 21 个单测。
+
 ## v0.2 — 可迭代
 
 目标：从“手动重跑”变成“只处理变化”。

@@ -15,6 +15,8 @@ python3 -m radar validate --pack packs/weak-current/pack.json --seeds seeds/weak
 # 可选：--strict 要求 v0.1 的完整 12 字段
 python3 -m radar run --pack packs/weak-current/pack.json --seeds seeds/weak-current.json \
   --title "弱电管理系统" --out runs/weak-current-demo
+# 可选：Gitee 需要 GITEE_TOKEN（env 或 ~/.config/radar/gitee_token）
+python3 -m radar run ... --gitee --limit 3 --max-queries 3
 python3 -m radar scan --pack packs/weak-current/pack.json --seeds seeds/weak-current.json \
   --title "弱电管理系统" --out runs/weak-current-demo-v2 --since runs/weak-current-demo
 python3 -m radar diff --from runs/a --to runs/b --out runs/diff.md

@@ -11,9 +11,9 @@ CLEAR_LICENSES = {"MIT", "Apache-2.0", "BSD-3-Clause", "BSD-2-Clause", "0BSD",
                   "PostgreSQL", "Unlicense", "CC0-1.0"}
 
 
-def _curl_json(url, token=None):
+def _curl_json(url, token=None, accept="application/json"):
     cmd = ["curl", "-sS", "--max-time", "25", "-H", "User-Agent: radar-mvp",
-           "-H", "Accept: application/vnd.github+json"]
+           "-H", "Accept: %s" % accept]
     if token:
         cmd += ["-H", "Authorization: Bearer %s" % token]
     cmd.append(url)
@@ -83,6 +83,67 @@ def collect_github(pack, limit_per_query=3, max_queries=3, token=None):
     queries = (pack.get("source_map") or {}).get("github", [])[:max_queries]
     for q in queries:
         got, warn = github_search(q, pack, limit=limit_per_query, token=token)
+        sources.extend(got)
+        if warn:
+            warnings.append(warn)
+    return sources, warnings
+
+
+def parse_gitee_items(items, pack, query):
+    out = []
+    for i, item in enumerate(items or []):
+        text = " ".join([item.get("full_name", ""), item.get("description") or ""])
+        covers = infer_covers(text, pack)
+        if not covers:
+            continue
+        lic = item.get("license") if isinstance(item.get("license"), str) else "unknown"
+        out.append({
+            "id": "GT-%03d" % (i + 1),
+            "platform": "gitee",
+            "url": item.get("html_url", ""),
+            "title": item.get("full_name", ""),
+            "artifact_type": "code",
+            "language": item.get("language") or "unknown",
+            "retrieved_at": item.get("updated_at"),
+            "http_status": 200,
+            "access_status": "public",
+            "license": lic,
+            "license_status": "clear" if lic in CLEAR_LICENSES else "needs_review",
+            "evidence_level": "metadata",
+            "derived_from_real_data": False,
+            "stars": item.get("stargazers_count"),
+            "covers": covers,
+            "borrow_scope": ["workflow"],
+            "quotes": [],
+            "limitations": "仅 Gitee metadata，未读正文/代码",
+            "status": "needs_review",
+            "why_selected": "Gitee search: %s" % query,
+        })
+    return out
+
+
+def gitee_search(query, pack, limit=3, token=None):
+    if not token:
+        return [], "Gitee 需要 GITEE_TOKEN；已跳过（不静默返回空）"
+    url = ("https://gitee.com/api/v5/search/repositories?q="
+           + urllib.parse.quote(query)
+           + "&per_page=%d" % max(1, min(limit, 10)))
+    data, err = _curl_json(url, token)
+    if err:
+        return [], "Gitee 查询失败: %s" % err
+    if isinstance(data, dict):
+        msg = data.get("message") or str(data)[:200]
+        return [], "Gitee 返回异常: %s" % msg
+    if not isinstance(data, list):
+        return [], "Gitee 返回异常: %s" % str(data)[:200]
+    return parse_gitee_items(data, pack, query), None
+
+
+def collect_gitee(pack, limit_per_query=3, max_queries=3, token=None):
+    sources, warnings = [], []
+    queries = (pack.get("source_map") or {}).get("gitee", [])[:max_queries]
+    for q in queries:
+        got, warn = gitee_search(q, pack, limit=limit_per_query, token=token)
         sources.extend(got)
         if warn:
             warnings.append(warn)
