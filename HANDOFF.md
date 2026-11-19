@@ -19,7 +19,7 @@ radar/
 ├── packs/             # 行业包
 ├── seeds/             # 种子来源
 ├── docs/              # PACK/MVP
-├── tests/             # 10 个单测
+├── tests/             # 40 个单测
 ├── runs/weak-current-demo/  # 样例输出
 ├── README.md
 ├── AGENT-TASK.md
@@ -29,7 +29,7 @@ radar/
 对方需要：Python 3.9+、能读文件、能跑 shell。不需要安装依赖。
 
 ```bash
-cd radar
+cd <repo>
 python3 -m unittest discover -s tests -v
 python3 -m radar run --pack packs/weak-current/pack.json --seeds seeds/weak-current.json \
   --title "弱电管理系统" --out runs/handoff-demo
@@ -56,7 +56,7 @@ python3 -m radar run --pack packs/weak-current/pack.json --seeds seeds/weak-curr
 
 - 仓库：`<radar-repo>`
 - 当前提交：以 `git log -1` 为准
-- 版本：`0.4.0`（tag 由 owner 打）
+- 版本：`0.5.0`（tag 由 owner 打）
 - 运行模式：`run` / `scan --base` / `diff`
 
 ## 还没接
