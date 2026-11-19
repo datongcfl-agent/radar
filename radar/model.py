@@ -17,6 +17,8 @@ LICENSE_STATUS = {"clear", "needs_review", "proprietary"}
 EVIDENCE = {"marketing", "metadata", "readme", "docs", "real_artifact",
             "code_tests", "production"}
 STATUS = {"selected", "rejected", "needs_review"}
+QUOTE_VERIFIED = {"true", "false", "unknown"}
+QUOTE_VERIFIED_BY = {"web", "human"}
 ARTIFACTS = {"code", "readme", "prd", "quote_sheet", "subsystem_list",
              "ui_reference", "manual", "benchmark", "article", "docs"}
 
@@ -169,6 +171,11 @@ def normalize_source(src, pack, index=0, strict=False):
     out.setdefault("derived_from_real_data", False)
     out.setdefault("borrow_scope", [])
     out.setdefault("limitations", "")
+    qv = out.get("quote_verified", "unknown")
+    if isinstance(qv, bool):
+        qv = "true" if qv else "false"
+    out["quote_verified"] = qv
+    out.setdefault("quote_verified_by", None)
 
     _require(str(out["id"]).strip(), "%s.id 不能为空" % where)
     _require(out["platform"] in PLATFORMS, "%s.platform 非法: %s" % (where, out["platform"]))
@@ -182,6 +189,10 @@ def normalize_source(src, pack, index=0, strict=False):
     for cid in out["covers"]:
         _require(cid in valid_ids, "%s.covers 含不存在的 id: %s" % (where, cid))
     _require(isinstance(out["quotes"], list), "%s.quotes 必须是数组" % where)
+    _require(out["quote_verified"] in QUOTE_VERIFIED,
+             "%s.quote_verified 必须是 true/false/unknown" % where)
+    _require(out.get("quote_verified_by") in (None, "", "web", "human"),
+             "%s.quote_verified_by 必须是 web/human/空" % where)
     return out
 
 
@@ -212,11 +223,18 @@ def level_for_source(src):
     if src.get("access_status") in {"deleted", "blocked", "unreachable"}:
         return "mention"
     has_quote = bool(src.get("quotes"))
+    verified = src.get("quote_verified", "unknown")
+    by = src.get("quote_verified_by")
     ev = src.get("evidence_level")
     if has_quote and ev in {"real_artifact", "code_tests", "production"}:
-        return "strong"
-    if has_quote and ev in {"readme", "docs"}:
+        # Strong requires machine verification, not a human declaration.
+        if verified == "false":
+            return "mention"
+        if verified == "true" and by == "web":
+            return "strong"
         return "evidence"
+    if has_quote and ev in {"readme", "docs"}:
+        return "mention" if verified == "false" else "evidence"
     return "mention"
 
 
@@ -251,6 +269,16 @@ def merge_sources(sources):
         merged["quotes"] = quotes
         merged["_merged_from"] = merged_from
         merged["status"] = _merge_status(cur.get("status"), src.get("status"))
+        verified = (cur.get("quote_verified", "unknown"), src.get("quote_verified", "unknown"))
+        if "false" in verified:
+            merged["quote_verified"] = "false"
+        elif all(v == "true" for v in verified):
+            merged["quote_verified"] = "true"
+        else:
+            merged["quote_verified"] = "unknown"
+        bys = (cur.get("quote_verified_by"), src.get("quote_verified_by"))
+        merged["quote_verified_by"] = ("web" if merged["quote_verified"] == "true" and all(b == "web" for b in bys)
+                                       else ("human" if "human" in bys else None))
         merged["access_status"] = max(
             (cur.get("access_status"), src.get("access_status")),
             key=lambda x: ACCESS_RANK.get(x, 0))

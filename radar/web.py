@@ -10,7 +10,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 from urllib.robotparser import RobotFileParser
 
-UA = "radar-mvp/0.5.2"
+UA = "radar-mvp/0.6.0"
 
 
 class _Extractor(HTMLParser):
@@ -126,6 +126,23 @@ def detect_license(text, url=""):
     return "unknown", "needs_review", ""
 
 
+def _norm(text):
+    return re.sub(r"[\W_]+", "", (text or "").lower())
+
+
+def verify_quotes(quotes, text):
+    """Return true/false/unknown by normalized substring match."""
+    quotes = [q for q in (quotes or []) if q and q.strip()]
+    if not quotes:
+        return "unknown"
+    page = _norm(text)
+    if all(_norm(q) in page for q in quotes):
+        return "true"
+    if len(page) >= 300:
+        return "false"
+    return "unknown"
+
+
 def _now():
     return datetime.now().astimezone().isoformat(timespec="seconds")
 
@@ -136,6 +153,12 @@ def apply_web(source, page, status=200):
         out["title"] = page["title"]
     old = out.get("quotes") or []
     out["quotes"] = list(dict.fromkeys(old + page.get("quotes", [])))[:5]
+    page_text = " ".join([page.get("title", ""), page.get("description", ""),
+                          page.get("text", "")])
+    out["quote_verified"] = verify_quotes(old, page_text) if old else (
+        "true" if page.get("quotes") else "unknown")
+    out["quote_verified_by"] = "web"
+    out["quote_verified_at"] = _now()
     out["web_text_chars"] = len(page.get("text", ""))
     out["web_extracted"] = True
     out["last_seen"] = _now()

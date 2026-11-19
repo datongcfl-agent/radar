@@ -1,4 +1,4 @@
-# radar · 最小行业雷达（v0.5.2）
+# radar · 最小行业雷达（v0.6.0）
 
 **A minimal industry radar: does every module in your industry outline actually have evidence?**
 
@@ -77,7 +77,7 @@ python3 -m radar run \
 ## 弱电 pack 现状（v0.5）
 
 - **34 条公开来源**：30 selected / 4 needs_review；
-- 覆盖：**3 strong / 21 evidence / 8 mention / 5 none**；
+- 覆盖：**0 strong / 24 evidence / 8 mention / 5 none**；
 - 13 个单源、8 个同源待印证、5 个无证据；`gaps.md` 有真实缺口，不再写“无缺口”；
 - 审计：无 `covers ≥5` 的万金油来源、无 <40 字的空壳 quote；
 - 来源包含弱电工程系统、报价/成本、设备台账、楼宇自控、视频、停车、IPTV、背景音乐、监控、工单等；
@@ -135,7 +135,7 @@ token 只通过 `Authorization: Bearer` 发送，不拼进 URL、不写日志；
 
 ## 覆盖度规则
 
-- `strong`：至少 2 个来源，且至少 1 个达到 `real_artifact/code_tests/production` + 有 quote；
+- `strong`：至少 2 个来源、至少 2 个独立 host，且至少 1 个达到 `real_artifact/code_tests/production` + `quote_verified: true`；
 - `evidence`：有 `readme/docs` + quote；**单源最高只能到 evidence**；
 - `mention`：只提到名字，没有 quote；
 - `none`：没有来源。
@@ -147,9 +147,19 @@ token 只通过 `Authorization: Bearer` 发送，不拼进 URL、不写日志；
 `production > code_tests > real_artifact` 是**存在性阶梯**：在产系统能证明“这个做法真的存在”，不等于“工程质量更好”。  
 判断质量时要另看测试、文档、维护、边界；不要把存在性排序当质量排序。
 
+## Quote 验证（v0.6）
+
+`strong` 不再只看“有没有 quote”，还要求 `quote_verified: true`：
+
+- `true`：`--web` 抓取成功，且 quote 归一化后是页面正文的子串；
+- `false`：页面抓到了，但 quote 不在正文里（最高 mention）；
+- `unknown`：没有验证过（最高 evidence，不能 strong）。
+
+当前 seeds 里没有 `--web` 机器验证的 quote，所以 strong = 0；这是诚实结果，不是数据退步。详见 [docs/QUOTES.md](docs/QUOTES.md)。
+
 ## 当前 MVP 的边界
 
-- **包含**：Seed Lite（最小 6 字段 + 默认值 + `--strict`）、pack/seeds 校验、URL 去重、覆盖度、目录/缺口/报告、`scan --since` 账本层变更检测 + 覆盖 diff、可选 GitHub/Gitee metadata 搜索、`--snowball`（GitHub forks）、`--fetch`（ETag/content_hash）、`--web`（静态正文抽取 + 许可提示，可选 `--respect-robots`）、`claims`（claim 账本 + 置信度/复核队列）；
+- **包含**：Seed Lite（最小 6 字段 + 默认值 + `--strict`）、pack/seeds 校验、URL 去重、覆盖度、目录/缺口/报告、`scan --since` 账本层变更检测 + 覆盖 diff、可选 GitHub/Gitee metadata 搜索、`--snowball`（GitHub forks）、`--fetch`（ETag/content_hash）、`--web`（静态正文抽取 + 许可提示，可选 `--respect-robots`）、`claims`（claim 账本 + 置信度/复核队列）、`quote_verified`（quote 子串校验）；
 - **不包含**：浏览器/登录、全量爬虫、UI、自动 PRD、OCR、定时任务（scan 是手动触发）、Gitee forks、GitHub dependents/引用图；`--fetch` 只抓公开 URL 的头/体 hash；`--web` 只做静态 HTML，不执行 JS、不绕登录；Playwright/docling/ScanCode 未做，v0.3 是**部分完成**；
 - **来源**：seeds 是人工/agent 填的；`--github` 只到 metadata，不读正文；
 - **许可**：专有来源只进参考池，不能复用；`needs_review` 要人工复核。
@@ -164,7 +174,7 @@ token 只通过 `Authorization: Bearer` 发送，不拼进 URL、不写日志；
 
 `report.md` 头部也会显示 `Radar: v...`。这样别人拿到一个 run，能知道是哪个版本/commit 跑出来的。
 
-当前代码版本 `0.5.2`。tag 由仓库 owner 打；Agent 不自行打标签。
+当前代码版本 `0.6.0`。tag 由仓库 owner 打；Agent 不自行打标签。
 
 ## Claim 账本（v0.4）
 
@@ -203,7 +213,7 @@ python3 -m radar claims \
 python3 -m unittest discover -s tests -v
 ```
 
-51 个用例覆盖：pack/seeds 校验、Seed Lite 默认值、`--strict` 拒绝最小字段、URL 规范化、单源上限、双源 strong、mention/none、gaps、来源级变更、Gitee metadata 映射、fetch 状态、snowball fork 映射、HTML 抽取、中文 quote、404 不冒充成功、license 提示、claim 覆盖校验/双向矛盾/CSV 注入、merge 并集/ID 唯一/canonical/平台推断/许可顺序、独立 host/单源口径、坏访问、reusable、CLI 报错、残留清理、账本审计、CLI run/scan/diff。
+58 个用例覆盖：pack/seeds 校验、Seed Lite 默认值、`--strict` 拒绝最小字段、URL 规范化、单源上限、双源 strong、mention/none、gaps、来源级变更、Gitee metadata 映射、fetch 状态、snowball fork 映射、HTML 抽取、中文 quote、404 不冒充成功、license 提示、claim 覆盖校验/双向矛盾/CSV 注入、merge 并集/ID 唯一/canonical/平台推断/许可顺序、独立 host/单源口径、坏访问、reusable、CLI 报错、残留清理、账本审计、CLI run/scan/diff。
 
 ## 交给其他 Agent
 
@@ -225,7 +235,7 @@ radar/
 ├── radar/            # CLI + 校验 + 覆盖度 + diff
 ├── packs/            # weak-current / pet-hospital
 ├── seeds/            # 两个行业的种子来源
-├── tests/            # 51 个单测
+├── tests/            # 58 个单测
 ├── docs/             # PACK / MVP
 ├── .dsh/skills/radar # Skill
 └── runs/             # demo 输出

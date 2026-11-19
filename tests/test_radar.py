@@ -16,7 +16,8 @@ from radar.state import compare_sources, render_changes
 from radar.adapters import parse_gitee_items, gitee_search, github_search
 from radar.fetch import apply_fetch, parse_headers
 from radar.snowball import parse_github_repo, fork_source, snowball as run_snowball
-from radar.web import extract_html, detect_license, apply_web, enrich_web
+from radar.web import extract_html, detect_license, apply_web, enrich_web, verify_quotes
+from radar.model import level_for_source
 from radar.claims import compute_confidence, evaluate_claims, write_claims
 from radar.diff import diff_runs
 from radar.model import (RadarError, canonical_url, load_pack, load_seeds,
@@ -33,6 +34,7 @@ def src(sid, covers, evidence="readme", quotes=None, status="selected"):
         "license": "MIT", "license_status": "clear", "evidence_level": evidence,
         "covers": covers, "quotes": quotes if quotes is not None else ["quote"],
         "status": status, "why_selected": "test",
+        "quote_verified": "true", "quote_verified_by": "web",
     }
 
 
@@ -64,6 +66,12 @@ class TestModel(unittest.TestCase):
         self.assertEqual(merged[0]["quotes"], ["qa", "qb"])
         self.assertEqual(merged[0]["access_status"], "blocked")
         self.assertEqual(merged[0]["_merged_from"], ["A", "B"])
+
+    def test_merge_false_quote_wins(self):
+        a = src("A", ["M01"], quotes=["qa"]); a["quote_verified"] = "false"
+        b = src("B", ["M01"], quotes=["qb"]); b["url"] = a["url"]; b["quote_verified"] = "unknown"
+        merged = merge_sources([a, b])[0]
+        self.assertEqual(merged["quote_verified"], "false")
 
     def test_merge_rejects_duplicate_ids(self):
         a = src("A", ["M01"]); b = src("A", ["M02"]); b["url"] = "https://example.com/other"
@@ -163,6 +171,26 @@ class TestCoverage(unittest.TestCase):
         cov = compute_coverage(self.pack, [a, b])
         self.assertTrue(cov["modules"][0]["single_source"])
         self.assertEqual(cov["modules"][0]["evidence_count"], 1)
+
+    def test_unverified_quote_caps_evidence(self):
+        a = src("A", ["M01"], evidence="real_artifact")
+        a["quote_verified"] = "unknown"
+        b = src("B", ["M01"], evidence="docs"); b["url"] = "https://other.example/B"
+        cov = compute_coverage(self.pack, [a, b])
+        self.assertEqual(cov["modules"][0]["level"], "evidence")
+
+    def test_human_true_is_not_strong(self):
+        a = src("A", ["M01"], evidence="real_artifact")
+        a["quote_verified"] = "true"; a["quote_verified_by"] = "human"
+        b = src("B", ["M01"], evidence="docs"); b["url"] = "https://other.example/B"
+        cov = compute_coverage(self.pack, [a, b])
+        self.assertEqual(cov["modules"][0]["level"], "evidence")
+
+    def test_false_quote_is_mention(self):
+        a = src("A", ["M01"], evidence="real_artifact")
+        a["quote_verified"] = "false"
+        cov = compute_coverage(self.pack, [a])
+        self.assertEqual(cov["modules"][0]["level"], "mention")
 
     def test_bad_access_is_mention(self):
         a = src("A", ["M01"], evidence="production")
@@ -341,6 +369,32 @@ class TestWeb(unittest.TestCase):
         self.assertEqual(detect_license("A 项目采用 Apache 协议")[:2], ("Apache-2.0", "needs_review"))
         self.assertEqual(detect_license("MIT License")[:2], ("MIT", "needs_review"))
         self.assertEqual(detect_license("hello")[:2], ("unknown", "needs_review"))
+
+    def test_verify_quotes(self):
+        self.assertEqual(verify_quotes(["弱电 工程"], "这是弱电工程报价页面"), "true")
+        self.assertEqual(verify_quotes(["不存在的句子"], "短页面"), "unknown")
+        self.assertEqual(verify_quotes(["不存在的句子"], "长页面" * 200), "false")
+
+    def test_web_output_reloads_and_grades(self):
+        pack = load_pack(PACK)
+        source = src("W1", ["M01"], evidence="real_artifact", quotes=["弱电工程报价"])
+        source["url"] = "https://example.com/w1"
+        page = {"title": "T", "description": "", "quotes": [],
+                "text": "弱电工程报价与成本管理说明。" * 30}
+        out = apply_web(source, page)
+        self.assertEqual(out["quote_verified"], "true")
+        self.assertEqual(out["quote_verified_by"], "web")
+        loaded = validate_source({k: v for k, v in out.items()
+                                  if k not in {"_merged_from"}}, pack, strict=False)
+        self.assertEqual(level_for_source(loaded), "strong")
+
+    def test_apply_web_false_quote_is_mention(self):
+        source = src("W2", ["M01"], evidence="real_artifact", quotes=["不存在的句子"])
+        source["url"] = "https://example.com/w2"
+        out = apply_web(source, {"title": "T", "description": "", "quotes": [],
+                                 "text": "长正文" * 500})
+        self.assertEqual(out["quote_verified"], "false")
+        self.assertEqual(level_for_source(out), "mention")
 
     def test_apply_web(self):
         out = apply_web({"id": "A", "url": "https://example.com", "title": "x",
@@ -533,9 +587,9 @@ class TestCLI(unittest.TestCase):
             state = json.loads((scan_out / "state.json").read_text(encoding="utf-8"))
             self.assertEqual(state["mode"], "scan")
             self.assertEqual(state["since"], str(out1))
-            self.assertEqual(state["radar_version"], "0.5.2")
+            self.assertEqual(state["radar_version"], "0.6.0")
             self.assertIn("radar_commit", state)
-            self.assertIn("Radar: v0.5.2", (scan_out / "report.md").read_text(encoding="utf-8"))
+            self.assertIn("Radar: v0.6.0", (scan_out / "report.md").read_text(encoding="utf-8"))
 
             claims_file = tmp / "claims.json"
             claims_file.write_text(json.dumps({
@@ -550,7 +604,7 @@ class TestCLI(unittest.TestCase):
                            capture_output=True, text=True)
             self.assertTrue((claims_out / "claims.md").exists())
             self.assertTrue((claims_out / "review.csv").exists())
-            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "0.5.2")
+            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "0.6.0")
 
 
 class TestAudit(unittest.TestCase):

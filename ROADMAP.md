@@ -103,7 +103,15 @@
 
 验收：每条关键主张有 URL + quote + 置信度；矛盾不被强行合并。
 
-## v0.5 — 弱电真实来源（本 PR）
+## v0.6.0 — Quote 验证（本 PR）
+
+- `quote_verified: true/false/unknown`；
+- strong 要求至少 2 host + `quote_verified: true`；
+- `--web` 做归一化子串校验；
+- seeds 不再有人工 true；当前 strong=0，等 --web 机器验证；
+- 58 个单测。
+
+## v0.5 — 弱电真实来源（已合并）
 
 - 13 → 34 条公开来源；
 - 3 strong / 21 evidence / 8 mention / 5 none；
@@ -111,7 +119,7 @@
 - 已删除不属于通用弱电主线的 S24；
 - 新增来源以公开 README/metadata 为主，4 条许可 needs_review；
 - 基线：[docs/BASELINE.md](docs/BASELINE.md)；
-- 51 个单测。
+- 58 个单测。
 
 ## v0.5b — 第二真实行业包（待定）
 
