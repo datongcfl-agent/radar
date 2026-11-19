@@ -1,5 +1,22 @@
 # radar · 最小行业雷达（v0.4.0）
 
+**A minimal industry radar: does every module in your industry outline actually have evidence?**
+
+Give it an industry outline (`pack`) and a list of sources (`seeds`). It reports, module
+by module, what is backed by evidence, what is only mentioned, and what is empty — plus a
+source ledger, a gap list, and a diff between runs.
+
+Zero dependencies, Python 3.9+, runs offline. Coverage levels: `strong` / `evidence` /
+`mention` / `none`; a single source can never reach `strong`, by design.
+
+```bash
+python3 -m radar run --pack packs/weak-current/pack.json \
+  --seeds seeds/weak-current.json --title "example" --out runs/demo
+```
+
+> 中文说明见下方。This English summary is for search visibility and first-time visitors.
+
+
 输入一个行业 pack 和一批来源，输出：**目录 + 来源账本 + 覆盖度 + 缺口 + 报告 + diff**。
 
 不是爬虫，不是通用搜索引擎，也不是自动写 PRD。它只做一件事：**把“目录每一块有没有证据”算清楚。**
