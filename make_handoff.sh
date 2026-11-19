@@ -9,4 +9,4 @@ fi
 tar --exclude='.git' --exclude='__pycache__' --exclude='*.pyc' \
     -czf "$OUT" -C "$HERE" .
 echo "handoff: $OUT"
-tar -tzf "$OUT" | head -20
+echo "files: $(tar -tzf "$OUT" | wc -l)"
