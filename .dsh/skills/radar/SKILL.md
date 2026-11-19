@@ -17,6 +17,9 @@ python3 -m radar run --pack packs/weak-current/pack.json --seeds seeds/weak-curr
   --title "弱电管理系统" --out runs/weak-current-demo
 # 可选：Gitee 需要 GITEE_TOKEN（env 或 ~/.config/radar/gitee_token）
 python3 -m radar run ... --gitee --limit 3 --max-queries 3
+# 可选：forward snowballing / 网络刷新
+python3 -m radar run ... --snowball --snowball-max 5
+python3 -m radar run ... --fetch --fetch-limit 5
 python3 -m radar scan --pack packs/weak-current/pack.json --seeds seeds/weak-current.json \
   --title "弱电管理系统" --out runs/weak-current-demo-v2 --since runs/weak-current-demo
 python3 -m radar diff --from runs/a --to runs/b --out runs/diff.md
@@ -43,5 +46,5 @@ python3 -m radar diff --from runs/a --to runs/b --out runs/diff.md
 ## 边界
 
 - seeds 由人或 agent 填；`--github` 只到 metadata；
-- 不做 Gitee/浏览器/UI/自动 PRD；
+- 不做 Gitee forks/GitHub dependents/浏览器/UI/自动 PRD；
 - 结果用于“找缺口”，不是“证明完整”。

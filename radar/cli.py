@@ -9,6 +9,8 @@ from datetime import datetime
 from pathlib import Path
 
 from .adapters import collect_github, collect_gitee
+from .fetch import fetch_sources
+from .snowball import snowball
 from .coverage import compute_coverage
 from .diff import diff_runs
 from .model import (RadarError, load_json, load_pack, load_seeds, merge_sources,
@@ -48,6 +50,16 @@ def cmd_run(args):
                                    token=_gitee_token())
         sources.extend(got)
         warnings.extend(warns)
+    if args.snowball:
+        got, warns = snowball(sources, pack, token=os.environ.get("GITHUB_TOKEN"),
+                               per_source=args.snowball_per_source,
+                               max_sources=args.snowball_max)
+        sources.extend(got)
+        warnings.extend(warns)
+    if args.fetch:
+        sources, warns = fetch_sources(sources, limit=args.fetch_limit,
+                                        timeout=args.fetch_timeout)
+        warnings.extend(warns)
     sources = merge_sources(sources)
     coverage = compute_coverage(pack, sources)
     run_id = _now().strftime("%Y%m%d-%H%M%S")
@@ -64,8 +76,9 @@ def cmd_run(args):
         "mode": "run",
         "base": None,
         "options": {"github": bool(args.github), "gitee": bool(args.gitee),
-                    "limit": args.limit, "max_queries": args.max_queries,
-                    "strict": bool(args.strict)},
+                    "snowball": bool(args.snowball), "fetch": bool(args.fetch),
+                    "fetch_limit": args.fetch_limit, "limit": args.limit,
+                    "max_queries": args.max_queries, "strict": bool(args.strict)},
         "counts": {"sources": len(sources), "modules": len(coverage["modules"]),
                    "subsystems": len(coverage["subsystems"])},
         "warnings": warnings,
@@ -135,6 +148,12 @@ def build_parser():
         p.add_argument("--out", required=True)
         p.add_argument("--github", action="store_true", help="可选：加 GitHub 搜索")
         p.add_argument("--gitee", action="store_true", help="可选：加 Gitee 搜索（需要 GITEE_TOKEN）")
+        p.add_argument("--snowball", action="store_true", help="可选：forward snowballing（GitHub forks）")
+        p.add_argument("--snowball-per-source", type=int, default=2)
+        p.add_argument("--snowball-max", type=int, default=5)
+        p.add_argument("--fetch", action="store_true", help="可选：抓 URL 的 ETag/content_hash")
+        p.add_argument("--fetch-limit", type=int, default=0)
+        p.add_argument("--fetch-timeout", type=int, default=20)
         p.add_argument("--limit", type=int, default=3)
         p.add_argument("--max-queries", type=int, default=3)
         p.add_argument("--strict", action="store_true", help="要求 v0.1 的完整 12 字段")

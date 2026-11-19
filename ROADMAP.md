@@ -2,28 +2,28 @@
 
 原则：每个版本只加一层；不承诺日期；先定验收，再写功能。
 
-## v0.1 — MVP（当前）
+## v0.1 — MVP（已合并）
 
 - pack/seeds 校验、URL 去重、覆盖度、目录/缺口/报告；
 - `scan --base` 增量 diff；
 - 可选 GitHub metadata；
 - 10 个单测。
 
-## v0.2.1 — Seed Lite（本 PR）
+## v0.2.1 — Seed Lite（已合并）
 
 - 最小 6 字段：`id/url/evidence_level/covers/quotes/status`；
 - 其余字段默认值；
 - `--strict` 保留 v0.1 完整校验；
 - 12 个单测。
 
-## v0.2.2 — 账本层 scan --since（本 PR）
+## v0.2.2 — 账本层 scan --since（已合并）
 
 - 来源级变更：新增、移除、字段变化（`evidence_level/covers/quotes/license/access/version/content_hash/etag`）；
 - `scan --since <旧 run>` 写 `changes.md` + `changes.json`，同时保留覆盖 diff；
 - 19 个单测；
 - **明确不做**：网络 `--fetch`，不假装已经抓网页；抓取留给 adapter。
 
-## v0.2.3 — Gitee adapter（本 PR）
+## v0.2.3 — Gitee adapter（已合并）
 
 - `GITEE_TOKEN`（env 或 `~/.config/radar/gitee_token`）；
 - `Authorization: Bearer`，token 不进 URL/日志；
@@ -31,6 +31,22 @@
 - 只做公开仓库 metadata，license 默认 `needs_review`；
 - 无 token 明确跳过；
 - 21 个单测。
+
+## v0.2.4 — Forward snowballing（本 PR）
+
+- GitHub forks：从已选 GitHub 来源取 fork；
+- 继承 parent 的 `covers`，`why_selected=forward: fork of <id>`；
+- 只做 metadata，不读正文；
+- 可选 `--snowball --snowball-per-source --snowball-max`；
+- **不做**：GitHub dependents、Gitee forks、引用图（后续）。
+
+## v0.2.5 — 网络 --fetch（本 PR）
+
+- `--fetch`：curl 抓 URL 的 ETag/Last-Modified/正文 hash；
+- 更新 `http_status/last_seen/content_hash/etag/last_modified`；
+- 401→login_required，403→blocked，404→deleted；
+- `--fetch-limit` 控制条数；
+- 与 `scan --since` 配合：hash 变了就报变化。
 
 ## v0.2 — 可迭代
 
