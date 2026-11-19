@@ -18,11 +18,15 @@ wide = [s for s in seeds if len(s.get("covers", [])) >= 5]
 wide_only = [uid for uid in units if support[uid] and all(len(s["covers"]) >= 5 for s in support[uid])]
 short = [s for s in seeds if any(0 < len(q) < 40 for q in (s.get("quotes") or []))]
 no_quote = [s for s in seeds if not (s.get("quotes") or [])]
+bad_qv = [s for s in seeds if s.get("quote_verified", "unknown") not in ("true", "false", "unknown")]
+bad_by = [s for s in seeds if s.get("quote_verified_by") not in (None, "", "web", "human")]
 print("sources=%d units=%d" % (len(seeds), len(units)))
 print("wide_covers>=5: %s" % ([s["id"] for s in wide] or "none"))
 print("units_only_wide: %s" % (wide_only or "none"))
 print("short_quotes<40: %s" % ([s["id"] for s in short] or "none"))
 print("no_quote (mention-ok): %s" % ([s["id"] for s in no_quote] or "none"))
+print("bad_quote_verified: %s" % ([s["id"] for s in bad_qv] or "none"))
+print("bad_quote_verified_by: %s" % ([s["id"] for s in bad_by] or "none"))
 
 state_path = ROOT / "runs/weak-current-demo/state.json"
 if state_path.exists():
@@ -36,6 +40,6 @@ else:
     hash_ok = True
     print("state_hashes: no sample run")
 
-if wide or wide_only or short or not hash_ok:
+if wide or wide_only or short or bad_qv or bad_by or not hash_ok:
     sys.exit(1)
 print("audit: PASS")

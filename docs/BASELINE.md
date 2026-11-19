@@ -1,4 +1,4 @@
-# 弱电 pack 基线（v0.5.2）
+# 弱电 pack 基线（v0.6.0）
 
 ## 数字
 
@@ -7,7 +7,7 @@
 | 公开来源 | 34 |
 | selected / needs_review | 30 / 4 |
 | 模块 / 子系统 | 14 / 23 |
-| strong / evidence / mention / none | **3 / 21 / 8 / 5** |
+| strong / evidence / mention / none | **0 / 24 / 8 / 5** |
 | 单源单元 | 13 |
 | 无证据单元 | 5（S04、S09、S11、S14、S22） |
 

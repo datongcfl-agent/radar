@@ -4,16 +4,16 @@
 | --- | ---: |
 | none | 5 |
 | mention | 8 |
-| evidence | 21 |
-| strong | 3 |
+| evidence | 24 |
+| strong | 0 |
 
 ## 管理模块
 
-### M01 项目与往来单位 — strong
+### M01 项目与往来单位 — evidence
 
 | 来源 | 平台 | 等级 | 许可 | 访问 |
 | --- | --- | --- | --- | --- |
-| `SRC-001` | gitee | strong | proprietary | public |
+| `SRC-001` | gitee | evidence | proprietary | public |
 | `SRC-008` | docs | evidence | GPL-3.0 | public |
 
 ### M02 立项与项目台账 — evidence
@@ -42,11 +42,11 @@
 | --- | --- | --- | --- | --- |
 | `SRC-005` | github | mention | MIT | public |
 
-### M06 报价与投标 — strong
+### M06 报价与投标 — evidence
 
 | 来源 | 平台 | 等级 | 许可 | 访问 |
 | --- | --- | --- | --- | --- |
-| `SRC-001` | gitee | strong | proprietary | public |
+| `SRC-001` | gitee | evidence | proprietary | public |
 | `SRC-003` | github | evidence | proprietary | public |
 | `SRC-004` | github | evidence | proprietary | public |
 | `SRC-007` | github | mention | MIT | public |
@@ -94,11 +94,11 @@
 | --- | --- | --- | --- | --- |
 | `SRC-007` | github | mention | MIT | public |
 
-### M13 售后与运维 — strong
+### M13 售后与运维 — evidence
 
 | 来源 | 平台 | 等级 | 许可 | 访问 |
 | --- | --- | --- | --- | --- |
-| `SRC-001` | gitee | strong | proprietary | public |
+| `SRC-001` | gitee | evidence | proprietary | public |
 | `SRC-021` | github | evidence | AGPL-3.0 | public |
 | `SRC-022` | github | evidence | GPL-3.0 | public |
 | `SRC-023` | github | evidence | GPL-2.0 | public |

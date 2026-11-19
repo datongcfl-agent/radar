@@ -5,7 +5,7 @@
 - 对 `platform=web/docs` 的已选来源抓公开 HTML；
 - 用 stdlib `html.parser` 提取 title / meta description / 正文 / 短引用；
 - 从正文里做最小许可提示：MIT、Apache-2.0、GPL、AGPL、LGPL、MPL、BSD、Unlicense、CC0、proprietary；
-- 更新 `quotes`、`license`、`license_status`、`web_text_chars`、`last_seen`；
+- 更新 `quotes`、`quote_verified`（归一化子串校验）、`license`、`license_status`、`web_text_chars`、`last_seen`；
 - 默认不读 robots；加 `--respect-robots` 才检查。
 
 ```bash

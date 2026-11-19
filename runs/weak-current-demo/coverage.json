@@ -4,7 +4,7 @@
       "id": "M01",
       "name": "项目与往来单位",
       "kind": "module",
-      "level": "strong",
+      "level": "evidence",
       "source_count": 2,
       "evidence_count": 2,
       "independent_count": 2,
@@ -82,7 +82,7 @@
       "id": "M06",
       "name": "报价与投标",
       "kind": "module",
-      "level": "strong",
+      "level": "evidence",
       "source_count": 4,
       "evidence_count": 3,
       "independent_count": 2,
@@ -197,7 +197,7 @@
       "id": "M13",
       "name": "售后与运维",
       "kind": "module",
-      "level": "strong",
+      "level": "evidence",
       "source_count": 5,
       "evidence_count": 5,
       "independent_count": 2,
@@ -601,8 +601,8 @@
   "summary": {
     "none": 5,
     "mention": 8,
-    "evidence": 21,
-    "strong": 3
+    "evidence": 24,
+    "strong": 0
   },
   "sources": 34,
   "platforms": {

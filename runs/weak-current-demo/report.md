@@ -1,10 +1,10 @@
 # 弱电管理系统 · 雷达运行报告
 
-Run: `20261120-023009` · Pack: `weak-current` v0.1.0 · Radar: v0.5.2
+Run: `20261120-024040` · Pack: `weak-current` v0.1.0 · Radar: v0.6.0
 
 ## 一句话
 
-本次用 34 条来源，覆盖 14 个管理模块 + 23 个子系统；强/证据/提及/空 = 3/21/8/5。
+本次用 34 条来源，覆盖 14 个管理模块 + 23 个子系统；强/证据/提及/空 = 0/24/8/5。
 
 ## 平台覆盖
 
@@ -61,7 +61,7 @@ Run: `20261120-023009` · Pack: `weak-current` v0.1.0 · Radar: v0.5.2
 
 | ID | 标题 | 平台 | 等级 | 许可 | 访问 |
 | --- | --- | --- | --- | --- | --- |
-| `SRC-001` | [EEOPS 弱电工程运营管理系统](https://gitee.com/shmilytqq/eeops) | gitee | strong | proprietary（不可复用） | public |
+| `SRC-001` | [EEOPS 弱电工程运营管理系统](https://gitee.com/shmilytqq/eeops) | gitee | evidence | proprietary（不可复用） | public |
 | `SRC-002` | [德立云：18 大系统构建智能世界](https://www.deliyun.com/newsinfo/8795439.html) | web | mention | proprietary（不可复用） | public |
 | `SRC-003` | [弱电智能化工程项目管理系统（PMS）](https://github.com/fanzhuangzhuang000-svg/Project-Management-System) | github | evidence | proprietary（不可复用） | public |
 | `SRC-004` | [BidCraft 弱电投标文件编制系统](https://github.com/yaoyongli1974-dotcom/BidCraft) | github | evidence | proprietary（不可复用） | public |
