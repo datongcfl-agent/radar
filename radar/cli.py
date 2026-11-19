@@ -18,8 +18,8 @@ from .web import enrich_web
 from .coverage import compute_coverage
 from .claims import evaluate_claims, write_claims
 from .diff import diff_runs
-from .model import (RadarError, load_json, load_pack, load_seeds, merge_sources,
-                    sha256_file, write_json)
+from .model import (RadarError, enforce_web_verification, load_json, load_pack, load_seeds,
+                    merge_sources, sha256_file, write_json)
 from .report import write_run
 from .state import compare_sources, read_sources, write_changes
 
@@ -84,6 +84,8 @@ def cmd_run(args):
                                      respect_robots=args.respect_robots)
         warnings.extend(warns)
     sources = merge_sources(sources)
+    if args.require_web_verify:
+        enforce_web_verification(sources)
     coverage = compute_coverage(pack, sources)
     run_id = _now().strftime("%Y%m%d-%H%M%S")
     out = Path(args.out)
@@ -104,7 +106,7 @@ def cmd_run(args):
                     "snowball": bool(args.snowball), "fetch": bool(args.fetch),
                     "fetch_limit": args.fetch_limit, "web": bool(args.web),
                     "web_limit": args.web_limit, "respect_robots": bool(args.respect_robots),
-                    "limit": args.limit,
+                    "require_web_verify": bool(args.require_web_verify), "limit": args.limit,
                     "max_queries": args.max_queries, "strict": bool(args.strict)},
         "counts": {"sources": len(sources), "modules": len(coverage["modules"]),
                    "subsystems": len(coverage["subsystems"])},
@@ -210,6 +212,8 @@ def build_parser():
         p.add_argument("--web-limit", type=int, default=5)
         p.add_argument("--web-timeout", type=int, default=20)
         p.add_argument("--respect-robots", action="store_true", help="可选：遵守 robots.txt")
+        p.add_argument("--require-web-verify", action="store_true",
+                       help="只承认本次 --web 验证的 quote，忽略 seeds 自带标记")
         p.add_argument("--limit", type=int, default=3)
         p.add_argument("--max-queries", type=int, default=3)
         p.add_argument("--strict", action="store_true", help="要求 v0.1 的完整 12 字段")

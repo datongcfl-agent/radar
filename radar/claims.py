@@ -47,6 +47,7 @@ def compute_confidence(claim, by_id):
         cap = min(cap, 0.40)
         reasons.append("no_quote")
     if any(s.get("license_status") == "proprietary" for s in sources):
+        cap = min(cap, 0.40)
         reasons.append("proprietary_reference")
     if claim.get("contradicts"):
         cap = min(cap, 0.40)

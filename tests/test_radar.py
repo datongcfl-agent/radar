@@ -20,8 +20,8 @@ from radar.web import extract_html, detect_license, apply_web, enrich_web, verif
 from radar.model import level_for_source
 from radar.claims import compute_confidence, evaluate_claims, write_claims
 from radar.diff import diff_runs
-from radar.model import (RadarError, canonical_url, load_pack, load_seeds,
-                         merge_sources, validate_source, _infer_platform)
+from radar.model import (RadarError, canonical_url, enforce_web_verification, load_pack,
+                         load_seeds, merge_sources, validate_source, _infer_platform)
 
 PACK = ROOT / "packs/weak-current/pack.json"
 SEEDS = ROOT / "seeds/weak-current.json"
@@ -49,6 +49,10 @@ class TestModel(unittest.TestCase):
                          "https://example.com/a")
         self.assertEqual(canonical_url("http://example.com/a"),
                          canonical_url("https://example.com/a"))
+        self.assertEqual(canonical_url("http://example.com:80/a"),
+                         canonical_url("https://example.com/a"))
+        self.assertEqual(canonical_url("https://example.com:443/a"),
+                         canonical_url("https://example.com/a"))
 
     def test_infer_platform_exact_host(self):
         self.assertEqual(_infer_platform("https://notgithub.com/a/b"), "web")
@@ -72,6 +76,24 @@ class TestModel(unittest.TestCase):
         b = src("B", ["M01"], quotes=["qb"]); b["url"] = a["url"]; b["quote_verified"] = "unknown"
         merged = merge_sources([a, b])[0]
         self.assertEqual(merged["quote_verified"], "false")
+
+    def test_rejected_does_not_pollute_selected(self):
+        a = src("A", ["M01"], quotes=["qa"])
+        b = src("B", ["M02"], quotes=["qb"], status="rejected")
+        b["url"] = a["url"]
+        merged = merge_sources([a, b])[0]
+        self.assertEqual(merged["status"], "selected")
+        self.assertEqual(merged["covers"], ["M01"])
+        self.assertEqual(merged["quotes"], ["qa"])
+
+    def test_enforce_web_verification(self):
+        a = src("A", ["M01"], evidence="real_artifact")
+        a["quote_verified"] = "true"; a["quote_verified_by"] = "web"
+        a["quote_verified_this_run"] = False
+        enforce_web_verification([a])
+        self.assertEqual(a["quote_verified"], "unknown")
+        self.assertIsNone(a["quote_verified_by"])
+        self.assertEqual(level_for_source(a), "evidence")
 
     def test_merge_rejects_duplicate_ids(self):
         a = src("A", ["M01"]); b = src("A", ["M02"]); b["url"] = "https://example.com/other"
@@ -321,6 +343,15 @@ class TestClaims(unittest.TestCase):
             text = (Path(tmp) / "review.csv").read_text(encoding="utf-8")
         self.assertIn("换来源或改主张", text)
 
+    def test_proprietary_cap(self):
+        by = {"A": self._strong("A", "a")}
+        by["A"]["license_status"] = "proprietary"
+        claim = {"id": "C1", "statement": "s", "covers": ["M01"],
+                 "sources": ["A"], "contradicts": []}
+        r = compute_confidence(claim, by)
+        self.assertEqual(r["confidence"], 0.4)
+        self.assertIn("proprietary_reference", r["reasons"])
+
     def test_contradiction_bidirectional(self):
         pack = load_pack(PACK)
         a = self._strong("A", "a"); b = self._strong("B", "b")
@@ -384,6 +415,7 @@ class TestWeb(unittest.TestCase):
         out = apply_web(source, page)
         self.assertEqual(out["quote_verified"], "true")
         self.assertEqual(out["quote_verified_by"], "web")
+        self.assertTrue(out["quote_verified_this_run"])
         loaded = validate_source({k: v for k, v in out.items()
                                   if k not in {"_merged_from"}}, pack, strict=False)
         self.assertEqual(level_for_source(loaded), "strong")
@@ -587,9 +619,9 @@ class TestCLI(unittest.TestCase):
             state = json.loads((scan_out / "state.json").read_text(encoding="utf-8"))
             self.assertEqual(state["mode"], "scan")
             self.assertEqual(state["since"], str(out1))
-            self.assertEqual(state["radar_version"], "0.6.0")
+            self.assertEqual(state["radar_version"], "0.6.1")
             self.assertIn("radar_commit", state)
-            self.assertIn("Radar: v0.6.0", (scan_out / "report.md").read_text(encoding="utf-8"))
+            self.assertIn("Radar: v0.6.1", (scan_out / "report.md").read_text(encoding="utf-8"))
 
             claims_file = tmp / "claims.json"
             claims_file.write_text(json.dumps({
@@ -604,7 +636,7 @@ class TestCLI(unittest.TestCase):
                            capture_output=True, text=True)
             self.assertTrue((claims_out / "claims.md").exists())
             self.assertTrue((claims_out / "review.csv").exists())
-            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "0.6.0")
+            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "0.6.1")
 
 
 class TestAudit(unittest.TestCase):

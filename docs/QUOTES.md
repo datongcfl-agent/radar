@@ -18,7 +18,9 @@
 
 ## 当前基线
 
-seeds 里不再有人工 `quote_verified: true`；当前没有 `--web` 机器验证过的 quote，所以 **strong = 0**。  
+seeds 里不再有人工 `quote_verified: true`；当前没有 `--web` 机器验证过的 quote，所以 **strong = 0**。
+
+加 `--require-web-verify` 后，seeds 自带的 `quote_verified` 会被当作 `unknown`，只有本次 `--web` 验证通过才可能 strong。  
 有 quote 的来源最高 evidence；这不是数据退步，是门禁生效后的诚实结果。
 
 ## 边界
