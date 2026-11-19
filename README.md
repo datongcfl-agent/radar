@@ -86,6 +86,19 @@ GITHUB_TOKEN=... python3 -m radar run ... --github --limit 3 --max-queries 3
 - **来源**：seeds 是人工/agent 填的；`--github` 只到 metadata，不读正文；
 - **许可**：专有来源只进参考池，不能复用；`needs_review` 要人工复核。
 
+## 路线图
+
+| 版本 | 主题 | 关键交付 |
+| --- | --- | --- |
+| v0.1 | MVP（当前） | pack/seeds、覆盖度、缺口、`scan --base`、GitHub metadata |
+| v0.2 | 可迭代 | `scan --since`、来源 hash/ETag、定时触发 |
+| v0.3 | 多平台 | Gitee、网页/浏览器、docling、grant/ScanCode |
+| v0.4 | 证据层 | claim/置信度/矛盾/复核队列 |
+| v0.5 | 真实行业包 | 第二个真实行业 + 人工基线对比 |
+| v1.0 | 稳定契约 | schema 冻结、迁移、handoff、可选 plugin/MCP |
+
+详见 [ROADMAP.md](ROADMAP.md)。不承诺日期，也不承诺“收集所有开源信息”。
+
 ## 测试
 
 ```bash
