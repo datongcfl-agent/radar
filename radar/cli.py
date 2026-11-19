@@ -11,7 +11,8 @@ from pathlib import Path
 from .adapters import collect_github
 from .coverage import compute_coverage
 from .diff import diff_runs
-from .model import RadarError, load_pack, load_seeds, merge_sources, sha256_file
+from .model import (RadarError, load_json, load_pack, load_seeds, merge_sources,
+                    sha256_file, write_json)
 from .report import write_run
 
 
@@ -43,6 +44,8 @@ def cmd_run(args):
         "pack_version": pack.get("version"),
         "pack_sha256": sha256_file(args.pack),
         "seeds_sha256": sha256_file(args.seeds),
+        "mode": "run",
+        "base": None,
         "options": {"github": bool(args.github), "limit": args.limit,
                     "max_queries": args.max_queries},
         "counts": {"sources": len(sources), "modules": len(coverage["modules"]),
@@ -75,6 +78,20 @@ def cmd_validate(args):
     }
 
 
+def cmd_scan(args):
+    result = cmd_run(args)
+    out = Path(args.out)
+    diff_path = out / "diff.md"
+    text = diff_runs(args.base, str(out), out=str(diff_path))
+    state = load_json(out / "state.json")
+    state["mode"] = "scan"
+    state["base"] = args.base
+    write_json(out / "state.json", state)
+    result["diff"] = str(diff_path)
+    result["diff_bytes"] = len(text)
+    return result
+
+
 def cmd_diff(args):
     text = diff_runs(args.old, args.new, out=args.out)
     return {"old": args.old, "new": args.new, "out": args.out, "bytes": len(text)}
@@ -84,15 +101,23 @@ def build_parser():
     p = argparse.ArgumentParser(prog="radar", description="最小行业雷达：pack + 来源账本 + 覆盖度")
     sub = p.add_subparsers(dest="command", required=True)
 
+    def add_run_args(p):
+        p.add_argument("--pack", required=True)
+        p.add_argument("--seeds", required=True)
+        p.add_argument("--title", required=True)
+        p.add_argument("--out", required=True)
+        p.add_argument("--github", action="store_true", help="可选：加 GitHub 搜索")
+        p.add_argument("--limit", type=int, default=3)
+        p.add_argument("--max-queries", type=int, default=3)
+
     r = sub.add_parser("run", help="跑一次雷达")
-    r.add_argument("--pack", required=True)
-    r.add_argument("--seeds", required=True)
-    r.add_argument("--title", required=True)
-    r.add_argument("--out", required=True)
-    r.add_argument("--github", action="store_true", help="可选：加 GitHub 搜索")
-    r.add_argument("--limit", type=int, default=3)
-    r.add_argument("--max-queries", type=int, default=3)
+    add_run_args(r)
     r.set_defaults(func=cmd_run)
+
+    sc = sub.add_parser("scan", help="增量扫描：新 run + 与 base diff")
+    add_run_args(sc)
+    sc.add_argument("--base", required=True, help="上一次 run 目录")
+    sc.set_defaults(func=cmd_scan)
 
     v = sub.add_parser("validate", help="只校验 pack/seeds")
     v.add_argument("--pack", required=True)

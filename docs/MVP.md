@@ -29,7 +29,7 @@
 
 ## 下一步
 
-1. 加 `scan --since` + 定时任务；
+1. 给 `scan` 加定时任务（当前只能手动触发）；
 2. 接 Gitee/网页正文；
 3. 接 docling/trafilatura 抽取；
 4. 接 grant/ScanCode 许可；

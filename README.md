@@ -18,7 +18,17 @@ python3 -m radar run \
   --seeds seeds/weak-current.json \
   --title "弱电管理系统" \
   --out runs/weak-current-demo
+
+# 第二次：基于上次 run 做增量扫描
+python3 -m radar scan \
+  --pack packs/weak-current/pack.json \
+  --seeds seeds/weak-current.json \
+  --title "弱电管理系统" \
+  --out runs/weak-current-demo-v2 \
+  --base runs/weak-current-demo
 ```
+
+`scan` 会在新 run 里多写一个 `diff.md`（新增/移除/覆盖变化）。
 
 输出：
 
@@ -49,6 +59,7 @@ python3 -m radar run \
 
 ```bash
 python3 -m radar run --pack <pack.json> --seeds <seeds.json> --title "<标题>" --out <dir>
+python3 -m radar scan --pack <pack.json> --seeds <seeds.json> --title "<标题>" --out <dir> --base <旧 run>
 python3 -m radar validate --pack <pack.json> --seeds <seeds.json>
 python3 -m radar diff --from <run-a> --to <run-b> --out <diff.md>
 ```
@@ -70,8 +81,8 @@ GITHUB_TOKEN=... python3 -m radar run ... --github --limit 3 --max-queries 3
 
 ## 当前 MVP 的边界
 
-- **包含**：pack/seeds 校验、URL 去重、覆盖度、目录/缺口/报告、两次 run 的 diff、可选 GitHub 搜索；
-- **不包含**：Gitee/浏览器/登录、全量爬虫、UI、自动 PRD、OCR、定时任务；
+- **包含**：pack/seeds 校验、URL 去重、覆盖度、目录/缺口/报告、`scan --base` 增量 diff、可选 GitHub 搜索；
+- **不包含**：Gitee/浏览器/登录、全量爬虫、UI、自动 PRD、OCR、定时任务（scan 是手动触发）；
 - **来源**：seeds 是人工/agent 填的；`--github` 只到 metadata，不读正文；
 - **许可**：专有来源只进参考池，不能复用；`needs_review` 要人工复核。
 

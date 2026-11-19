@@ -115,6 +115,16 @@ class TestCLI(unittest.TestCase):
             self.assertIn("移除来源", text)
             self.assertIn("SRC-013", text)
 
+            scan_out = tmp / "scan"
+            subprocess.run([sys.executable, "-m", "radar", "scan", "--pack", str(PACK),
+                            "--seeds", str(seeds2), "--title", "测试", "--out", str(scan_out),
+                            "--base", str(out1)], cwd=ROOT, check=True, capture_output=True, text=True)
+            self.assertTrue((scan_out / "diff.md").exists())
+            self.assertIn("SRC-013", (scan_out / "diff.md").read_text(encoding="utf-8"))
+            state = json.loads((scan_out / "state.json").read_text(encoding="utf-8"))
+            self.assertEqual(state["mode"], "scan")
+            self.assertEqual(state["base"], str(out1))
+
 
 if __name__ == "__main__":
     unittest.main()
