@@ -37,6 +37,12 @@ def compute_confidence(claim, by_id):
     if len(sources) < 2 or hosts < 2:
         cap = min(cap, 0.55)
         reasons.append("single_source")
+    supported = set()
+    for src in sources:
+        supported |= set(src.get("covers") or [])
+    if not (set(claim.get("covers") or []) & supported):
+        cap = min(cap, 0.30)
+        reasons.append("unsupported_by_sources")
     if not any(s.get("quotes") for s in sources):
         cap = min(cap, 0.40)
         reasons.append("no_quote")
@@ -108,10 +114,18 @@ def validate_claims(data, pack, by_id):
 def evaluate_claims(data, pack, sources):
     by_id = {s["id"]: s for s in sources}
     claims = validate_claims(data, pack, by_id)
+    contradicted_by = {c["id"]: set() for c in claims}
+    for claim in claims:
+        for other in claim["contradicts"]:
+            contradicted_by[other].add(claim["id"])
     results = []
     for claim in claims:
+        effective = dict(claim)
+        effective["contradicts"] = sorted(set(claim["contradicts"]) | contradicted_by[claim["id"]])
         row = dict(claim)
-        row.update(compute_confidence(claim, by_id))
+        row["contradicts"] = effective["contradicts"]
+        row["declared_contradicts"] = list(claim["contradicts"])
+        row.update(compute_confidence(effective, by_id))
         results.append(row)
     return results
 
@@ -119,6 +133,8 @@ def evaluate_claims(data, pack, sources):
 def _next_action(row):
     if "no_sources" in row["reasons"]:
         return "补来源"
+    if "unsupported_by_sources" in row["reasons"]:
+        return "换来源或改主张"
     if "contradiction" in row["reasons"]:
         return "复核矛盾"
     if "single_source" in row["reasons"]:
@@ -142,10 +158,15 @@ def write_claims(out_dir, results, meta):
             r["status"], ", ".join(r["sources"]), ", ".join(r["reasons"]) or "—"))
     lines.append("")
     (out / "claims.md").write_text("\n".join(lines), encoding="utf-8")
+    def safe(value):
+        text = str(value)
+        return "'" + text if text.startswith(("=", "+", "-", "@")) else text
+
     with (out / "review.csv").open("w", encoding="utf-8", newline="") as fh:
         w = csv.writer(fh)
         w.writerow(["id", "statement", "confidence", "label", "status", "sources", "reasons", "next_action"])
         for r in results:
-            w.writerow([r["id"], r["statement"], r["confidence"], r["label"], r["status"],
-                        ";".join(r["sources"]), ";".join(r["reasons"]), _next_action(r)])
+            w.writerow([safe(r["id"]), safe(r["statement"]), r["confidence"], r["label"],
+                        r["status"], safe(";".join(r["sources"])),
+                        safe(";".join(r["reasons"])), safe(_next_action(r))])
     write_json(out / "state.json", meta)

@@ -220,6 +220,41 @@ class TestClaims(unittest.TestCase):
         self.assertEqual(r["status"], "contested")
         self.assertEqual(r["confidence"], 0.4)
 
+    def test_unsupported_by_sources(self):
+        by = {"A": self._strong("A", "a")}
+        by["A"]["covers"] = ["M01"]
+        claim = {"id": "BAD1", "statement": "M12 有发票", "covers": ["M12"],
+                 "sources": ["A"], "contradicts": []}
+        r = compute_confidence(claim, by)
+        self.assertEqual(r["confidence"], 0.30)
+        self.assertIn("unsupported_by_sources", r["reasons"])
+        with tempfile.TemporaryDirectory() as tmp:
+            row = dict(claim); row.update(r)
+            write_claims(tmp, [row], {"run": "x", "pack": "weak-current"})
+            text = (Path(tmp) / "review.csv").read_text(encoding="utf-8")
+        self.assertIn("换来源或改主张", text)
+
+    def test_contradiction_bidirectional(self):
+        pack = load_pack(PACK)
+        a = self._strong("A", "a"); b = self._strong("B", "b")
+        data = {"schema_version": 1, "pack": "weak-current", "claims": [
+            {"id": "C1", "statement": "A", "covers": ["M01"], "sources": ["A"], "contradicts": ["C2"]},
+            {"id": "C2", "statement": "B", "covers": ["M01"], "sources": ["B"], "contradicts": []},
+        ]}
+        rows = {r["id"]: r for r in evaluate_claims(data, pack, [a, b])}
+        self.assertEqual(rows["C1"]["status"], "contested")
+        self.assertEqual(rows["C2"]["status"], "contested")
+        self.assertIn("contradiction", rows["C2"]["reasons"])
+
+    def test_csv_injection_sanitized(self):
+        row = {"id": "C1", "statement": "=cmd|' /C calc'!A0", "confidence": 0.5,
+               "label": "medium", "status": "open", "sources": ["A"],
+               "reasons": [], "contradicts": []}
+        with tempfile.TemporaryDirectory() as tmp:
+            write_claims(tmp, [row], {"run": "x", "pack": "weak-current"})
+            text = (Path(tmp) / "review.csv").read_text(encoding="utf-8")
+        self.assertIn("'=cmd", text)
+
     def test_unknown_source_rejected(self):
         pack = load_pack(PACK)
         data = {"schema_version": 1, "pack": "weak-current", "claims": [{

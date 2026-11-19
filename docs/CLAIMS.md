@@ -31,10 +31,15 @@
 | best level = mention / none | 0.30 / 0.00 |
 | 单源或同一 host | 上限 0.55 |
 | 没有任何来源有 quote | 上限 0.40 |
-| 存在矛盾 | 上限 0.40，状态 `contested` |
+| claim.covers 与被引来源 covers 交集为空 | 上限 0.30，reason `unsupported_by_sources` |
+| 存在矛盾 | 上限 0.40，状态 `contested`，双向标记 |
 
 `high >= 0.75`，`medium >= 0.50`，其余 `low`。  
-`reasons` 会写 `single_source` / `no_quote` / `contradiction` / `proprietary_reference`。
+`reasons` 会写 `single_source` / `no_quote` / `unsupported_by_sources` / `contradiction` / `proprietary_reference`。
+
+- `unsupported_by_sources` 的 `next_action` 是「换来源或改主张」，不是「再找一个来源」；
+- 矛盾双向标记：A 指向 B 时，A/B 都变 `contested`；`claims.json` 保留 `declared_contradicts` 方便追溯原始声明；
+- `review.csv` 对以 `= + - @` 开头的字段加前导 `'`，避免 Excel 公式注入。
 
 ## 输出
 

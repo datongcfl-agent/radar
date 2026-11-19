@@ -89,7 +89,7 @@
 - 单源/同 host 上限 0.55，无 quote 上限 0.40，矛盾上限 0.40；
 - `contradicts` 非空 → `contested`；
 - 输出 `claims.md`、`claims.json`、`review.csv`；
-- 36 个单测。
+- 39 个单测；claim.covers 与来源 covers 无交集 → `unsupported_by_sources`，置信度 ≤0.30；矛盾双向标记；review.csv 防公式注入。
 
 ## v0.4 — 证据层（原方向）
 
