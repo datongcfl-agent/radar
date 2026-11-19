@@ -626,9 +626,9 @@ class TestCLI(unittest.TestCase):
             state = json.loads((scan_out / "state.json").read_text(encoding="utf-8"))
             self.assertEqual(state["mode"], "scan")
             self.assertEqual(state["since"], str(out1))
-            self.assertEqual(state["radar_version"], "0.7.0")
+            self.assertEqual(state["radar_version"], "1.0.0")
             self.assertIn("radar_commit", state)
-            self.assertIn("Radar: v0.7.0", (scan_out / "report.md").read_text(encoding="utf-8"))
+            self.assertIn("Radar: v1.0.0", (scan_out / "report.md").read_text(encoding="utf-8"))
 
             claims_file = tmp / "claims.json"
             claims_file.write_text(json.dumps({
@@ -643,7 +643,15 @@ class TestCLI(unittest.TestCase):
                            capture_output=True, text=True)
             self.assertTrue((claims_out / "claims.md").exists())
             self.assertTrue((claims_out / "review.csv").exists())
-            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "0.7.0")
+            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "1.0.0")
+
+
+class TestSchemas(unittest.TestCase):
+    def test_schema_files_load(self):
+        for path in sorted((ROOT / "schemas").glob("*.json")):
+            data = json.loads(path.read_text(encoding="utf-8"))
+            self.assertIn("$schema", data)
+            self.assertIn("$id", data)
 
 
 class TestAudit(unittest.TestCase):

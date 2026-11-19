@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/datongcfl/radar/schemas/pack.schema.json",
+  "title": "radar pack",
+  "type": "object",
+  "required": ["schema_version", "pack", "version", "title", "modules", "subsystems"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "pack": {"type": "string", "minLength": 1},
+    "version": {"type": "string"},
+    "title": {"type": "string", "minLength": 1},
+    "aliases": {"type": "array", "items": {"type": "string"}},
+    "modules": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/module"}},
+    "subsystems": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/subsystem"}},
+    "source_map": {"type": "object", "additionalProperties": {"type": "array", "items": {"type": "string"}}},
+    "query_templates": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "unit": {
+      "type": "object",
+      "required": ["id", "name", "artifacts", "keywords"],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string", "minLength": 1},
+        "artifacts": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "keywords": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "module": {
+      "allOf": [
+        {"$ref": "#/$defs/unit"},
+        {"properties": {"id": {"type": "string", "pattern": "^M[0-9]{2}$"}}}
+      ]
+    },
+    "subsystem": {
+      "allOf": [
+        {"$ref": "#/$defs/unit"},
+        {"properties": {"id": {"type": "string", "pattern": "^S[0-9]{2}$"}}}
+      ]
+    }
+  }
+}

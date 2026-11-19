@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/datongcfl/radar/schemas/seeds.schema.json",
+  "title": "radar seeds",
+  "type": "object",
+  "required": ["schema_version", "sources"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "pack": {"type": "string"},
+    "sources": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/source"}}
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "source": {
+      "type": "object",
+      "required": ["id", "url", "evidence_level", "covers", "quotes", "status"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "url": {"type": "string", "pattern": "^https?://"},
+        "title": {"type": "string"},
+        "platform": {"enum": ["github", "gitee", "npm", "pypi", "maven", "web", "docs", "tender"]},
+        "artifact_type": {"enum": ["code", "readme", "prd", "quote_sheet", "subsystem_list", "ui_reference", "manual", "benchmark", "article", "docs"]},
+        "access_status": {"enum": ["public", "api_limited", "login_required", "paywalled", "blocked", "deleted", "proprietary", "unreachable"]},
+        "license": {"type": "string"},
+        "license_status": {"enum": ["clear", "needs_review", "proprietary"]},
+        "evidence_level": {"enum": ["marketing", "metadata", "readme", "docs", "real_artifact", "code_tests", "production"]},
+        "covers": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "quotes": {"type": "array", "items": {"type": "string"}},
+        "status": {"enum": ["selected", "rejected", "needs_review"]},
+        "quote_verified": {"enum": ["true", "false", "unknown"]},
+        "quote_verified_by": {"enum": ["web", "human", null]},
+        "quote_verified_at": {"type": ["string", "null"]},
+        "why_selected": {"type": "string"},
+        "limitations": {"type": ["string", "array"]}
+      },
+      "additionalProperties": true
+    }
+  }
+}
