@@ -3,6 +3,8 @@ from __future__ import annotations
 
 from .model import LEVELS, level_for_source
 
+# 存在性阶梯（existence ladder），不是质量排序：production 只证明“东西存在”，
+# 不证明“工程质量更好”。质量判断另看测试/文档/维护/边界。
 EV_RANK = {"marketing": 0, "metadata": 1, "readme": 2, "docs": 3,
            "real_artifact": 4, "code_tests": 5, "production": 6}
 

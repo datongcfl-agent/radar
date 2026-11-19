@@ -79,6 +79,11 @@ GITHUB_TOKEN=... python3 -m radar run ... --github --limit 3 --max-queries 3
 
 单源不是不能用，是不能当“已证实”用。`gaps.md` 会单独列“单源待印证”。
 
+### 证据阶梯的方向
+
+`production > code_tests > real_artifact` 是**存在性阶梯**：在产系统能证明“这个做法真的存在”，不等于“工程质量更好”。  
+判断质量时要另看测试、文档、维护、边界；不要把存在性排序当质量排序。
+
 ## 当前 MVP 的边界
 
 - **包含**：pack/seeds 校验、URL 去重、覆盖度、目录/缺口/报告、`scan --base` 增量 diff、可选 GitHub 搜索；
@@ -115,9 +120,9 @@ python3 -m unittest discover -s tests -v
 
 ## 设计依据
 
-- 雷达总纲：[RADAR-NOTES.md](../elv-mgmt/radar-meta/RADAR-NOTES.md)
-- 先例核实：[PRIOR-ART.md](../elv-mgmt/radar-meta/PRIOR-ART.md)
-- 弱电试验：[research-probe-v2.md](../elv-mgmt/research-probe-v2.md)
+- 雷达总纲：[RADAR-NOTES.md](docs/context/RADAR-NOTES.md)
+- 先例核实：[PRIOR-ART.md](docs/context/PRIOR-ART.md)
+- 弱电试验：[weak-current-probe.md](docs/context/weak-current-probe.md)
 - Pack 写法：[docs/PACK.md](docs/PACK.md)
 - MVP 验收：[docs/MVP.md](docs/MVP.md)
 

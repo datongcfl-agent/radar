@@ -16,7 +16,9 @@
 - 来源状态：`last_seen`、`etag`、`content_hash`、`version`、`license_hash`；
 - `scan --since`：只抓变化，不重跑全量；
 - 定时触发（cron / DSH schedule）；
-- diff 区分：新增、内容变化、许可变化、覆盖变化、删除/归档。
+- diff 区分：新增、内容变化、许可变化、覆盖变化、删除/归档；
+- **forward snowballing**：dependents、fork 网络、文档交叉引用（不能只盯已有来源，否则是引用回音室）；
+- **最小种子字段**：`id/url/evidence_level/covers/quotes/status` 六项即可录入，其余由 adapter 补全。
 
 验收：同一批来源，改一个页面/一个 release，`scan` 只报那一处变化。
 
@@ -37,6 +39,7 @@
 
 - claim schema：主张、来源、独立性、可验证性、矛盾、置信度；
 - `single_source` / `contradiction` / `evidence_level` 进入报告；
+- 明确 `EV_RANK` 是“存在性阶梯”，不是“质量排序”；
 - 人工复核队列（CSV/Markdown，Label Studio 后置）；
 - 覆盖度从“来源数”升级为“证据强度”。
 

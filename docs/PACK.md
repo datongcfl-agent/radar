@@ -55,3 +55,16 @@
 ## 换行业
 
 复制一个 pack，改模块/子系统/关键词/来源地图；引擎代码不动。`packs/pet-hospital` 就是最小示例。
+
+
+## 最小种子字段（现状 vs 目标）
+
+当前 `v0.1` 校验要求 12 个字段（`id/platform/url/title/artifact_type/access_status/license/license_status/evidence_level/covers/status/why_selected`）。
+
+`v0.2` 目标是最小 6 个字段就能录入：
+
+```text
+id / url / evidence_level / covers / quotes / status
+```
+
+其余由 adapter 补默认值（platform、title、artifact_type、access_status、license 等），避免“账本录入太贵 → 人懒得记 → 退回聊天记录”。
