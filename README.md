@@ -240,7 +240,7 @@ python3 -m radar claims \
 python3 -m unittest discover -s tests -v
 ```
 
-73 个用例覆盖：pack/seeds 校验、Seed Lite 默认值、`--strict` 拒绝最小字段、URL 规范化、单源上限、双源 strong、mention/none、gaps、来源级变更、Gitee metadata 映射、fetch 状态、snowball fork 映射、HTML 抽取、中文 quote、404 不冒充成功、license 提示、claim 覆盖校验/双向矛盾/CSV 注入、merge 并集/ID 唯一/canonical/平台推断/许可顺序、独立 host/单源口径、坏访问、reusable、CLI 报错、残留清理、账本审计、CLI run/scan/diff。
+74 个用例覆盖：pack/seeds 校验、Seed Lite 默认值、`--strict` 拒绝最小字段、URL 规范化、单源上限、双源 strong、mention/none、gaps、来源级变更、Gitee metadata 映射、fetch 状态、snowball fork 映射、HTML 抽取、中文 quote、404 不冒充成功、license 提示、claim 覆盖校验/双向矛盾/CSV 注入、merge 并集/ID 唯一/canonical/平台推断/许可顺序、独立 host/单源口径、坏访问、reusable、CLI 报错、残留清理、账本审计、CLI run/scan/diff。
 
 ## 交给其他 Agent
 
@@ -262,7 +262,7 @@ radar/
 ├── radar/            # CLI + 校验 + 覆盖度 + diff
 ├── packs/            # weak-current / pet-hospital
 ├── seeds/            # 两个行业的种子来源
-├── tests/            # 73 个单测
+├── tests/            # 74 个单测
 ├── docs/             # PACK / MVP
 ├── .dsh/skills/radar # Skill
 └── runs/             # demo 输出

@@ -2,5 +2,5 @@ __pycache__/
 *.pyc
 .DS_Store
 
-# 运行产物不进 git；需要保留的样例输出用 `git add -f` 单独放行
-runs/
+runs/*-last.txt
+runs/*-scan-*/

@@ -742,6 +742,52 @@ class TestAutomation(unittest.TestCase):
             self.assertTrue((out / "changes.md").exists())
 
 
+class TestScanAllScript(unittest.TestCase):
+    def test_pointer_and_exit_priority(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "packs").mkdir(); (root / "seeds").mkdir(); (root / "runs").mkdir()
+            for name in ("weak-current", "video-kb", "pet-hospital"):
+                (root / "packs" / name).mkdir()
+                (root / "packs" / name / "pack.json").write_text("{}", encoding="utf-8")
+                (root / "seeds" / f"{name}.json").write_text("{}", encoding="utf-8")
+                (root / "runs" / f"{name}-demo").mkdir()
+                (root / "runs" / f"{name}-demo" / "sentinel").write_text("x", encoding="utf-8")
+            bin_dir = root / "bin"; bin_dir.mkdir()
+            fake = bin_dir / "python3"
+            fake.write_text('#!/usr/bin/env bash\ncase "$*" in *weak-current*) exit "${WEAK_RC:-0}";; *video-kb*) exit "${VIDEO_RC:-0}";; *) exit 0;; esac\n', encoding="utf-8")
+            fake.chmod(0o755)
+            env = {"PACK_ROOT": str(root/"packs"), "SEED_ROOT": str(root/"seeds"),
+                   "BASE_ROOT": str(root/"runs"), "STAMP": "one",
+                   "PATH": str(bin_dir) + ":" + str(Path("/usr/bin"))}
+            import os
+            env = dict(os.environ, **env)
+            subprocess.run([str(ROOT/"scripts/scan_all.sh")], cwd=ROOT, env=env,
+                           check=True, capture_output=True, text=True)
+            self.assertIn("weak-current-scan-one", (root/"runs/weak-current-last.txt").read_text())
+            self.assertTrue((root/"runs/weak-current-demo/sentinel").exists())
+            self.assertEqual(len(list((root/"runs/weak-current-demo").iterdir())), 1)
+            for name in ("weak-current", "video-kb", "pet-hospital"):
+                (root / "runs" / f"{name}-scan-one").mkdir()
+            # second run must use the first run as base
+            log = root / "args.log"
+            fake.write_text('#!/usr/bin/env bash\nprintf "%s\\n" "$*" >> "' + str(log) + '"\ncase "$*" in *weak-current*) exit 0;; *video-kb*) exit 2;; *) exit 0;; esac\n', encoding="utf-8")
+            fake.chmod(0o755)
+            env["STAMP"] = "two"
+            p = subprocess.run([str(ROOT/"scripts/scan_all.sh")], cwd=ROOT, env=env,
+                               capture_output=True, text=True)
+            self.assertEqual(p.returncode, 2)
+            args = log.read_text()
+            self.assertIn("--base " + str(root/"runs/weak-current-scan-one"), args)
+            # failure must dominate change
+            fake.write_text('#!/usr/bin/env bash\nexit "${WEAK_RC:-0}"\n', encoding="utf-8")
+            fake.chmod(0o755)
+            env["STAMP"] = "three"; env["WEAK_RC"] = "1"; env["VIDEO_RC"] = "2"
+            p = subprocess.run([str(ROOT/"scripts/scan_all.sh")], cwd=ROOT, env=env,
+                               capture_output=True, text=True)
+            self.assertEqual(p.returncode, 1)
+
+
 class TestAudit(unittest.TestCase):
     def test_ledger_audit(self):
         proc = subprocess.run([sys.executable, str(ROOT / "tools/audit_ledger.py")],

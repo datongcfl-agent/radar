@@ -19,7 +19,7 @@ radar/
 ├── packs/             # 行业包
 ├── seeds/             # 种子来源
 ├── docs/              # PACK/MVP
-├── tests/             # 73 个单测
+├── tests/             # 74 个单测
 ├── runs/weak-current-demo/  # 样例输出
 ├── README.md
 ├── AGENT-TASK.md

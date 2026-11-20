@@ -2,15 +2,24 @@
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$HERE"
-STAMP="$(date +%Y%m%d-%H%M%S)"
+STAMP="${STAMP:-$(date +%Y%m%d-%H%M%S)}"
 BASE_ROOT="${BASE_ROOT:-runs}"
+PACK_ROOT="${PACK_ROOT:-packs}"
+SEED_ROOT="${SEED_ROOT:-seeds}"
 CODE=0
+STATUSES=()
 for name in weak-current video-kb pet-hospital; do
-  pack="packs/${name}/pack.json"
-  seeds="seeds/${name}.json"
+  pack="${PACK_ROOT}/${name}/pack.json"
+  seeds="${SEED_ROOT}/${name}.json"
   [ -f "$pack" ] || continue
-  base="${BASE_ROOT}/${name}-last"
-  if [ ! -e "$base" ]; then base="${BASE_ROOT}/${name}-demo"; fi
+  last_file="${BASE_ROOT}/${name}-last.txt"
+  last=""
+  if [ -f "$last_file" ]; then last="$(cat "$last_file" 2>/dev/null || true)"; fi
+  if [ -n "$last" ] && [ -d "$last" ]; then
+    base="$last"
+  else
+    base="${BASE_ROOT}/${name}-demo"
+  fi
   out="${BASE_ROOT}/${name}-scan-${STAMP}"
   echo "== $name -> $out (base $base)"
   set +e
@@ -20,9 +29,14 @@ for name in weak-current video-kb pet-hospital; do
   rc=$?
   set -e
   if [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ]; then
-    ln -sfn "$(basename "$out")" "$base"
+    printf '%s\n' "$out" > "$last_file"
   fi
-  [ "$rc" -eq 1 ] && CODE=1
-  [ "$rc" -eq 2 ] && CODE=2
+  if [ "$rc" -eq 1 ]; then
+    CODE=1
+  elif [ "$rc" -eq 2 ] && [ "$CODE" -ne 1 ]; then
+    CODE=2
+  fi
+  STATUSES+=("$name=$rc")
 done
+echo "== status: ${STATUSES[*]}"
 exit "$CODE"
