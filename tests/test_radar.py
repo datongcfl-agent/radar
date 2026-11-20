@@ -1,4 +1,5 @@
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -742,6 +743,7 @@ class TestAutomation(unittest.TestCase):
             self.assertTrue((out / "changes.md").exists())
 
 
+@unittest.skipUnless(os.name == "posix", "scan_all.sh 需要 POSIX shell；Windows 用 Git Bash 手动运行")
 class TestScanAllScript(unittest.TestCase):
     def test_pointer_and_exit_priority(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -760,7 +762,6 @@ class TestScanAllScript(unittest.TestCase):
             env = {"PACK_ROOT": str(root/"packs"), "SEED_ROOT": str(root/"seeds"),
                    "BASE_ROOT": str(root/"runs"), "STAMP": "one",
                    "PATH": str(bin_dir) + ":" + str(Path("/usr/bin"))}
-            import os
             env = dict(os.environ, **env)
             subprocess.run([str(ROOT/"scripts/scan_all.sh")], cwd=ROOT, env=env,
                            check=True, capture_output=True, text=True)
