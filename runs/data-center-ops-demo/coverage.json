@@ -1,0 +1,509 @@
+{
+  "modules": [
+    {
+      "id": "M01",
+      "name": "资产与容量",
+      "kind": "module",
+      "level": "evidence",
+      "source_count": 8,
+      "evidence_count": 3,
+      "independent_count": 1,
+      "verified_count": 3,
+      "verified_independent_count": 1,
+      "sources": [
+        "DC-009",
+        "VND-SUNBIRD",
+        "VND-NLYTE",
+        "VND-DEVICE42",
+        "VND-OCP",
+        "VND-DCMAP",
+        "DC-011",
+        "DC-012"
+      ],
+      "strongest": "DC-012",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "M02",
+      "name": "供配电",
+      "kind": "module",
+      "level": "evidence",
+      "source_count": 5,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
+      "sources": [
+        "DC-006",
+        "VND-SCHNEIDER",
+        "VND-EATON",
+        "VND-RARITAN",
+        "VND-CUMMINS"
+      ],
+      "strongest": "DC-006",
+      "reusable": false,
+      "single_source": true
+    },
+    {
+      "id": "M03",
+      "name": "制冷与环境",
+      "kind": "module",
+      "level": "mention",
+      "source_count": 3,
+      "evidence_count": 0,
+      "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
+      "sources": [
+        "VND-VERTIV",
+        "VND-SCHNEIDER",
+        "VND-OCP"
+      ],
+      "strongest": "VND-VERTIV",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "M04",
+      "name": "监控与告警",
+      "kind": "module",
+      "level": "evidence",
+      "source_count": 9,
+      "evidence_count": 9,
+      "independent_count": 1,
+      "verified_count": 9,
+      "verified_independent_count": 1,
+      "sources": [
+        "DC-001",
+        "DC-002",
+        "DC-003",
+        "DC-004",
+        "DC-005",
+        "DC-007",
+        "DC-008",
+        "DC-009",
+        "DC-015"
+      ],
+      "strongest": "DC-015",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "M05",
+      "name": "消防与安全",
+      "kind": "module",
+      "level": "mention",
+      "source_count": 5,
+      "evidence_count": 0,
+      "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
+      "sources": [
+        "VND-DCD",
+        "VND-DCK",
+        "VND-SIEMENS",
+        "VND-HID",
+        "VND-AXIS"
+      ],
+      "strongest": "VND-SIEMENS",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "M06",
+      "name": "巡检与工单",
+      "kind": "module",
+      "level": "mention",
+      "source_count": 4,
+      "evidence_count": 0,
+      "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
+      "sources": [
+        "VND-DCD",
+        "VND-DCK",
+        "VND-DCF",
+        "VND-IBM-MAXIMO"
+      ],
+      "strongest": "VND-IBM-MAXIMO",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "M07",
+      "name": "能效与PUE",
+      "kind": "module",
+      "level": "mention",
+      "source_count": 1,
+      "evidence_count": 0,
+      "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
+      "sources": [
+        "VND-GREENGRID"
+      ],
+      "strongest": "VND-GREENGRID",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "M08",
+      "name": "容量规划与报表",
+      "kind": "module",
+      "level": "mention",
+      "source_count": 4,
+      "evidence_count": 0,
+      "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
+      "sources": [
+        "VND-SUNBIRD",
+        "VND-NLYTE",
+        "VND-DEVICE42",
+        "VND-DCMAP"
+      ],
+      "strongest": "VND-SUNBIRD",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "M09",
+      "name": "合规与标准",
+      "kind": "module",
+      "level": "mention",
+      "source_count": 7,
+      "evidence_count": 0,
+      "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
+      "sources": [
+        "BASE-STD",
+        "BASE-TENDER",
+        "BASE-CORP",
+        "BASE-STAT",
+        "BASE-REPORT",
+        "VND-UPTIME",
+        "VND-TIA"
+      ],
+      "strongest": "VND-UPTIME",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "M10",
+      "name": "集成与自动化",
+      "kind": "module",
+      "level": "evidence",
+      "source_count": 1,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
+      "sources": [
+        "DC-010"
+      ],
+      "strongest": "DC-010",
+      "reusable": true,
+      "single_source": true
+    }
+  ],
+  "subsystems": [
+    {
+      "id": "S01",
+      "name": "机柜/U位",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 2,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
+      "sources": [
+        "DC-011",
+        "DC-013"
+      ],
+      "strongest": "DC-011",
+      "reusable": true,
+      "single_source": true
+    },
+    {
+      "id": "S02",
+      "name": "配电/列头柜",
+      "kind": "subsystem",
+      "level": "mention",
+      "source_count": 1,
+      "evidence_count": 0,
+      "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
+      "sources": [
+        "VND-RARITAN"
+      ],
+      "strongest": "VND-RARITAN",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "S03",
+      "name": "UPS/电池",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 2,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
+      "sources": [
+        "DC-006",
+        "VND-EATON"
+      ],
+      "strongest": "DC-006",
+      "reusable": false,
+      "single_source": true
+    },
+    {
+      "id": "S04",
+      "name": "柴发",
+      "kind": "subsystem",
+      "level": "mention",
+      "source_count": 1,
+      "evidence_count": 0,
+      "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
+      "sources": [
+        "VND-CUMMINS"
+      ],
+      "strongest": "VND-CUMMINS",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "S05",
+      "name": "精密空调",
+      "kind": "subsystem",
+      "level": "mention",
+      "source_count": 1,
+      "evidence_count": 0,
+      "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
+      "sources": [
+        "VND-VERTIV"
+      ],
+      "strongest": "VND-VERTIV",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "S06",
+      "name": "温湿度/漏水",
+      "kind": "subsystem",
+      "level": "mention",
+      "source_count": 1,
+      "evidence_count": 0,
+      "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
+      "sources": [
+        "VND-VERTIV"
+      ],
+      "strongest": "VND-VERTIV",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "S07",
+      "name": "消防联动",
+      "kind": "subsystem",
+      "level": "mention",
+      "source_count": 1,
+      "evidence_count": 0,
+      "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
+      "sources": [
+        "VND-SIEMENS"
+      ],
+      "strongest": "VND-SIEMENS",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "S08",
+      "name": "门禁",
+      "kind": "subsystem",
+      "level": "mention",
+      "source_count": 1,
+      "evidence_count": 0,
+      "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
+      "sources": [
+        "VND-HID"
+      ],
+      "strongest": "VND-HID",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "S09",
+      "name": "视频监控",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 2,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
+      "sources": [
+        "DC-014",
+        "VND-AXIS"
+      ],
+      "strongest": "DC-014",
+      "reusable": true,
+      "single_source": true
+    },
+    {
+      "id": "S10",
+      "name": "动环监控",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 7,
+      "evidence_count": 7,
+      "independent_count": 1,
+      "verified_count": 7,
+      "verified_independent_count": 1,
+      "sources": [
+        "DC-001",
+        "DC-002",
+        "DC-003",
+        "DC-004",
+        "DC-005",
+        "DC-007",
+        "DC-008"
+      ],
+      "strongest": "DC-008",
+      "reusable": true,
+      "single_source": false
+    },
+    {
+      "id": "S11",
+      "name": "告警/工单",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 1,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
+      "sources": [
+        "DC-015"
+      ],
+      "strongest": "DC-015",
+      "reusable": true,
+      "single_source": true
+    },
+    {
+      "id": "S12",
+      "name": "巡检",
+      "kind": "subsystem",
+      "level": "mention",
+      "source_count": 1,
+      "evidence_count": 0,
+      "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
+      "sources": [
+        "VND-IBM-MAXIMO"
+      ],
+      "strongest": "VND-IBM-MAXIMO",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "S13",
+      "name": "能效/PUE",
+      "kind": "subsystem",
+      "level": "mention",
+      "source_count": 1,
+      "evidence_count": 0,
+      "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
+      "sources": [
+        "VND-GREENGRID"
+      ],
+      "strongest": "VND-GREENGRID",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "S14",
+      "name": "容量规划",
+      "kind": "subsystem",
+      "level": "mention",
+      "source_count": 3,
+      "evidence_count": 0,
+      "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
+      "sources": [
+        "VND-SUNBIRD",
+        "VND-NLYTE",
+        "VND-DEVICE42"
+      ],
+      "strongest": "VND-SUNBIRD",
+      "reusable": false,
+      "single_source": false
+    },
+    {
+      "id": "S15",
+      "name": "资产/维保",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 1,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
+      "sources": [
+        "DC-012"
+      ],
+      "strongest": "DC-012",
+      "reusable": false,
+      "single_source": true
+    },
+    {
+      "id": "S16",
+      "name": "API/集成",
+      "kind": "subsystem",
+      "level": "evidence",
+      "source_count": 2,
+      "evidence_count": 2,
+      "independent_count": 1,
+      "verified_count": 2,
+      "verified_independent_count": 1,
+      "sources": [
+        "DC-009",
+        "DC-010"
+      ],
+      "strongest": "DC-010",
+      "reusable": true,
+      "single_source": false
+    }
+  ],
+  "summary": {
+    "none": 0,
+    "mention": 15,
+    "evidence": 11,
+    "strong": 0
+  },
+  "sources": 40,
+  "platforms": {
+    "github": 15,
+    "docs": 5,
+    "web": 20
+  }
+}
