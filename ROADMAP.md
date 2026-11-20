@@ -103,19 +103,27 @@
 
 验收：每条关键主张有 URL + quote + 置信度；矛盾不被强行合并。
 
-## v1.2.0 — 证据清理（本 PR）
+## v1.3.0 — Claim 完整性（本 PR）
+
+- claim 只认 `quote_verified=true` + `quote_verified_by=web` 的来源；
+- `no_verified_source` 上限 0.40；
+- `unsupported_by_verified_sources` 上限 0.30；
+- `next_action` 区分“先跑 --verify-quotes / 换已验证来源或改主张”；
+- 72 个单测。
+
+## v1.2.0 — 证据清理（已合并，v1.2.0）
 
 - SRC-008 从 SSL 失败的 docs 换成 OpenProject GitHub README；
 - weak-current 恢复 **3 strong**（M01/M06/M13）/ 19 evidence / 9 mention / 6 none；
 - video-kb 仍 0 strong / 24 evidence / 2 mention / 0 none；
-- 70 个单测。
+- 72 个单测。
 
 ## v1.1.0 — 通用 quote 验证（已合并，v1.1.0）
 
 - `--verify-quotes`：GitHub/Gitee/网页抓正文，归一化子串校验；
 - weak-current 实抓后：2 strong / 20 evidence / 10 mention / 5 none；
 - video-kb 实抓后：0 strong / 24 evidence / 2 mention / 0 none；
-- 70 个单测。
+- 72 个单测。
 
 ## v1.0.0 — Schema 契约冻结（已合并，v1.0.0）
 
