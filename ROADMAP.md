@@ -103,7 +103,14 @@
 
 验收：每条关键主张有 URL + quote + 置信度；矛盾不被强行合并。
 
-## v1.5.1 — 第三真实 pack：data-center-ops（本 PR）
+## v1.6.0 — data-center 补证（本 PR）
+
+- Raritan / Generac / Siemens / IBM Maximo / GreenGrid / Sunbird 具体页 + quote；
+- data-center 从 11 evidence / 15 mention → **20 evidence / 6 mention / 0 none**；
+- 15 个单源，S04/S05/S08/S14 仍 mention；
+- 76 个单测。
+
+## v1.5.1 — 第三真实 pack：data-center-ops（已合并，v1.5.1）
 
 - 10 模块 / 16 子系统 / 40 条来源；
 - 复用 issue #20 五类底座，补行业垂直来源；

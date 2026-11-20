@@ -3,8 +3,8 @@
 | 层级 | 数量 |
 | --- | ---: |
 | none | 0 |
-| mention | 15 |
-| evidence | 11 |
+| mention | 6 |
+| evidence | 20 |
 | strong | 0 |
 
 ## 管理模块
@@ -14,7 +14,6 @@
 | 来源 | 平台 | 等级 | 许可 | 访问 |
 | --- | --- | --- | --- | --- |
 | `DC-009` | github | evidence | NOASSERTION | public |
-| `VND-SUNBIRD` | web | mention | unknown | public |
 | `VND-NLYTE` | web | mention | unknown | public |
 | `VND-DEVICE42` | web | mention | unknown | public |
 | `VND-OCP` | web | mention | unknown | public |
@@ -29,15 +28,16 @@
 | `DC-006` | github | evidence | NOASSERTION | public |
 | `VND-SCHNEIDER` | web | mention | unknown | public |
 | `VND-EATON` | web | mention | unknown | public |
-| `VND-RARITAN` | web | mention | unknown | public |
+| `VND-RARITAN` | web | evidence | unknown | public |
 | `VND-CUMMINS` | web | mention | unknown | public |
 
-### M03 制冷与环境 — mention
+### M03 制冷与环境 — evidence
 
 | 来源 | 平台 | 等级 | 许可 | 访问 |
 | --- | --- | --- | --- | --- |
 | `VND-VERTIV` | web | mention | unknown | public |
 | `VND-SCHNEIDER` | web | mention | unknown | public |
+| `VND-SUNBIRD` | web | evidence | unknown | public |
 | `VND-OCP` | web | mention | unknown | public |
 
 ### M04 监控与告警 — evidence
@@ -54,36 +54,35 @@
 | `DC-009` | github | evidence | NOASSERTION | public |
 | `DC-015` | github | evidence | Apache-2.0 | public |
 
-### M05 消防与安全 — mention
+### M05 消防与安全 — evidence
 
 | 来源 | 平台 | 等级 | 许可 | 访问 |
 | --- | --- | --- | --- | --- |
 | `VND-DCD` | web | mention | unknown | public |
 | `VND-DCK` | web | mention | unknown | public |
-| `VND-SIEMENS` | web | mention | unknown | public |
+| `VND-SIEMENS` | web | evidence | unknown | public |
 | `VND-HID` | web | mention | unknown | public |
 | `VND-AXIS` | web | mention | unknown | public |
 
-### M06 巡检与工单 — mention
+### M06 巡检与工单 — evidence
 
 | 来源 | 平台 | 等级 | 许可 | 访问 |
 | --- | --- | --- | --- | --- |
 | `VND-DCD` | web | mention | unknown | public |
 | `VND-DCK` | web | mention | unknown | public |
 | `VND-DCF` | web | mention | unknown | public |
-| `VND-IBM-MAXIMO` | web | mention | unknown | public |
+| `VND-IBM-MAXIMO` | web | evidence | unknown | public |
 
-### M07 能效与PUE — mention
+### M07 能效与PUE — evidence
 
 | 来源 | 平台 | 等级 | 许可 | 访问 |
 | --- | --- | --- | --- | --- |
-| `VND-GREENGRID` | web | mention | unknown | public |
+| `VND-GREENGRID` | web | evidence | unknown | public |
 
 ### M08 容量规划与报表 — mention
 
 | 来源 | 平台 | 等级 | 许可 | 访问 |
 | --- | --- | --- | --- | --- |
-| `VND-SUNBIRD` | web | mention | unknown | public |
 | `VND-NLYTE` | web | mention | unknown | public |
 | `VND-DEVICE42` | web | mention | unknown | public |
 | `VND-DCMAP` | web | mention | unknown | public |
@@ -109,19 +108,19 @@
 ## 子系统
 
 - **S01 机柜/U位** — evidence（2 个来源）
-- **S02 配电/列头柜** — mention（1 个来源）
+- **S02 配电/列头柜** — evidence（1 个来源）
 - **S03 UPS/电池** — evidence（2 个来源）
 - **S04 柴发** — mention（1 个来源）
 - **S05 精密空调** — mention（1 个来源）
-- **S06 温湿度/漏水** — mention（1 个来源）
-- **S07 消防联动** — mention（1 个来源）
+- **S06 温湿度/漏水** — evidence（2 个来源）
+- **S07 消防联动** — evidence（1 个来源）
 - **S08 门禁** — mention（1 个来源）
 - **S09 视频监控** — evidence（2 个来源）
 - **S10 动环监控** — evidence（7 个来源）
 - **S11 告警/工单** — evidence（1 个来源）
-- **S12 巡检** — mention（1 个来源）
-- **S13 能效/PUE** — mention（1 个来源）
-- **S14 容量规划** — mention（3 个来源）
+- **S12 巡检** — evidence（1 个来源）
+- **S13 能效/PUE** — evidence（1 个来源）
+- **S14 容量规划** — mention（2 个来源）
 - **S15 资产/维保** — evidence（1 个来源）
 - **S16 API/集成** — evidence（2 个来源）
 

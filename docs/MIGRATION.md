@@ -22,6 +22,7 @@
 | 1.4.1 | 补 weak M02/M10、video S07/S13；GitHub blob 文件校验 |
 | 1.5 | 通用来源底座 + 1 条国标来源；第三 pack 后续 |
 | 1.5.1 | 第三真实 pack：data-center-ops（40 条来源） |
+| 1.6 | data-center 厂商具体页补证，20 evidence / 6 mention |
 
 ## schema_version 与 __version__
 

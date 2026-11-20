@@ -5,14 +5,13 @@
       "name": "资产与容量",
       "kind": "module",
       "level": "evidence",
-      "source_count": 8,
+      "source_count": 7,
       "evidence_count": 3,
       "independent_count": 1,
       "verified_count": 3,
       "verified_independent_count": 1,
       "sources": [
         "DC-009",
-        "VND-SUNBIRD",
         "VND-NLYTE",
         "VND-DEVICE42",
         "VND-OCP",
@@ -30,10 +29,10 @@
       "kind": "module",
       "level": "evidence",
       "source_count": 5,
-      "evidence_count": 1,
-      "independent_count": 1,
-      "verified_count": 1,
-      "verified_independent_count": 1,
+      "evidence_count": 2,
+      "independent_count": 2,
+      "verified_count": 2,
+      "verified_independent_count": 2,
       "sources": [
         "DC-006",
         "VND-SCHNEIDER",
@@ -41,28 +40,29 @@
         "VND-RARITAN",
         "VND-CUMMINS"
       ],
-      "strongest": "DC-006",
+      "strongest": "VND-RARITAN",
       "reusable": false,
-      "single_source": true
+      "single_source": false
     },
     {
       "id": "M03",
       "name": "制冷与环境",
       "kind": "module",
-      "level": "mention",
-      "source_count": 3,
-      "evidence_count": 0,
-      "independent_count": 0,
-      "verified_count": 0,
-      "verified_independent_count": 0,
+      "level": "evidence",
+      "source_count": 4,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
         "VND-VERTIV",
         "VND-SCHNEIDER",
+        "VND-SUNBIRD",
         "VND-OCP"
       ],
-      "strongest": "VND-VERTIV",
+      "strongest": "VND-SUNBIRD",
       "reusable": false,
-      "single_source": false
+      "single_source": true
     },
     {
       "id": "M04",
@@ -93,12 +93,12 @@
       "id": "M05",
       "name": "消防与安全",
       "kind": "module",
-      "level": "mention",
+      "level": "evidence",
       "source_count": 5,
-      "evidence_count": 0,
-      "independent_count": 0,
-      "verified_count": 0,
-      "verified_independent_count": 0,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
         "VND-DCD",
         "VND-DCK",
@@ -108,18 +108,18 @@
       ],
       "strongest": "VND-SIEMENS",
       "reusable": false,
-      "single_source": false
+      "single_source": true
     },
     {
       "id": "M06",
       "name": "巡检与工单",
       "kind": "module",
-      "level": "mention",
+      "level": "evidence",
       "source_count": 4,
-      "evidence_count": 0,
-      "independent_count": 0,
-      "verified_count": 0,
-      "verified_independent_count": 0,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
         "VND-DCD",
         "VND-DCK",
@@ -128,42 +128,41 @@
       ],
       "strongest": "VND-IBM-MAXIMO",
       "reusable": false,
-      "single_source": false
+      "single_source": true
     },
     {
       "id": "M07",
       "name": "能效与PUE",
       "kind": "module",
-      "level": "mention",
+      "level": "evidence",
       "source_count": 1,
-      "evidence_count": 0,
-      "independent_count": 0,
-      "verified_count": 0,
-      "verified_independent_count": 0,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
         "VND-GREENGRID"
       ],
       "strongest": "VND-GREENGRID",
       "reusable": false,
-      "single_source": false
+      "single_source": true
     },
     {
       "id": "M08",
       "name": "容量规划与报表",
       "kind": "module",
       "level": "mention",
-      "source_count": 4,
+      "source_count": 3,
       "evidence_count": 0,
       "independent_count": 0,
       "verified_count": 0,
       "verified_independent_count": 0,
       "sources": [
-        "VND-SUNBIRD",
         "VND-NLYTE",
         "VND-DEVICE42",
         "VND-DCMAP"
       ],
-      "strongest": "VND-SUNBIRD",
+      "strongest": "VND-NLYTE",
       "reusable": false,
       "single_source": false
     },
@@ -231,18 +230,18 @@
       "id": "S02",
       "name": "配电/列头柜",
       "kind": "subsystem",
-      "level": "mention",
+      "level": "evidence",
       "source_count": 1,
-      "evidence_count": 0,
-      "independent_count": 0,
-      "verified_count": 0,
-      "verified_independent_count": 0,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
         "VND-RARITAN"
       ],
       "strongest": "VND-RARITAN",
       "reusable": false,
-      "single_source": false
+      "single_source": true
     },
     {
       "id": "S03",
@@ -300,35 +299,36 @@
       "id": "S06",
       "name": "温湿度/漏水",
       "kind": "subsystem",
-      "level": "mention",
-      "source_count": 1,
-      "evidence_count": 0,
-      "independent_count": 0,
-      "verified_count": 0,
-      "verified_independent_count": 0,
+      "level": "evidence",
+      "source_count": 2,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
-        "VND-VERTIV"
+        "VND-VERTIV",
+        "VND-SUNBIRD"
       ],
-      "strongest": "VND-VERTIV",
+      "strongest": "VND-SUNBIRD",
       "reusable": false,
-      "single_source": false
+      "single_source": true
     },
     {
       "id": "S07",
       "name": "消防联动",
       "kind": "subsystem",
-      "level": "mention",
+      "level": "evidence",
       "source_count": 1,
-      "evidence_count": 0,
-      "independent_count": 0,
-      "verified_count": 0,
-      "verified_independent_count": 0,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
         "VND-SIEMENS"
       ],
       "strongest": "VND-SIEMENS",
       "reusable": false,
-      "single_source": false
+      "single_source": true
     },
     {
       "id": "S08",
@@ -409,52 +409,51 @@
       "id": "S12",
       "name": "巡检",
       "kind": "subsystem",
-      "level": "mention",
+      "level": "evidence",
       "source_count": 1,
-      "evidence_count": 0,
-      "independent_count": 0,
-      "verified_count": 0,
-      "verified_independent_count": 0,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
         "VND-IBM-MAXIMO"
       ],
       "strongest": "VND-IBM-MAXIMO",
       "reusable": false,
-      "single_source": false
+      "single_source": true
     },
     {
       "id": "S13",
       "name": "能效/PUE",
       "kind": "subsystem",
-      "level": "mention",
+      "level": "evidence",
       "source_count": 1,
-      "evidence_count": 0,
-      "independent_count": 0,
-      "verified_count": 0,
-      "verified_independent_count": 0,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
         "VND-GREENGRID"
       ],
       "strongest": "VND-GREENGRID",
       "reusable": false,
-      "single_source": false
+      "single_source": true
     },
     {
       "id": "S14",
       "name": "容量规划",
       "kind": "subsystem",
       "level": "mention",
-      "source_count": 3,
+      "source_count": 2,
       "evidence_count": 0,
       "independent_count": 0,
       "verified_count": 0,
       "verified_independent_count": 0,
       "sources": [
-        "VND-SUNBIRD",
         "VND-NLYTE",
         "VND-DEVICE42"
       ],
-      "strongest": "VND-SUNBIRD",
+      "strongest": "VND-NLYTE",
       "reusable": false,
       "single_source": false
     },
@@ -496,8 +495,8 @@
   ],
   "summary": {
     "none": 0,
-    "mention": 15,
-    "evidence": 11,
+    "mention": 6,
+    "evidence": 20,
     "strong": 0
   },
   "sources": 40,

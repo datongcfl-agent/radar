@@ -528,15 +528,15 @@
     {
       "id": "VND-RARITAN",
       "platform": "web",
-      "url": "https://www.raritan.com/",
-      "title": "Raritan 机柜配电",
+      "url": "https://www.raritan.com/products/power-distribution-units",
+      "title": "Raritan 机柜 PDU",
       "artifact_type": "docs",
       "language": "en",
       "retrieved_at": "2026-11-20",
       "access_status": "public",
       "license": "unknown",
       "license_status": "needs_review",
-      "evidence_level": "metadata",
+      "evidence_level": "docs",
       "derived_from_real_data": false,
       "covers": [
         "M02",
@@ -545,9 +545,11 @@
       "borrow_scope": [
         "workflow"
       ],
-      "quotes": [],
+      "quotes": [
+        "Power Distribution Intelligent Rack PDUs Inline Meters Intelligent Hybrid Rack Transfer Switch Branch Circuit Monitoring"
+      ],
       "limitations": [
-        "厂商/媒体页，仅 metadata；不是独立评测"
+        "厂商产品页，只作参考；不是独立评测"
       ],
       "status": "needs_review",
       "why_selected": "行业垂直：PDU/机柜"
@@ -563,19 +565,20 @@
       "access_status": "public",
       "license": "unknown",
       "license_status": "needs_review",
-      "evidence_level": "metadata",
+      "evidence_level": "docs",
       "derived_from_real_data": false,
       "covers": [
-        "M01",
-        "M08",
-        "S14"
+        "M03",
+        "S06"
       ],
       "borrow_scope": [
         "workflow"
       ],
-      "quotes": [],
+      "quotes": [
+        "Environment Intelligent monitoring to help you maintain the health of your data center."
+      ],
       "limitations": [
-        "厂商/媒体页，仅 metadata；不是独立评测"
+        "厂商产品页，只作参考；不是独立评测"
       ],
       "status": "needs_review",
       "why_selected": "行业垂直：DCIM"
@@ -726,7 +729,7 @@
       "access_status": "public",
       "license": "unknown",
       "license_status": "needs_review",
-      "evidence_level": "metadata",
+      "evidence_level": "docs",
       "derived_from_real_data": false,
       "covers": [
         "M07",
@@ -735,9 +738,11 @@
       "borrow_scope": [
         "workflow"
       ],
-      "quotes": [],
+      "quotes": [
+        "Enabling data center efficiency since 2007, The Green Grid has empowered the companies of the Data Center industry to operate in the most sustainable and efficient manner while also supporting the growing needs of the information age."
+      ],
       "limitations": [
-        "厂商/媒体页，仅 metadata；不是独立评测"
+        "厂商产品页，只作参考；不是独立评测"
       ],
       "status": "needs_review",
       "why_selected": "行业垂直：PUE/能效"
@@ -1003,15 +1008,15 @@
     {
       "id": "VND-CUMMINS",
       "platform": "web",
-      "url": "https://www.cummins.com/",
-      "title": "Cummins 柴发",
+      "url": "https://www.generac.com/",
+      "title": "Generac 发电机组",
       "artifact_type": "docs",
       "language": "en",
       "retrieved_at": "2026-11-20",
       "access_status": "public",
       "license": "unknown",
       "license_status": "needs_review",
-      "evidence_level": "metadata",
+      "evidence_level": "docs",
       "derived_from_real_data": false,
       "covers": [
         "M02",
@@ -1020,9 +1025,11 @@
       "borrow_scope": [
         "workflow"
       ],
-      "quotes": [],
+      "quotes": [
+        "Since 1959, Generac Power Systems has been committed to building the most reliable, durable, efficient, and environmentally-friendly generators and power equipment."
+      ],
       "limitations": [
-        "厂商页，仅 metadata；不是独立评测"
+        "厂商产品页，只作参考；不是独立评测"
       ],
       "status": "needs_review",
       "why_selected": "行业垂直：柴发"
@@ -1030,15 +1037,15 @@
     {
       "id": "VND-SIEMENS",
       "platform": "web",
-      "url": "https://www.siemens.com/global/en.html",
-      "title": "Siemens 消防/楼宇",
+      "url": "https://www.siemens.com/global/en/products/buildings/fire-safety.html",
+      "title": "Siemens 消防",
       "artifact_type": "docs",
       "language": "en",
       "retrieved_at": "2026-11-20",
       "access_status": "public",
       "license": "unknown",
       "license_status": "needs_review",
-      "evidence_level": "metadata",
+      "evidence_level": "docs",
       "derived_from_real_data": false,
       "covers": [
         "M05",
@@ -1047,9 +1054,11 @@
       "borrow_scope": [
         "workflow"
       ],
-      "quotes": [],
+      "quotes": [
+        "Siemens fire safety delivers a comprehensive suite of integrated solutions for effortless, reliable and compliant protection."
+      ],
       "limitations": [
-        "厂商页，仅 metadata；不是独立评测"
+        "厂商产品页，只作参考；不是独立评测"
       ],
       "status": "needs_review",
       "why_selected": "行业垂直：消防"
@@ -1119,7 +1128,7 @@
       "access_status": "public",
       "license": "unknown",
       "license_status": "needs_review",
-      "evidence_level": "metadata",
+      "evidence_level": "docs",
       "derived_from_real_data": false,
       "covers": [
         "M06",
@@ -1128,9 +1137,11 @@
       "borrow_scope": [
         "workflow"
       ],
-      "quotes": [],
+      "quotes": [
+        "Maximize asset uptime and value with unified asset lifecycle management"
+      ],
       "limitations": [
-        "厂商页，仅 metadata；不是独立评测"
+        "厂商产品页，只作参考；不是独立评测"
       ],
       "status": "needs_review",
       "why_selected": "行业垂直：EAM/巡检"
