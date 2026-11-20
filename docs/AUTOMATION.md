@@ -6,7 +6,7 @@
 ./scripts/scan_all.sh
 ```
 
-- 对 `weak-current` / `video-kb` / `pet-hospital` 各跑一次 `scan`；
+- 对 `weak-current` / `video-kb` / `data-center-ops` / `pet-hospital` 各跑一次 `scan`；
 - 使用 `--verify-quotes --require-web-verify`；
 - 第一次以 `runs/<pack>-demo` 为 base；
 - 之后把本次 out 路径写入 `runs/<pack>-last.txt`，下次读这个指针文件；

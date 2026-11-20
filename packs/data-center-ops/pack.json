@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "pack": "data-center-ops",
+  "version": "0.1.0",
+  "title": "数据中心动环/DCIM",
+  "aliases": ["数据中心", "机房动环", "DCIM", "IDC 运维", "data center operations"],
+  "modules": [
+    {"id": "M01", "name": "资产与容量", "artifacts": ["code", "docs"], "keywords": ["资产", "机柜", "U位", "CMDB", "容量"]},
+    {"id": "M02", "name": "供配电", "artifacts": ["manual", "code"], "keywords": ["配电", "UPS", "柴发", "列头柜", "电力"]},
+    {"id": "M03", "name": "制冷与环境", "artifacts": ["manual", "code"], "keywords": ["精密空调", "温湿度", "漏水", "冷热通道", "制冷"]},
+    {"id": "M04", "name": "监控与告警", "artifacts": ["code", "docs"], "keywords": ["动环", "监控", "告警", "SNMP", "DCIM"]},
+    {"id": "M05", "name": "消防与安全", "artifacts": ["manual", "docs"], "keywords": ["消防", "门禁", "视频", "安防"]},
+    {"id": "M06", "name": "巡检与工单", "artifacts": ["manual", "ui_reference"], "keywords": ["巡检", "工单", "维保", "变更"]},
+    {"id": "M07", "name": "能效与PUE", "artifacts": ["benchmark", "docs"], "keywords": ["PUE", "能效", "能耗", "绿色数据中心"]},
+    {"id": "M08", "name": "容量规划与报表", "artifacts": ["readme", "docs"], "keywords": ["容量规划", "报表", "预测", "扩容"]},
+    {"id": "M09", "name": "合规与标准", "artifacts": ["docs", "manual"], "keywords": ["GB 50174", "TIA-942", "Uptime", "标准"]},
+    {"id": "M10", "name": "集成与自动化", "artifacts": ["code", "readme"], "keywords": ["API", "Redfish", "自动化", "编排"]}
+  ],
+  "subsystems": [
+    {"id": "S01", "name": "机柜/U位", "artifacts": ["code"], "keywords": ["机柜", "U位", "rack"]},
+    {"id": "S02", "name": "配电/列头柜", "artifacts": ["code"], "keywords": ["配电", "列头柜", "PDU"]},
+    {"id": "S03", "name": "UPS/电池", "artifacts": ["code"], "keywords": ["UPS", "电池", "NUT", "apcupsd"]},
+    {"id": "S04", "name": "柴发", "artifacts": ["manual"], "keywords": ["柴发", "发电机", "油机"]},
+    {"id": "S05", "name": "精密空调", "artifacts": ["manual"], "keywords": ["精密空调", "CRAC", "CRAH"]},
+    {"id": "S06", "name": "温湿度/漏水", "artifacts": ["code"], "keywords": ["温湿度", "漏水", "环境"]},
+    {"id": "S07", "name": "消防联动", "artifacts": ["manual"], "keywords": ["消防", "气体灭火", "联动"]},
+    {"id": "S08", "name": "门禁", "artifacts": ["manual"], "keywords": ["门禁", "出入", "权限"]},
+    {"id": "S09", "name": "视频监控", "artifacts": ["ui_reference"], "keywords": ["视频", "摄像头", "CCTV"]},
+    {"id": "S10", "name": "动环监控", "artifacts": ["code"], "keywords": ["动环", "SNMP", "采集", "监控"]},
+    {"id": "S11", "name": "告警/工单", "artifacts": ["code"], "keywords": ["告警", "工单", "事件", "值班"]},
+    {"id": "S12", "name": "巡检", "artifacts": ["manual", "ui_reference"], "keywords": ["巡检", "点检", "路线"]},
+    {"id": "S13", "name": "能效/PUE", "artifacts": ["benchmark"], "keywords": ["PUE", "能效", "能耗"]},
+    {"id": "S14", "name": "容量规划", "artifacts": ["readme"], "keywords": ["容量", "扩容", "预测"]},
+    {"id": "S15", "name": "资产/维保", "artifacts": ["code"], "keywords": ["资产", "维保", "生命周期"]},
+    {"id": "S16", "name": "API/集成", "artifacts": ["code"], "keywords": ["API", "Redfish", "BMC", "CMDB"]}
+  ],
+  "source_map": {
+    "github": ["data center infrastructure management", "DCIM open source", "UPS monitoring", "Redfish BMC", "prometheus datacenter"],
+    "web": ["数据中心 动环 监控 厂商", "数据中心 PUE 标准", "数据中心 招标 动环", "DCIM 产品 对比"]
+  },
+  "query_templates": [
+    "{module} {artifact} 开源 对比",
+    "{industry} {module} 数据中心",
+    "{subsystem} github star",
+    "数据中心 动环 {module} 厂商"
+  ]
+}

@@ -8,7 +8,7 @@ PACK_ROOT="${PACK_ROOT:-packs}"
 SEED_ROOT="${SEED_ROOT:-seeds}"
 CODE=0
 STATUSES=()
-for name in weak-current video-kb pet-hospital; do
+for name in weak-current video-kb data-center-ops pet-hospital; do
   pack="${PACK_ROOT}/${name}/pack.json"
   seeds="${SEED_ROOT}/${name}.json"
   [ -f "$pack" ] || continue
