@@ -1,4 +1,4 @@
-# radar · 最小行业雷达（v1.4.1）
+# radar · 最小行业雷达（v1.5.0）
 
 **A minimal industry radar: does every module in your industry outline actually have evidence?**
 
@@ -62,7 +62,7 @@ runs/weak-current-demo/
 └── state.json        # run 元数据、pack/seeds 哈希
 ```
 
-## video-kb 第二真实 pack（v1.4.1）
+## video-kb 第二真实 pack（v1.5.0）
 
 - **32 条公开来源**：22 selected / 10 needs_review；
 - 覆盖：**0 strong / 26 evidence / 0 mention / 0 none**；
@@ -70,6 +70,12 @@ runs/weak-current-demo/
 - 同一套引擎，换 pack 不改代码；基线见 [docs/BASELINE-VIDEO-KB.md](docs/BASELINE-VIDEO-KB.md)。
 
 strong 为 0 是因为没有单元同时满足“2 独立 host + real_artifact + web 验证 quote”。
+
+## 通用来源底座（v1.5.0）
+
+- [docs/SOURCES-BASE.md](docs/SOURCES-BASE.md)：标准/招投标/企业/统计/报告五类底座；
+- weak-current 新增 `SRC-035`（GB 50311-2016，metadata）；
+- 第三 pack 先复用底座，再补行业垂直层，不再从零找 30 条。
 
 ## 多个 pack 证明可替换
 
@@ -83,9 +89,9 @@ python3 -m radar run \
 
 同一套代码，换 pack 就能跑；弱电和宠物医院互不写死。
 
-## 弱电 pack 现状（v1.4.1）
+## 弱电 pack 现状（v1.5.0）
 
-- **34 条公开来源**：30 selected / 4 needs_review；
+- **35 条公开来源**：30 selected / 5 needs_review；
 - 覆盖：**3 strong / 20 evidence / 8 mention / 6 none**；
 - 11 个单源、8 个同源待印证、6 个无证据；`gaps.md` 有真实缺口，不再写“无缺口”；
 - 审计：无 `covers ≥5` 的万金油来源、无 <40 字的空壳 quote；
@@ -183,7 +189,7 @@ v1.3 用 `--verify-quotes --require-web-verify` 实际抓取后：weak-current 3
 
 `report.md` 头部也会显示 `Radar: v...`。这样别人拿到一个 run，能知道是哪个版本/commit 跑出来的。
 
-当前代码版本 `1.4.1`。tag 由仓库 owner 打；Agent 不自行打标签。
+当前代码版本 `1.5.0`。tag 由仓库 owner 打；Agent 不自行打标签。
 
 ## Claim 账本（v0.4）
 
@@ -209,7 +215,7 @@ python3 -m radar claims \
 - [docs/SCHEMA.md](docs/SCHEMA.md)：字段/必填/兼容规则；
 - [docs/MIGRATION.md](docs/MIGRATION.md)：版本线与旧数据读取。
 
-`schema_version` 冻结为 `1`，软件版本 `1.4.1` 独立演进。
+`schema_version` 冻结为 `1`，软件版本 `1.5.0` 独立演进。
 
 ## 自动化（v1.4）
 

@@ -20,6 +20,7 @@
 | 1.3 | claim 只认本次 web 验证来源，covers 需与已验证来源有交集 |
 | 1.4 | `scan --fail-on-change` + `scripts/scan_all.sh` 定时扫描 |
 | 1.4.1 | 补 weak M02/M10、video S07/S13；GitHub blob 文件校验 |
+| 1.5 | 通用来源底座 + 1 条国标来源；第三 pack 后续 |
 
 ## schema_version 与 __version__
 

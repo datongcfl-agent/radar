@@ -10,7 +10,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 from urllib.robotparser import RobotFileParser
 
-UA = "radar-mvp/1.4.1"
+UA = "radar-mvp/1.5.0"
 
 
 class _Extractor(HTMLParser):

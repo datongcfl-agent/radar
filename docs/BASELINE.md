@@ -1,11 +1,11 @@
-# 弱电 pack 基线（v1.4.1）
+# 弱电 pack 基线（v1.5.0）
 
 ## 数字
 
 | 项 | 值 |
 | --- | ---: |
-| 公开来源 | 34 |
-| selected / needs_review | 30 / 4 |
+| 公开来源 | 35 |
+| selected / needs_review | 30 / 5 |
 | 模块 / 子系统 | 14 / 23 |
 | strong / evidence / mention / none | **3 / 20 / 8 / 6** |
 | 单源单元 | 11 |
@@ -27,7 +27,7 @@
 - 12 条短 quote 降为 `mention`，`limitations` 写明“仅短标题/描述”；
 - 新增 `tools/audit_ledger.py`，审计宽 covers、宽来源独占单元、短 quote；
 - v1.0 结果是 3 strong / 21 evidence / 8 mention / 5 none；
-- v1.4.1 用 `--verify-quotes --require-web-verify` 实抓后：3 strong（M01/M06/M13）/ 20 evidence / 8 mention / 6 none；
+- v1.5.0 用 `--verify-quotes --require-web-verify` 实抓后：3 strong（M01/M06/M13）/ 20 evidence / 8 mention / 6 none；
 - M01 恢复：SRC-008 从 SSL 失败的 docs 换成 OpenProject GitHub README，成为第二个验证通过的独立 host；
 - **M02 仍为 none**：SRC-001 的“全链条”是概括，不直接证明立项单/台账/项目阶段，不能挂 covers；
 - **M10 补证据**：SRC-012 补真实“竣工验收/资料”段落，从 mention 升 evidence；
@@ -56,6 +56,8 @@
 这些是下一轮搜索的真实方向；不再用“商用厨房排油烟”这类不属于通用弱电的模块凑数。
 
 ## 来源构成
+
+- 1 条底座来源：GB 50311-2016 综合布线标准页（SRC-035，metadata，未完整抓正文）。
 
 - 13 条原有来源：弱电工程系统、报价/成本、图纸、项目管理、设备台账；
 - 21 条新增来源：弱电/智能化项目、设备/资产/布线、楼宇/能源、视频/停车/IPTV/背景音乐/电话、工单、低代码联动。

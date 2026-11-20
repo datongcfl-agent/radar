@@ -1,15 +1,16 @@
 # 弱电管理系统 · 雷达运行报告
 
-Run: `20261120-115759` · Pack: `weak-current` v0.1.0 · Radar: v1.4.1
+Run: `20261120-121154` · Pack: `weak-current` v0.1.0 · Radar: v1.5.0
 
 ## 一句话
 
-本次用 34 条来源，覆盖 14 个管理模块 + 23 个子系统；强/证据/提及/空 = 3/20/8/6。
+本次用 35 条来源，覆盖 14 个管理模块 + 23 个子系统；强/证据/提及/空 = 3/20/8/6。
 
 ## 平台覆盖
 
 | 平台 | 来源数 |
 | --- | ---: |
+| docs | 1 |
 | gitee | 5 |
 | github | 25 |
 | web | 4 |
@@ -39,6 +40,7 @@ Run: `20261120-115759` · Pack: `weak-current` v0.1.0 · Radar: v1.4.1
 - `SRC-017` access=public, license_status=needs_review：仅公开 README/metadata，未读代码；参考用
 - `SRC-024` access=public, license_status=needs_review：仅公开 README/metadata，未读代码；参考用
 - `SRC-028` access=public, license_status=needs_review：仅公开 README/metadata，未读代码；参考用
+- `SRC-035` access=public, license_status=needs_review：['国家标准馆页面，正文/阅读器未完整抓取；仅 metadata']
 
 ## 单源模块
 
@@ -92,6 +94,7 @@ Run: `20261120-115759` · Pack: `weak-current` v0.1.0 · Radar: v1.4.1
 | `SRC-032` | [prathimacode-hub/Ezy-Parking](https://github.com/prathimacode-hub/Ezy-Parking) | github | evidence | GPL-3.0 | public |
 | `SRC-033` | [TechnionYP5777/SmartCity-ParkingManagement](https://github.com/TechnionYP5777/SmartCity-ParkingManagement) | github | mention | Apache-2.0 | public |
 | `SRC-034` | [snapcast/snapcast](https://github.com/snapcast/snapcast) | github | mention | GPL-3.0 | public |
+| `SRC-035` | [GB 50311-2016 综合布线系统工程设计规范](https://www.ndls.org.cn/standard/detail/a500845f55497d65da6786ef11060758) | docs | mention | unknown（需复核） | public |
 
 ## 边界
 

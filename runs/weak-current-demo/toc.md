@@ -25,7 +25,7 @@ Pack: `weak-current` v0.1.0
 
 | ID | 子系统 | 覆盖 | 来源数 | 最强来源 |
 | --- | --- | --- | ---: | --- |
-| `S01` | 综合布线 | **evidence** | 6 | SRC-025 |
+| `S01` | 综合布线 | **evidence** | 7 | SRC-025 |
 | `S02` | 计算机网络/无线WIFI | **evidence** | 3 | SRC-025 |
 | `S03` | 综合管路 | **evidence** | 3 | SRC-025 |
 | `S04` | 机房/UPS | **none** | 0 | — |
