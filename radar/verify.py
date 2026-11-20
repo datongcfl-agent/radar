@@ -26,6 +26,14 @@ def _repo(url):
     return path[0], path[1].replace(".git", "")
 
 
+def _github_file(url):
+    parts = urlsplit(url)
+    path = [p for p in parts.path.split("/") if p]
+    if len(path) >= 5 and path[2] == "blob":
+        return path[0], path[1], path[3], "/".join(path[4:])
+    return None
+
+
 def _curl_text(url, headers=None, timeout=20):
     with tempfile.TemporaryDirectory() as tmp:
         body = Path(tmp) / "body.bin"
@@ -63,6 +71,13 @@ def source_text(src, timeout=20):
         import os
         if os.environ.get("GITHUB_TOKEN"):
             headers.append("Authorization: Bearer %s" % os.environ["GITHUB_TOKEN"])
+        file_ref = _github_file(url)
+        if file_ref:
+            owner, repo_name, branch, path = file_ref
+            return _curl_text(
+                "https://api.github.com/repos/%s/%s/contents/%s?ref=%s" % (
+                    owner, repo_name, path, branch),
+                headers=headers, timeout=timeout)
         readme, status, err = _curl_text(
             "https://api.github.com/repos/%s/%s/readme" % repo,
             headers=headers, timeout=timeout)

@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
-  "run_id": "20261120-094942",
-  "radar_version": "1.4.0",
-  "radar_commit": "12c2e00",
+  "run_id": "20261120-115855",
+  "radar_version": "1.4.1",
+  "radar_commit": "5cf83d1",
   "title": "视频转知识库",
-  "created_at": "2026-11-20T09:49:42+08:00",
+  "created_at": "2026-11-20T11:58:55+08:00",
   "pack": "video-kb",
   "pack_version": "0.1.0",
   "pack_sha256": "c19fae8a70836db1b20a09d07862ea2c3e8d366b269f25972aba0014ffad69a8",
-  "seeds_sha256": "94659f788af40aba78608601a89832f448ffd0abbf773459ec7d697c0a28ce04",
+  "seeds_sha256": "f1731dc0c2fa5972647ee9e04e6693fee08f5d66efcf51de51664804a22528d1",
   "mode": "run",
   "base": null,
   "options": {
@@ -27,7 +27,7 @@
     "strict": false
   },
   "counts": {
-    "sources": 30,
+    "sources": 32,
     "modules": 10,
     "subsystems": 16
   },

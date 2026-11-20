@@ -3,8 +3,8 @@
 | 层级 | 数量 |
 | --- | ---: |
 | none | 0 |
-| mention | 2 |
-| evidence | 24 |
+| mention | 0 |
+| evidence | 26 |
 | strong | 0 |
 
 ## 管理模块
@@ -104,13 +104,13 @@
 - **S04 说话人分离** — evidence（4 个来源）
 - **S05 长音频切分/VAD** — evidence（2 个来源）
 - **S06 LLM 摘要与大纲** — evidence（2 个来源）
-- **S07 结构化笔记模板** — mention（1 个来源）
+- **S07 结构化笔记模板** — evidence（2 个来源）
 - **S08 Markdown/双链存储** — evidence（3 个来源）
 - **S09 自动标签与聚类** — evidence（1 个来源）
 - **S10 向量化/embedding** — evidence（4 个来源）
 - **S11 RAG 问答** — evidence（7 个来源）
 - **S12 桌面客户端** — evidence（1 个来源）
-- **S13 移动端** — mention（1 个来源）
+- **S13 移动端** — evidence（2 个来源）
 - **S14 同步机制** — evidence（2 个来源）
 - **S15 复习/闪卡** — evidence（2 个来源）
 - **S16 本地模型运行** — evidence（2 个来源）

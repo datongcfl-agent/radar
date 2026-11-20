@@ -1,4 +1,4 @@
-# 弱电 pack 基线（v1.4.0）
+# 弱电 pack 基线（v1.4.1）
 
 ## 数字
 
@@ -7,7 +7,7 @@
 | 公开来源 | 34 |
 | selected / needs_review | 30 / 4 |
 | 模块 / 子系统 | 14 / 23 |
-| strong / evidence / mention / none | **3 / 19 / 9 / 6** |
+| strong / evidence / mention / none | **3 / 20 / 8 / 6** |
 | 单源单元 | 11 |
 | 无证据单元 | 6（M02、S04、S09、S11、S14、S22） |
 
@@ -27,9 +27,10 @@
 - 12 条短 quote 降为 `mention`，`limitations` 写明“仅短标题/描述”；
 - 新增 `tools/audit_ledger.py`，审计宽 covers、宽来源独占单元、短 quote；
 - v1.0 结果是 3 strong / 21 evidence / 8 mention / 5 none；
-- v1.2 用 `--verify-quotes --require-web-verify` 实抓后：3 strong（M01/M06/M13）/ 19 evidence / 9 mention / 6 none；
+- v1.4.1 用 `--verify-quotes --require-web-verify` 实抓后：3 strong（M01/M06/M13）/ 20 evidence / 8 mention / 6 none；
 - M01 恢复：SRC-008 从 SSL 失败的 docs 换成 OpenProject GitHub README，成为第二个验证通过的独立 host；
-- **M02 / M10 降级**：SRC-008 的 quote 只支撑项目管理，不支撑“立项/台账/竣工验收”，按口径移除 covers；M02 变 none，M10 只剩 SRC-012 mention；
+- **M02 仍为 none**：SRC-001 的“全链条”是概括，不直接证明立项单/台账/项目阶段，不能挂 covers；
+- **M10 补证据**：SRC-012 补真实“竣工验收/资料”段落，从 mention 升 evidence；
 - 验证器修复了 Markdown 链接和 GitHub description 的误判，5 条真实 quote 恢复；4 条数据 quote 按原文修正/降级。
 
 ## strong 的集中度
@@ -48,7 +49,7 @@
 - `S14` 信息发布
 - `S22` 客控系统
 
-单源：`M03`、`M07`、`M11`、`S07`、`S08`、`S15`、`S16`、`S17`、`S18`、`S21`、`S23`。
+单源：`M07`、`M10`、`M11`、`S07`、`S08`、`S15`、`S16`、`S17`、`S18`、`S21`、`S23`。
 
 同源待印证（≥2 条证据但同一 host）：`M08`、`M14`、`S01`、`S02`、`S03`、`S10`、`S12`、`S13`。
 

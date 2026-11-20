@@ -27,13 +27,13 @@ Pack: `video-kb` v0.1.0
 | `S04` | 说话人分离 | **evidence** | 4 | SRC-023 |
 | `S05` | 长音频切分/VAD | **evidence** | 2 | SRC-023 |
 | `S06` | LLM 摘要与大纲 | **evidence**（单源） | 2 | SRC-018 |
-| `S07` | 结构化笔记模板 | **mention** | 1 | SRC-002 |
+| `S07` | 结构化笔记模板 | **evidence**（单源） | 2 | SRC-031 |
 | `S08` | Markdown/双链存储 | **evidence** | 3 | SRC-028 |
 | `S09` | 自动标签与聚类 | **evidence**（单源） | 1 | SRC-010 |
 | `S10` | 向量化/embedding | **evidence** | 4 | SRC-020 |
 | `S11` | RAG 问答 | **evidence** | 7 | SRC-021 |
 | `S12` | 桌面客户端 | **evidence**（单源） | 1 | SRC-009 |
-| `S13` | 移动端 | **mention** | 1 | SRC-030 |
+| `S13` | 移动端 | **evidence**（单源） | 2 | SRC-032 |
 | `S14` | 同步机制 | **evidence** | 2 | SRC-028 |
 | `S15` | 复习/闪卡 | **evidence**（单源） | 2 | SRC-013 |
 | `S16` | 本地模型运行 | **evidence**（单源） | 2 | SRC-019 |

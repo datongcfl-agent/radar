@@ -39,18 +39,18 @@
       "kind": "module",
       "level": "evidence",
       "source_count": 3,
-      "evidence_count": 1,
-      "independent_count": 1,
-      "verified_count": 1,
-      "verified_independent_count": 1,
+      "evidence_count": 2,
+      "independent_count": 2,
+      "verified_count": 2,
+      "verified_independent_count": 2,
       "sources": [
         "SRC-006",
         "SRC-011",
         "SRC-012"
       ],
-      "strongest": "SRC-006",
+      "strongest": "SRC-012",
       "reusable": false,
-      "single_source": true
+      "single_source": false
     },
     {
       "id": "M04",
@@ -166,18 +166,18 @@
       "id": "M10",
       "name": "竣工与验收",
       "kind": "module",
-      "level": "mention",
+      "level": "evidence",
       "source_count": 1,
-      "evidence_count": 0,
-      "independent_count": 0,
-      "verified_count": 0,
-      "verified_independent_count": 0,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
         "SRC-012"
       ],
       "strongest": "SRC-012",
       "reusable": false,
-      "single_source": false
+      "single_source": true
     },
     {
       "id": "M11",
@@ -671,8 +671,8 @@
   ],
   "summary": {
     "none": 6,
-    "mention": 9,
-    "evidence": 19,
+    "mention": 8,
+    "evidence": 20,
     "strong": 3
   },
   "sources": 34,
