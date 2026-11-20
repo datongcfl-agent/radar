@@ -121,7 +121,7 @@ class TestModel(unittest.TestCase):
         seeds = load_seeds(ROOT / "seeds/video-kb.json", pack)
         self.assertEqual(len(pack["modules"]), 10)
         self.assertEqual(len(pack["subsystems"]), 16)
-        self.assertEqual(len(seeds), 30)
+        self.assertEqual(len(seeds), 32)
 
     def test_minimal_seed_defaults(self):
         pack = load_pack(PACK)
@@ -654,9 +654,9 @@ class TestCLI(unittest.TestCase):
             state = json.loads((scan_out / "state.json").read_text(encoding="utf-8"))
             self.assertEqual(state["mode"], "scan")
             self.assertEqual(state["since"], str(out1))
-            self.assertEqual(state["radar_version"], "1.4.0")
+            self.assertEqual(state["radar_version"], "1.4.1")
             self.assertIn("radar_commit", state)
-            self.assertIn("Radar: v1.4.0", (scan_out / "report.md").read_text(encoding="utf-8"))
+            self.assertIn("Radar: v1.4.1", (scan_out / "report.md").read_text(encoding="utf-8"))
 
             claims_file = tmp / "claims.json"
             claims_file.write_text(json.dumps({
@@ -671,7 +671,7 @@ class TestCLI(unittest.TestCase):
                            capture_output=True, text=True)
             self.assertTrue((claims_out / "claims.md").exists())
             self.assertTrue((claims_out / "review.csv").exists())
-            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "1.4.0")
+            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "1.4.1")
 
 
 class TestVerify(unittest.TestCase):
@@ -686,6 +686,13 @@ class TestVerify(unittest.TestCase):
     def test_verify_quotes_strip_markdown_links(self):
         text = "Please see the [website](https://apps.ankiweb.net) to learn more."
         self.assertEqual(verify_quotes(["Please see the website to learn more."], text), "true")
+
+    def test_github_blob_file_included(self):
+        with mock.patch("radar.verify._curl_text", return_value=("Templates is a core plugin.", 200, None)):
+            text, status, err = source_text({"platform": "github",
+                                             "url": "https://github.com/o/r/blob/main/docs/T.md"})
+        self.assertIsNone(err)
+        self.assertIn("Templates is a core plugin", text)
 
     def test_github_description_included(self):
         with mock.patch("radar.verify._curl_text", side_effect=[

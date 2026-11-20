@@ -18,6 +18,7 @@
       "stars": 1,
       "covers": [
         "M01",
+        "M02",
         "M06",
         "M13"
       ],
@@ -329,7 +330,7 @@
       "access_status": "public",
       "license": "proprietary",
       "license_status": "proprietary",
-      "evidence_level": "metadata",
+      "evidence_level": "docs",
       "derived_from_real_data": false,
       "covers": [
         "M03",
@@ -339,8 +340,10 @@
         "workflow",
         "boundary_conditions"
       ],
-      "quotes": [],
-      "limitations": "厂商营销文章，不是规格；不能抄。；covers 仅保留 quote 能直接支撑的单元；仅短标题/描述，降为 mention",
+      "quotes": [
+        "在弱电工程从方案设计到竣工验收的全流程中，设计图纸、设备清单、施工日志、验收文档等关键数据往往分散存储于不同岗位人员的电脑或纸质档案中"
+      ],
+      "limitations": "厂商文章，不是标准；作为竣工验收/资料断点参考。；covers 仅保留 quote 能直接支撑的单元",
       "status": "selected",
       "why_selected": "CAD/BIM 版本、变更闭环、竣工资料归档，补 M03/M10/M13。"
     },

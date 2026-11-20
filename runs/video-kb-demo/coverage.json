@@ -67,18 +67,19 @@
       "name": "知识库存储",
       "kind": "module",
       "level": "evidence",
-      "source_count": 4,
-      "evidence_count": 2,
-      "independent_count": 2,
+      "source_count": 5,
+      "evidence_count": 3,
+      "independent_count": 3,
       "verified_count": 1,
       "verified_independent_count": 1,
       "sources": [
         "SRC-006",
         "SRC-008",
         "SRC-028",
-        "SRC-029"
+        "SRC-029",
+        "SRC-031"
       ],
-      "strongest": "SRC-028",
+      "strongest": "SRC-031",
       "reusable": true,
       "single_source": false
     },
@@ -317,18 +318,19 @@
       "id": "S07",
       "name": "结构化笔记模板",
       "kind": "subsystem",
-      "level": "mention",
-      "source_count": 1,
-      "evidence_count": 0,
-      "independent_count": 0,
+      "level": "evidence",
+      "source_count": 2,
+      "evidence_count": 1,
+      "independent_count": 1,
       "verified_count": 0,
       "verified_independent_count": 0,
       "sources": [
-        "SRC-002"
+        "SRC-002",
+        "SRC-031"
       ],
-      "strongest": "SRC-002",
+      "strongest": "SRC-031",
       "reusable": false,
-      "single_source": false
+      "single_source": true
     },
     {
       "id": "S08",
@@ -430,18 +432,19 @@
       "id": "S13",
       "name": "移动端",
       "kind": "subsystem",
-      "level": "mention",
-      "source_count": 1,
-      "evidence_count": 0,
-      "independent_count": 0,
-      "verified_count": 0,
-      "verified_independent_count": 0,
+      "level": "evidence",
+      "source_count": 2,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
-        "SRC-030"
+        "SRC-030",
+        "SRC-032"
       ],
-      "strongest": "SRC-030",
+      "strongest": "SRC-032",
       "reusable": false,
-      "single_source": false
+      "single_source": true
     },
     {
       "id": "S14",
@@ -500,13 +503,13 @@
   ],
   "summary": {
     "none": 0,
-    "mention": 2,
-    "evidence": 24,
+    "mention": 0,
+    "evidence": 26,
     "strong": 0
   },
-  "sources": 30,
+  "sources": 32,
   "platforms": {
-    "github": 23,
-    "docs": 7
+    "github": 24,
+    "docs": 8
   }
 }

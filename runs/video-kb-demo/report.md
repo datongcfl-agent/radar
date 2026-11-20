@@ -1,17 +1,17 @@
 # 视频转知识库 · 雷达运行报告
 
-Run: `20261120-094942` · Pack: `video-kb` v0.1.0 · Radar: v1.4.0
+Run: `20261120-114441` · Pack: `video-kb` v0.1.0 · Radar: v1.4.1
 
 ## 一句话
 
-本次用 30 条来源，覆盖 10 个管理模块 + 16 个子系统；强/证据/提及/空 = 0/24/2/0。
+本次用 32 条来源，覆盖 10 个管理模块 + 16 个子系统；强/证据/提及/空 = 0/26/0/0。
 
 ## 平台覆盖
 
 | 平台 | 来源数 |
 | --- | ---: |
-| docs | 7 |
-| github | 23 |
+| docs | 8 |
+| github | 24 |
 
 ## 低星但高覆盖的发现
 
@@ -28,6 +28,8 @@ Run: `20261120-094942` · Pack: `video-kb` v0.1.0 · Radar: v1.4.0
 - `SRC-028` access=public, license_status=needs_review：['仅公开 README/官网/metadata，未读代码；参考用', 'covers 仅保留 quote 能直接支撑的单元']
 - `SRC-029` access=public, license_status=needs_review：['仅公开 README/官网/metadata，未读代码；参考用']
 - `SRC-030` access=public, license_status=needs_review：['仅公开 README/官网/metadata，未读代码；参考用', 'covers 仅保留 quote 能直接支撑的单元', '官网旧标语，未保留 quote；降为 mention']
+- `SRC-031` access=public, license_status=needs_review：['仅公开帮助文档，未读代码；参考用']
+- `SRC-032` access=public, license_status=needs_review：['仅官网介绍，未读代码；参考用']
 
 ## 单源模块
 
@@ -37,8 +39,10 @@ Run: `20261120-094942` · Pack: `video-kb` v0.1.0 · Radar: v1.4.0
 - `M09` 隐私与本地化（evidence）
 - `S01` 字幕优先抓取（evidence）
 - `S06` LLM 摘要与大纲（evidence）
+- `S07` 结构化笔记模板（evidence）
 - `S09` 自动标签与聚类（evidence）
 - `S12` 桌面客户端（evidence）
+- `S13` 移动端（evidence）
 - `S15` 复习/闪卡（evidence）
 - `S16` 本地模型运行（evidence）
 
@@ -76,6 +80,8 @@ Run: `20261120-094942` · Pack: `video-kb` v0.1.0 · Radar: v1.4.0
 | `SRC-028` | [Obsidian 官网](https://obsidian.md/) | docs | evidence | unknown（需复核） | public |
 | `SRC-029` | [Logseq 官网](https://logseq.com/) | docs | evidence | unknown（需复核） | public |
 | `SRC-030` | [Anki 官网](https://apps.ankiweb.net/) | docs | mention | unknown（需复核） | public |
+| `SRC-031` | [Obsidian Templates 文档](https://github.com/obsidianmd/obsidian-help/blob/master/en/Plugins/Templates.md) | github | evidence | unknown（需复核） | public |
+| `SRC-032` | [Obsidian Mobile 官方页](https://obsidian.md/mobile) | docs | evidence | unknown（需复核） | public |
 
 ## 边界
 

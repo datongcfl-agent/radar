@@ -1,10 +1,10 @@
 # 弱电管理系统 · 雷达运行报告
 
-Run: `20261120-094835` · Pack: `weak-current` v0.1.0 · Radar: v1.4.0
+Run: `20261120-114323` · Pack: `weak-current` v0.1.0 · Radar: v1.4.1
 
 ## 一句话
 
-本次用 34 条来源，覆盖 14 个管理模块 + 23 个子系统；强/证据/提及/空 = 3/19/9/6。
+本次用 34 条来源，覆盖 14 个管理模块 + 23 个子系统；强/证据/提及/空 = 3/21/8/5。
 
 ## 平台覆盖
 
@@ -16,7 +16,7 @@ Run: `20261120-094835` · Pack: `weak-current` v0.1.0 · Radar: v1.4.0
 
 ## 低星但高覆盖的发现
 
-- `SRC-001` [EEOPS 弱电工程运营管理系统](https://gitee.com/shmilytqq/eeops) — 1★，覆盖 3 格，管理主线 + 18 子系统 + 报价 Excel 分析，最贴近弱电；但只能读，不能抄。
+- `SRC-001` [EEOPS 弱电工程运营管理系统](https://gitee.com/shmilytqq/eeops) — 1★，覆盖 4 格，管理主线 + 18 子系统 + 报价 Excel 分析，最贴近弱电；但只能读，不能抄。
 - `SRC-003` [弱电智能化工程项目管理系统（PMS）](https://github.com/fanzhuangzhuang000-svg/Project-Management-System) — 0★，覆盖 3 格，0 星但业务主线最完整，含实际成本/动态毛利/发票勾稽/UI 令牌。
 - `SRC-004` [BidCraft 弱电投标文件编制系统](https://github.com/yaoyongli1974-dotcom/BidCraft) — 0★，覆盖 2 格，事实台账 + 行业规则包 + 生成门禁，是证据/许可约束的最好参考。
 - `SRC-005` [smart-system-costing 智能化项目估算](https://github.com/wanglizuishuai-arch/smart-system-costing) — 0★，覆盖 3 格，MIT，容量/清单/取费/毛利公式可直接借鉴；0 星但对口。
@@ -33,7 +33,7 @@ Run: `20261120-094835` · Pack: `weak-current` v0.1.0 · Radar: v1.4.0
 - `SRC-006` access=public, license_status=needs_review：未声明许可证；只支持 DXF，不是 DWG；无版本/审计。；covers 仅保留 quote 能直接支撑的单元
 - `SRC-008` access=public, license_status=needs_review：通用项目管理，不是弱电专用；GPL 需注意分发。；covers 仅保留 quote 能直接支撑的单元；SRC-008 只支撑 M01 的项目管理半部分，不覆盖往来单位/客户/供应商/分包
 - `SRC-011` access=public, license_status=proprietary：商业闭源产品博客，不是独立评测；不能抄实现。；covers 仅保留 quote 能直接支撑的单元；仅短标题/描述，降为 mention
-- `SRC-012` access=public, license_status=proprietary：厂商营销文章，不是规格；不能抄。；covers 仅保留 quote 能直接支撑的单元；仅短标题/描述，降为 mention
+- `SRC-012` access=public, license_status=proprietary：厂商文章，不是标准；作为竣工验收/资料断点参考。；covers 仅保留 quote 能直接支撑的单元
 - `SRC-013` access=public, license_status=proprietary：厂商官方页，产品视角；深度手册可能需登录；不代表行业通用。；仅短标题/描述，降为 mention
 - `SRC-016` access=public, license_status=needs_review：仅公开 README/metadata，未读代码；参考用
 - `SRC-017` access=public, license_status=needs_review：仅公开 README/metadata，未读代码；参考用
@@ -42,8 +42,9 @@ Run: `20261120-094835` · Pack: `weak-current` v0.1.0 · Radar: v1.4.0
 
 ## 单源模块
 
-- `M03` 现场勘测与图纸（evidence）
+- `M02` 立项与项目台账（evidence）
 - `M07` 合同与变更（evidence）
+- `M10` 竣工与验收（evidence）
 - `M11` 实际成本与毛利（evidence）
 - `S07` 入侵/防盗报警（evidence）
 - `S08` 周界防范（evidence）
@@ -69,7 +70,7 @@ Run: `20261120-094835` · Pack: `weak-current` v0.1.0 · Radar: v1.4.0
 | `SRC-009` | [HC 物联网系统（社区/园区设备）](https://gitee.com/bigstar2018/MicroCommunityIot) | gitee | mention | Apache-2.0 | public |
 | `SRC-010` | [idcops 数据中心资源管理](https://gitee.com/decbe/idcops) | gitee | mention | Apache-2.0 | public |
 | `SRC-011` | [PinMy 安装公司图纸钉点](https://pinmy.co/zh/blog/app-for-installers-zh/) | web | mention | proprietary（不可复用） | public |
-| `SRC-012` | [众和：弱电工程信息孤岛](https://www.zhonghesoft.com/xwzx/gcgl/itemid_3590.html) | web | mention | proprietary（不可复用） | public |
+| `SRC-012` | [众和：弱电工程信息孤岛](https://www.zhonghesoft.com/xwzx/gcgl/itemid_3590.html) | web | evidence | proprietary（不可复用） | public |
 | `SRC-013` | [海康威视 服务支持/工具专区](https://www.hikvision.com/cn/support/) | web | mention | proprietary（不可复用） | public |
 | `SRC-014` | [easyaiot](https://gitee.com/soaring-xiongkulu/easyaiot) | gitee | mention | MIT | public |
 | `SRC-015` | [iot_api](https://gitee.com/ttgzs/iot_api) | gitee | mention | MulanPSL-2.0 | public |

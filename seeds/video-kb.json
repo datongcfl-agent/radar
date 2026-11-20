@@ -875,6 +875,67 @@
       ],
       "status": "needs_review",
       "why_selected": "v0.7 扩源：复习/闪卡"
+    },
+    {
+      "id": "SRC-031",
+      "platform": "github",
+      "url": "https://github.com/obsidianmd/obsidian-help/blob/master/en/Plugins/Templates.md",
+      "title": "Obsidian Templates 文档",
+      "artifact_type": "docs",
+      "language": "Markdown",
+      "retrieved_at": "2026-11-20",
+      "http_status": 200,
+      "access_status": "public",
+      "license": "unknown",
+      "license_status": "needs_review",
+      "evidence_level": "docs",
+      "derived_from_real_data": false,
+      "stars": null,
+      "covers": [
+        "M04",
+        "S07"
+      ],
+      "borrow_scope": [
+        "workflow"
+      ],
+      "quotes": [
+        "Templates is a core plugin that lets you insert pre-defined snippets of text into your active note."
+      ],
+      "limitations": [
+        "仅公开帮助文档，未读代码；参考用"
+      ],
+      "status": "needs_review",
+      "why_selected": "v1.4.1 补 S07：Obsidian 官方 Templates 文档"
+    },
+    {
+      "id": "SRC-032",
+      "platform": "docs",
+      "url": "https://obsidian.md/mobile",
+      "title": "Obsidian Mobile 官方页",
+      "artifact_type": "docs",
+      "language": "en",
+      "retrieved_at": "2026-11-20",
+      "http_status": 200,
+      "access_status": "public",
+      "license": "unknown",
+      "license_status": "needs_review",
+      "evidence_level": "docs",
+      "derived_from_real_data": false,
+      "stars": null,
+      "covers": [
+        "S13"
+      ],
+      "borrow_scope": [
+        "ui_reference"
+      ],
+      "quotes": [
+        "Obsidian Mobile brings the power of our desktop app to your mobile devices."
+      ],
+      "limitations": [
+        "仅官网介绍，未读代码；参考用"
+      ],
+      "status": "needs_review",
+      "why_selected": "v1.4.1 补 S13：Obsidian Mobile 官方页"
     }
   ]
 }

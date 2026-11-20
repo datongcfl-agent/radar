@@ -20,8 +20,8 @@
 
 v1.1 用 `--verify-quotes --require-web-verify` 实抓：
 
-- weak-current：**3 strong**（M01/M06/M13）、19 evidence、9 mention、6 none；
-- video-kb：**0 strong**、24 evidence、2 mention、0 none。
+- weak-current：**3 strong**（M01/M06/M13）、21 evidence、8 mention、5 none；
+- video-kb：**0 strong**、26 evidence、0 mention、0 none。
 
 没有匹配到正文的 quote 降为 mention。  
 加 `--require-web-verify` 后，seeds 自带的 `quote_verified` 会被当作 `unknown`，只有本次验证通过才可能 strong。

@@ -2,9 +2,9 @@
 
 | 层级 | 数量 |
 | --- | ---: |
-| none | 6 |
-| mention | 9 |
-| evidence | 19 |
+| none | 5 |
+| mention | 8 |
+| evidence | 21 |
 | strong | 3 |
 
 ## 管理模块
@@ -16,9 +16,11 @@
 | `SRC-001` | gitee | strong | proprietary | public |
 | `SRC-008` | github | evidence | GPL-3.0 | public |
 
-### M02 立项与项目台账 — none
+### M02 立项与项目台账 — evidence
 
-没有来源。
+| 来源 | 平台 | 等级 | 许可 | 访问 |
+| --- | --- | --- | --- | --- |
+| `SRC-001` | gitee | strong | proprietary | public |
 
 ### M03 现场勘测与图纸 — evidence
 
@@ -26,7 +28,7 @@
 | --- | --- | --- | --- | --- |
 | `SRC-006` | github | evidence | unknown | public |
 | `SRC-011` | web | mention | proprietary | public |
-| `SRC-012` | web | mention | proprietary | public |
+| `SRC-012` | web | evidence | proprietary | public |
 
 ### M04 询价与产品库 — mention
 
@@ -72,11 +74,11 @@
 | --- | --- | --- | --- | --- |
 | `SRC-015` | gitee | mention | MulanPSL-2.0 | public |
 
-### M10 竣工与验收 — mention
+### M10 竣工与验收 — evidence
 
 | 来源 | 平台 | 等级 | 许可 | 访问 |
 | --- | --- | --- | --- | --- |
-| `SRC-012` | web | mention | proprietary | public |
+| `SRC-012` | web | evidence | proprietary | public |
 
 ### M11 实际成本与毛利 — evidence
 
