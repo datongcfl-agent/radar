@@ -43,6 +43,17 @@ def compute_confidence(claim, by_id):
     if not (set(claim.get("covers") or []) & supported):
         cap = min(cap, 0.30)
         reasons.append("unsupported_by_sources")
+    verified = [s for s in sources
+                if s.get("quote_verified") == "true" and s.get("quote_verified_by") == "web"]
+    verified_covers = set()
+    for src in verified:
+        verified_covers |= set(src.get("covers") or [])
+    if not verified:
+        cap = min(cap, 0.40)
+        reasons.append("no_verified_source")
+    elif not (set(claim.get("covers") or []) & verified_covers):
+        cap = min(cap, 0.30)
+        reasons.append("unsupported_by_verified_sources")
     if not any(s.get("quotes") for s in sources):
         cap = min(cap, 0.40)
         reasons.append("no_quote")
@@ -57,7 +68,8 @@ def compute_confidence(claim, by_id):
     status = "contested" if claim.get("contradicts") else ("open" if reasons else "accepted")
     return {"confidence": conf, "label": label, "status": status,
             "reasons": reasons, "source_count": len(sources),
-            "distinct_hosts": hosts, "best_level": best}
+            "verified_count": len(verified), "distinct_hosts": hosts,
+            "best_level": best}
 
 
 def validate_claims(data, pack, by_id):
@@ -134,6 +146,10 @@ def evaluate_claims(data, pack, sources):
 def _next_action(row):
     if "no_sources" in row["reasons"]:
         return "补来源"
+    if "no_verified_source" in row["reasons"]:
+        return "先跑 --verify-quotes"
+    if "unsupported_by_verified_sources" in row["reasons"]:
+        return "换已验证来源或改主张"
     if "unsupported_by_sources" in row["reasons"]:
         return "换来源或改主张"
     if "contradiction" in row["reasons"]:
@@ -142,6 +158,8 @@ def _next_action(row):
         return "找第二个独立来源"
     if "no_quote" in row["reasons"]:
         return "补 quote"
+    if "proprietary_reference" in row["reasons"]:
+        return "换可复用来源或人工复核许可"
     return "可进入需求底稿"
 
 

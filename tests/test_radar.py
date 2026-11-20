@@ -358,7 +358,24 @@ class TestClaims(unittest.TestCase):
             row = dict(claim); row.update(r)
             write_claims(tmp, [row], {"run": "x", "pack": "weak-current"})
             text = (Path(tmp) / "review.csv").read_text(encoding="utf-8")
-        self.assertIn("换来源或改主张", text)
+        self.assertIn("改主张", text)
+
+    def test_no_verified_source_cap(self):
+        by = {"A": self._strong("A", "a")}
+        by["A"]["quote_verified"] = "unknown"
+        claim = {"id": "C1", "statement": "s", "covers": ["M01"],
+                 "sources": ["A"], "contradicts": []}
+        r = compute_confidence(claim, by)
+        self.assertEqual(r["confidence"], 0.4)
+        self.assertIn("no_verified_source", r["reasons"])
+
+    def test_verified_cover_mismatch(self):
+        by = {"A": self._strong("A", "a")}
+        claim = {"id": "C1", "statement": "s", "covers": ["M12"],
+                 "sources": ["A"], "contradicts": []}
+        r = compute_confidence(claim, by)
+        self.assertEqual(r["confidence"], 0.3)
+        self.assertIn("unsupported_by_verified_sources", r["reasons"])
 
     def test_proprietary_cap(self):
         by = {"A": self._strong("A", "a")}
@@ -636,9 +653,9 @@ class TestCLI(unittest.TestCase):
             state = json.loads((scan_out / "state.json").read_text(encoding="utf-8"))
             self.assertEqual(state["mode"], "scan")
             self.assertEqual(state["since"], str(out1))
-            self.assertEqual(state["radar_version"], "1.2.0")
+            self.assertEqual(state["radar_version"], "1.3.0")
             self.assertIn("radar_commit", state)
-            self.assertIn("Radar: v1.2.0", (scan_out / "report.md").read_text(encoding="utf-8"))
+            self.assertIn("Radar: v1.3.0", (scan_out / "report.md").read_text(encoding="utf-8"))
 
             claims_file = tmp / "claims.json"
             claims_file.write_text(json.dumps({
@@ -653,7 +670,7 @@ class TestCLI(unittest.TestCase):
                            capture_output=True, text=True)
             self.assertTrue((claims_out / "claims.md").exists())
             self.assertTrue((claims_out / "review.csv").exists())
-            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "1.2.0")
+            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "1.3.0")
 
 
 class TestVerify(unittest.TestCase):

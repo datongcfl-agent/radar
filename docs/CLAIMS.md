@@ -1,4 +1,4 @@
-# Claim 账本（v0.4）
+# Claim 账本（v1.3）
 
 ## 输入
 
@@ -32,13 +32,18 @@
 | 单源或同一 host | 上限 0.55 |
 | 没有任何来源有 quote | 上限 0.40 |
 | claim.covers 与被引来源 covers 交集为空 | 上限 0.30，reason `unsupported_by_sources` |
+| 被引来源没有 web 验证通过 | 上限 0.40，reason `no_verified_source` |
+| claim.covers 与已验证来源 covers 交集为空 | 上限 0.30，reason `unsupported_by_verified_sources` |
 | 存在矛盾 | 上限 0.40，状态 `contested`，双向标记 |
 
 `high >= 0.75`，`medium >= 0.50`，其余 `low`。  
-`reasons` 会写 `single_source` / `no_quote` / `unsupported_by_sources` / `contradiction` / `proprietary_reference`。
+`reasons` 会写 `single_source` / `no_quote` / `unsupported_by_sources` / `no_verified_source` / `unsupported_by_verified_sources` / `contradiction` / `proprietary_reference`。
 
-- `unsupported_by_sources` 的 `next_action` 是「换来源或改主张」，不是「再找一个来源」；
+- `no_verified_source` 的 `next_action` 是「先跑 --verify-quotes」；
+- `unsupported_by_verified_sources` 的 `next_action` 是「换已验证来源或改主张」；
+- `unsupported_by_sources` 的 `next_action` 是「换来源或改主张」；
 - 矛盾双向标记：A 指向 B 时，A/B 都变 `contested`；`claims.json` 保留 `declared_contradicts` 方便追溯原始声明；
+- `proprietary_reference` 的 `next_action` 是「换可复用来源或人工复核许可」；
 - `review.csv` 对以 `= + - @` 开头的字段加前导 `'`，避免 Excel 公式注入。
 
 ## 输出
