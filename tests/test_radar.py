@@ -1,4 +1,5 @@
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -653,9 +654,9 @@ class TestCLI(unittest.TestCase):
             state = json.loads((scan_out / "state.json").read_text(encoding="utf-8"))
             self.assertEqual(state["mode"], "scan")
             self.assertEqual(state["since"], str(out1))
-            self.assertEqual(state["radar_version"], "1.3.0")
+            self.assertEqual(state["radar_version"], "1.4.0")
             self.assertIn("radar_commit", state)
-            self.assertIn("Radar: v1.3.0", (scan_out / "report.md").read_text(encoding="utf-8"))
+            self.assertIn("Radar: v1.4.0", (scan_out / "report.md").read_text(encoding="utf-8"))
 
             claims_file = tmp / "claims.json"
             claims_file.write_text(json.dumps({
@@ -670,7 +671,7 @@ class TestCLI(unittest.TestCase):
                            capture_output=True, text=True)
             self.assertTrue((claims_out / "claims.md").exists())
             self.assertTrue((claims_out / "review.csv").exists())
-            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "1.3.0")
+            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "1.4.0")
 
 
 class TestVerify(unittest.TestCase):
@@ -720,6 +721,72 @@ class TestSchemas(unittest.TestCase):
             data = json.loads(path.read_text(encoding="utf-8"))
             self.assertIn("$schema", data)
             self.assertIn("$id", data)
+
+
+class TestAutomation(unittest.TestCase):
+    def test_fail_on_change_exit_code(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp) / "base"
+            subprocess.run([sys.executable, "-m", "radar", "run", "--pack", str(PACK),
+                            "--seeds", str(SEEDS), "--title", "T", "--out", str(base)],
+                           cwd=ROOT, check=True, capture_output=True, text=True)
+            seed2 = Path(tmp) / "seeds2.json"
+            data = json.loads(SEEDS.read_text(encoding="utf-8"))
+            data["sources"] = [x for x in data["sources"] if x["id"] != "SRC-013"]
+            seed2.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+            out = Path(tmp) / "scan"
+            proc = subprocess.run([sys.executable, "-m", "radar", "scan", "--pack", str(PACK),
+                                   "--seeds", str(seed2), "--title", "T", "--out", str(out),
+                                   "--base", str(base), "--fail-on-change"],
+                                  cwd=ROOT, capture_output=True, text=True)
+            self.assertEqual(proc.returncode, 2)
+            self.assertTrue((out / "changes.md").exists())
+
+
+@unittest.skipUnless(os.name == "posix", "scan_all.sh 需要 POSIX shell；Windows 用 Git Bash 手动运行")
+class TestScanAllScript(unittest.TestCase):
+    def test_pointer_and_exit_priority(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "packs").mkdir(); (root / "seeds").mkdir(); (root / "runs").mkdir()
+            for name in ("weak-current", "video-kb", "pet-hospital"):
+                (root / "packs" / name).mkdir()
+                (root / "packs" / name / "pack.json").write_text("{}", encoding="utf-8")
+                (root / "seeds" / f"{name}.json").write_text("{}", encoding="utf-8")
+                (root / "runs" / f"{name}-demo").mkdir()
+                (root / "runs" / f"{name}-demo" / "sentinel").write_text("x", encoding="utf-8")
+            bin_dir = root / "bin"; bin_dir.mkdir()
+            fake = bin_dir / "python3"
+            fake.write_text('#!/usr/bin/env bash\ncase "$*" in *weak-current*) exit "${WEAK_RC:-0}";; *video-kb*) exit "${VIDEO_RC:-0}";; *) exit 0;; esac\n', encoding="utf-8")
+            fake.chmod(0o755)
+            env = {"PACK_ROOT": str(root/"packs"), "SEED_ROOT": str(root/"seeds"),
+                   "BASE_ROOT": str(root/"runs"), "STAMP": "one",
+                   "PATH": str(bin_dir) + ":" + str(Path("/usr/bin"))}
+            env = dict(os.environ, **env)
+            subprocess.run([str(ROOT/"scripts/scan_all.sh")], cwd=ROOT, env=env,
+                           check=True, capture_output=True, text=True)
+            self.assertIn("weak-current-scan-one", (root/"runs/weak-current-last.txt").read_text())
+            self.assertTrue((root/"runs/weak-current-demo/sentinel").exists())
+            self.assertEqual(len(list((root/"runs/weak-current-demo").iterdir())), 1)
+            for name in ("weak-current", "video-kb", "pet-hospital"):
+                (root / "runs" / f"{name}-scan-one").mkdir()
+            # second run must use the first run as base
+            log = root / "args.log"
+            fake.write_text('#!/usr/bin/env bash\nprintf "%s\\n" "$*" >> "' + str(log) + '"\ncase "$*" in *weak-current*) exit 0;; *video-kb*) exit 2;; *) exit 0;; esac\n', encoding="utf-8")
+            fake.chmod(0o755)
+            env["STAMP"] = "two"
+            p = subprocess.run([str(ROOT/"scripts/scan_all.sh")], cwd=ROOT, env=env,
+                               capture_output=True, text=True)
+            self.assertEqual(p.returncode, 2)
+            args = log.read_text()
+            self.assertIn("--base " + str(root/"runs/weak-current-scan-one"), args)
+            # failure must dominate change
+            fake.write_text('#!/usr/bin/env bash\nexit "${WEAK_RC:-0}"\n', encoding="utf-8")
+            fake.chmod(0o755)
+            env["STAMP"] = "three"; env["WEAK_RC"] = "1"; env["VIDEO_RC"] = "2"
+            p = subprocess.run([str(ROOT/"scripts/scan_all.sh")], cwd=ROOT, env=env,
+                               capture_output=True, text=True)
+            self.assertEqual(p.returncode, 1)
 
 
 class TestAudit(unittest.TestCase):

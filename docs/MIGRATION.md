@@ -18,6 +18,7 @@
 | 1.0 | schema 文件化 + 迁移/handoff 冻结 |
 | 1.1 | `--verify-quotes` 抓正文验证，weak-current 恢复 3 strong |
 | 1.3 | claim 只认本次 web 验证来源，covers 需与已验证来源有交集 |
+| 1.4 | `scan --fail-on-change` + `scripts/scan_all.sh` 定时扫描 |
 
 ## schema_version 与 __version__
 

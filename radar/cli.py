@@ -189,6 +189,8 @@ def cmd_scan(args):
                          "removed": len(changes["removed"]),
                          "changed": len(changes["changed"]),
                          "unchanged": changes["unchanged"]}
+    if args.fail_on_change and (changes["added"] or changes["removed"] or changes["changed"]):
+        result["_exit_code"] = 2
     return result
 
 
@@ -235,6 +237,8 @@ def build_parser():
     sc = sub.add_parser("scan", help="增量扫描：新 run + 与 base diff")
     add_run_args(sc)
     sc.add_argument("--base", "--since", dest="base", required=True, help="上一次 run 目录（--since 同义）")
+    sc.add_argument("--fail-on-change", action="store_true",
+                    help="有新增/移除/变化时退出码 2（仍会写完产物）")
     sc.set_defaults(func=cmd_scan)
 
     cl = sub.add_parser("claims", help="校验 claim 账本并计算置信度")
@@ -263,8 +267,9 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         result = args.func(args)
+        code = result.pop("_exit_code", 0)
         print(json.dumps(result, ensure_ascii=False, indent=2))
-        return 0
+        return code
     except (RadarError, OSError, ValueError) as exc:
         print("[fail] %s" % exc, file=sys.stderr)
         return 1
