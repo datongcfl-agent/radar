@@ -103,7 +103,14 @@
 
 验收：每条关键主张有 URL + quote + 置信度；矛盾不被强行合并。
 
-## v1.0.0 — Schema 契约冻结（本 PR）
+## v1.1.0 — 通用 quote 验证（本 PR）
+
+- `--verify-quotes`：GitHub/Gitee/网页抓正文，归一化子串校验；
+- weak-current 实抓后：2 strong / 20 evidence / 10 mention / 5 none；
+- video-kb 实抓后：0 strong / 24 evidence / 2 mention / 0 none；
+- 70 个单测。
+
+## v1.0.0 — Schema 契约冻结（已合并，v1.0.0）
 
 - `schemas/pack|seeds|claims|state.schema.json`；
 - `docs/SCHEMA.md` / `docs/MIGRATION.md`；

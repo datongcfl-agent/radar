@@ -1,4 +1,4 @@
-# 弱电 pack 基线（v1.0.0）
+# 弱电 pack 基线（v1.1.0）
 
 ## 数字
 
@@ -7,8 +7,8 @@
 | 公开来源 | 34 |
 | selected / needs_review | 30 / 4 |
 | 模块 / 子系统 | 14 / 23 |
-| strong / evidence / mention / none | **0 / 24 / 8 / 5** |
-| 单源单元 | 13 |
+| strong / evidence / mention / none | **2 / 20 / 10 / 5** |
+| 单源单元 | 12 |
 | 无证据单元 | 5（S04、S09、S11、S14、S22） |
 
 对应产物：`runs/weak-current-demo/`。  
@@ -26,7 +26,10 @@
 - 所有 `covers ≥ 5` 的来源压到最多 3 个单元；
 - 12 条短 quote 降为 `mention`，`limitations` 写明“仅短标题/描述”；
 - 新增 `tools/audit_ledger.py`，审计宽 covers、宽来源独占单元、短 quote；
-- 结果是 3 strong / 21 evidence / 8 mention / 5 none——比上一版难看，但可复核。
+- v1.0 结果是 3 strong / 21 evidence / 8 mention / 5 none；
+- v1.1 用 `--verify-quotes --require-web-verify` 实抓后：2 strong（M06/M13）/ 20 evidence / 10 mention / 5 none；
+- M01 降级：它只有 SRC-001 一条验证通过，SRC-008 抓取失败，不满足“2 个独立 host 的验证通过来源”；
+- 验证器修复了 Markdown 链接和 GitHub description 的误判，5 条真实 quote 恢复；4 条数据 quote 按原文修正/降级。
 
 ## strong 的集中度
 
@@ -43,7 +46,7 @@
 - `S14` 信息发布
 - `S22` 客控系统
 
-单源：`M02`、`M03`、`M07`、`M10`、`M11`、`S07`、`S08`、`S15`、`S16`、`S17`、`S18`、`S21`、`S23`。
+单源：`M01`、`M03`、`M07`、`M11`、`S07`、`S08`、`S15`、`S16`、`S17`、`S18`、`S21`、`S23`。
 
 同源待印证（≥2 条证据但同一 host）：`M08`、`M14`、`S01`、`S02`、`S03`、`S10`、`S12`、`S13`。
 

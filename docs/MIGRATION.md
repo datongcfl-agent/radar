@@ -16,11 +16,12 @@
 | 0.6.1 | `--require-web-verify` / claims cap / 端口 / rejected |
 | 0.7 | video-kb 第二真实 pack |
 | 1.0 | schema 文件化 + 迁移/handoff 冻结 |
+| 1.1 | `--verify-quotes` 抓正文验证，weak-current 恢复 3 strong |
 
 ## schema_version 与 __version__
 
 - `schema_version`：数据格式，当前 `1`，不随软件版本自动变；
-- `__version__`：软件版本，当前 `1.0.0`；
+- `__version__`：软件版本，当前 `1.1.0`；
 - 新字段默认可选；旧数据缺失时由 `normalize_source` 补默认值。
 
 ## 旧 run 读取

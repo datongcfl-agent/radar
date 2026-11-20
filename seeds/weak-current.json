@@ -687,7 +687,7 @@
         "workflow"
       ],
       "quotes": [
-        "An open source Data Center Inventory Management (DCIM) application."
+        "An open source (GPL v3) Data Center Inventory Management (DCIM) application."
       ],
       "limitations": "仅公开 README/metadata，未读代码；参考用",
       "status": "needs_review",
@@ -893,7 +893,7 @@
         "workflow"
       ],
       "quotes": [
-        "Tvheadend is the leading TV streaming server for Linux with IPTV and SAT>IP input sources."
+        "Tvheadend is the leading TV streaming server for Linux with ATSC, DVB-C/C2, DVB-S/S2, DVB-T/T2, IPTV, SAT>IP and unix pipe input sources"
       ],
       "limitations": "仅公开 README/metadata，未读代码；参考用",
       "status": "selected",
@@ -921,7 +921,7 @@
         "workflow"
       ],
       "quotes": [
-        "Ezy-Parking is a complete parking management system for short time rental of empty spaces."
+        "Ezy-Parking is a complete parking management system that applies smart solutions for short time rental of empty spaces."
       ],
       "limitations": "仅公开 README/metadata，未读代码；参考用",
       "status": "selected",

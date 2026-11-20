@@ -10,6 +10,14 @@
 - `结构化笔记模板 github star`
 - `视频 转 笔记 结构化笔记模板 自托管`
 
+## S13 移动端 — mention
+
+下一轮查询建议：
+- `移动端 ui_reference 开源 对比`
+- `视频转知识库（学习用途） 移动端 视频转文字`
+- `移动端 github star`
+- `视频 转 笔记 移动端 自托管`
+
 
 ## 单源待印证
 
@@ -17,12 +25,13 @@
 
 - `M03` 文本结构化（evidence，来源 `SRC-014, SRC-015, SRC-018`）
 - `M07` 跨端与同步（evidence，来源 `SRC-006, SRC-028`）
+- `M08` 学习闭环（evidence，来源 `SRC-013, SRC-030`）
 - `M09` 隐私与本地化（evidence，来源 `SRC-008, SRC-012, SRC-019, SRC-025`）
 - `S01` 字幕优先抓取（evidence，来源 `SRC-017`）
 - `S06` LLM 摘要与大纲（evidence，来源 `SRC-014, SRC-018`）
 - `S09` 自动标签与聚类（evidence，来源 `SRC-010`）
 - `S12` 桌面客户端（evidence，来源 `SRC-009`）
-- `S13` 移动端（evidence，来源 `SRC-030`）
+- `S15` 复习/闪卡（evidence，来源 `SRC-013, SRC-030`）
 - `S16` 本地模型运行（evidence，来源 `SRC-019, SRC-025`）
 
 ## 同源待印证

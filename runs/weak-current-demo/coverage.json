@@ -6,30 +6,34 @@
       "kind": "module",
       "level": "evidence",
       "source_count": 2,
-      "evidence_count": 2,
-      "independent_count": 2,
+      "evidence_count": 1,
+      "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
         "SRC-001",
         "SRC-008"
       ],
       "strongest": "SRC-001",
       "reusable": false,
-      "single_source": false
+      "single_source": true
     },
     {
       "id": "M02",
       "name": "立项与项目台账",
       "kind": "module",
-      "level": "evidence",
+      "level": "mention",
       "source_count": 1,
-      "evidence_count": 1,
-      "independent_count": 1,
+      "evidence_count": 0,
+      "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
       "sources": [
         "SRC-008"
       ],
       "strongest": "SRC-008",
       "reusable": false,
-      "single_source": true
+      "single_source": false
     },
     {
       "id": "M03",
@@ -39,6 +43,8 @@
       "source_count": 3,
       "evidence_count": 1,
       "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
         "SRC-006",
         "SRC-011",
@@ -56,6 +62,8 @@
       "source_count": 1,
       "evidence_count": 0,
       "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
       "sources": [
         "SRC-005"
       ],
@@ -71,6 +79,8 @@
       "source_count": 1,
       "evidence_count": 0,
       "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
       "sources": [
         "SRC-005"
       ],
@@ -82,10 +92,12 @@
       "id": "M06",
       "name": "报价与投标",
       "kind": "module",
-      "level": "evidence",
+      "level": "strong",
       "source_count": 4,
       "evidence_count": 3,
       "independent_count": 2,
+      "verified_count": 3,
+      "verified_independent_count": 2,
       "sources": [
         "SRC-001",
         "SRC-003",
@@ -104,6 +116,8 @@
       "source_count": 2,
       "evidence_count": 1,
       "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
         "SRC-003",
         "SRC-007"
@@ -120,6 +134,8 @@
       "source_count": 5,
       "evidence_count": 4,
       "independent_count": 1,
+      "verified_count": 4,
+      "verified_independent_count": 1,
       "sources": [
         "SRC-010",
         "SRC-018",
@@ -139,6 +155,8 @@
       "source_count": 1,
       "evidence_count": 0,
       "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
       "sources": [
         "SRC-015"
       ],
@@ -150,17 +168,19 @@
       "id": "M10",
       "name": "竣工与验收",
       "kind": "module",
-      "level": "evidence",
+      "level": "mention",
       "source_count": 2,
-      "evidence_count": 1,
-      "independent_count": 1,
+      "evidence_count": 0,
+      "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
       "sources": [
         "SRC-008",
         "SRC-012"
       ],
       "strongest": "SRC-008",
       "reusable": false,
-      "single_source": true
+      "single_source": false
     },
     {
       "id": "M11",
@@ -170,6 +190,8 @@
       "source_count": 2,
       "evidence_count": 1,
       "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
         "SRC-003",
         "SRC-005"
@@ -186,6 +208,8 @@
       "source_count": 1,
       "evidence_count": 0,
       "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
       "sources": [
         "SRC-007"
       ],
@@ -197,10 +221,12 @@
       "id": "M13",
       "name": "售后与运维",
       "kind": "module",
-      "level": "evidence",
+      "level": "strong",
       "source_count": 5,
       "evidence_count": 5,
       "independent_count": 2,
+      "verified_count": 5,
+      "verified_independent_count": 2,
       "sources": [
         "SRC-001",
         "SRC-021",
@@ -220,6 +246,8 @@
       "source_count": 3,
       "evidence_count": 2,
       "independent_count": 1,
+      "verified_count": 2,
+      "verified_independent_count": 1,
       "sources": [
         "SRC-004",
         "SRC-010",
@@ -239,6 +267,8 @@
       "source_count": 6,
       "evidence_count": 4,
       "independent_count": 1,
+      "verified_count": 4,
+      "verified_independent_count": 1,
       "sources": [
         "SRC-002",
         "SRC-006",
@@ -259,6 +289,8 @@
       "source_count": 3,
       "evidence_count": 2,
       "independent_count": 1,
+      "verified_count": 2,
+      "verified_independent_count": 1,
       "sources": [
         "SRC-002",
         "SRC-018",
@@ -276,6 +308,8 @@
       "source_count": 3,
       "evidence_count": 2,
       "independent_count": 1,
+      "verified_count": 2,
+      "verified_independent_count": 1,
       "sources": [
         "SRC-002",
         "SRC-024",
@@ -293,6 +327,8 @@
       "source_count": 0,
       "evidence_count": 0,
       "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
       "sources": [],
       "strongest": null,
       "reusable": false,
@@ -306,6 +342,8 @@
       "source_count": 2,
       "evidence_count": 0,
       "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
       "sources": [
         "SRC-009",
         "SRC-013"
@@ -322,6 +360,8 @@
       "source_count": 2,
       "evidence_count": 0,
       "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
       "sources": [
         "SRC-009",
         "SRC-013"
@@ -338,6 +378,8 @@
       "source_count": 3,
       "evidence_count": 1,
       "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
         "SRC-014",
         "SRC-015",
@@ -355,6 +397,8 @@
       "source_count": 2,
       "evidence_count": 1,
       "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
         "SRC-014",
         "SRC-027"
@@ -371,6 +415,8 @@
       "source_count": 0,
       "evidence_count": 0,
       "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
       "sources": [],
       "strongest": null,
       "reusable": false,
@@ -384,6 +430,8 @@
       "source_count": 9,
       "evidence_count": 7,
       "independent_count": 1,
+      "verified_count": 7,
+      "verified_independent_count": 1,
       "sources": [
         "SRC-013",
         "SRC-014",
@@ -407,6 +455,8 @@
       "source_count": 0,
       "evidence_count": 0,
       "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
       "sources": [],
       "strongest": null,
       "reusable": false,
@@ -420,6 +470,8 @@
       "source_count": 2,
       "evidence_count": 2,
       "independent_count": 1,
+      "verified_count": 2,
+      "verified_independent_count": 1,
       "sources": [
         "SRC-019",
         "SRC-020"
@@ -436,6 +488,8 @@
       "source_count": 7,
       "evidence_count": 6,
       "independent_count": 1,
+      "verified_count": 6,
+      "verified_independent_count": 1,
       "sources": [
         "SRC-009",
         "SRC-016",
@@ -457,6 +511,8 @@
       "source_count": 0,
       "evidence_count": 0,
       "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
       "sources": [],
       "strongest": null,
       "reusable": false,
@@ -470,6 +526,8 @@
       "source_count": 1,
       "evidence_count": 1,
       "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
         "SRC-028"
       ],
@@ -485,6 +543,8 @@
       "source_count": 1,
       "evidence_count": 1,
       "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
         "SRC-031"
       ],
@@ -500,6 +560,8 @@
       "source_count": 2,
       "evidence_count": 1,
       "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
         "SRC-009",
         "SRC-031"
@@ -516,6 +578,8 @@
       "source_count": 2,
       "evidence_count": 1,
       "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
         "SRC-032",
         "SRC-033"
@@ -532,6 +596,8 @@
       "source_count": 1,
       "evidence_count": 0,
       "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
       "sources": [
         "SRC-013"
       ],
@@ -547,6 +613,8 @@
       "source_count": 1,
       "evidence_count": 0,
       "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
       "sources": [
         "SRC-034"
       ],
@@ -562,6 +630,8 @@
       "source_count": 1,
       "evidence_count": 1,
       "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
         "SRC-028"
       ],
@@ -577,6 +647,8 @@
       "source_count": 0,
       "evidence_count": 0,
       "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
       "sources": [],
       "strongest": null,
       "reusable": false,
@@ -590,6 +662,8 @@
       "source_count": 1,
       "evidence_count": 1,
       "independent_count": 1,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
         "SRC-030"
       ],
@@ -600,9 +674,9 @@
   ],
   "summary": {
     "none": 5,
-    "mention": 8,
-    "evidence": 24,
-    "strong": 0
+    "mention": 10,
+    "evidence": 20,
+    "strong": 2
   },
   "sources": 34,
   "platforms": {
