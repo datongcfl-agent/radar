@@ -28,8 +28,11 @@ def _row(item, kind, sources):
         level = max((level_for_source(s) for s in matched), key=lambda x: LEVELS[x])
     evidence = [s for s in matched if LEVELS[level_for_source(s)] >= LEVELS["evidence"]]
     independent = len({_host(s) for s in evidence if _host(s)})
-    # Strong needs corroboration from different hosts, not just two URLs.
-    if level == "strong" and (len(evidence) < 2 or independent < 2):
+    verified = [s for s in evidence if s.get("quote_verified") == "true"
+                and s.get("quote_verified_by") == "web"]
+    verified_hosts = len({_host(s) for s in verified if _host(s)})
+    # Strong needs two independent hosts that were verified in this run/seed.
+    if level == "strong" and (len(verified) < 2 or verified_hosts < 2):
         level = "evidence"
     strongest = _pick_strongest(matched)
     reusable = any(s.get("license_status") == "clear" for s in matched)
@@ -41,6 +44,8 @@ def _row(item, kind, sources):
         "source_count": len(matched),
         "evidence_count": len(evidence),
         "independent_count": independent,
+        "verified_count": len(verified),
+        "verified_independent_count": verified_hosts,
         "sources": [s["id"] for s in matched],
         "strongest": strongest["id"] if strongest else None,
         "reusable": reusable,

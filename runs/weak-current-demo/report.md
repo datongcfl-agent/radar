@@ -1,10 +1,10 @@
 # 弱电管理系统 · 雷达运行报告
 
-Run: `20261120-031708` · Pack: `weak-current` v0.1.0 · Radar: v1.0.0
+Run: `20261120-084116` · Pack: `weak-current` v0.1.0 · Radar: v1.1.0
 
 ## 一句话
 
-本次用 34 条来源，覆盖 14 个管理模块 + 23 个子系统；强/证据/提及/空 = 0/24/8/5。
+本次用 34 条来源，覆盖 14 个管理模块 + 23 个子系统；强/证据/提及/空 = 2/20/10/5。
 
 ## 平台覆盖
 
@@ -43,10 +43,9 @@ Run: `20261120-031708` · Pack: `weak-current` v0.1.0 · Radar: v1.0.0
 
 ## 单源模块
 
-- `M02` 立项与项目台账（evidence）
+- `M01` 项目与往来单位（evidence）
 - `M03` 现场勘测与图纸（evidence）
 - `M07` 合同与变更（evidence）
-- `M10` 竣工与验收（evidence）
 - `M11` 实际成本与毛利（evidence）
 - `S07` 入侵/防盗报警（evidence）
 - `S08` 周界防范（evidence）
@@ -61,14 +60,14 @@ Run: `20261120-031708` · Pack: `weak-current` v0.1.0 · Radar: v1.0.0
 
 | ID | 标题 | 平台 | 等级 | 许可 | 访问 |
 | --- | --- | --- | --- | --- | --- |
-| `SRC-001` | [EEOPS 弱电工程运营管理系统](https://gitee.com/shmilytqq/eeops) | gitee | evidence | proprietary（不可复用） | public |
+| `SRC-001` | [EEOPS 弱电工程运营管理系统](https://gitee.com/shmilytqq/eeops) | gitee | strong | proprietary（不可复用） | public |
 | `SRC-002` | [德立云：18 大系统构建智能世界](https://www.deliyun.com/newsinfo/8795439.html) | web | mention | proprietary（不可复用） | public |
 | `SRC-003` | [弱电智能化工程项目管理系统（PMS）](https://github.com/fanzhuangzhuang000-svg/Project-Management-System) | github | evidence | proprietary（不可复用） | public |
 | `SRC-004` | [BidCraft 弱电投标文件编制系统](https://github.com/yaoyongli1974-dotcom/BidCraft) | github | evidence | proprietary（不可复用） | public |
 | `SRC-005` | [smart-system-costing 智能化项目估算](https://github.com/wanglizuishuai-arch/smart-system-costing) | github | mention | MIT | public |
 | `SRC-006` | [CAD 弱电点位与网络拓扑存档系统](https://github.com/FnGas/cad-topo-system) | github | evidence | unknown（需复核） | public |
 | `SRC-007` | [myerp 弱电/安防工程商业务管理](https://github.com/kaier0922/myerp) | github | mention | MIT | public |
-| `SRC-008` | [OpenProject 项目管理](https://www.openproject.org/docs/getting-started/openproject-introduction/) | docs | evidence | GPL-3.0（需复核） | public |
+| `SRC-008` | [OpenProject 项目管理](https://www.openproject.org/docs/getting-started/openproject-introduction/) | docs | mention | GPL-3.0（需复核） | public |
 | `SRC-009` | [HC 物联网系统（社区/园区设备）](https://gitee.com/bigstar2018/MicroCommunityIot) | gitee | mention | Apache-2.0 | public |
 | `SRC-010` | [idcops 数据中心资源管理](https://gitee.com/decbe/idcops) | gitee | mention | Apache-2.0 | public |
 | `SRC-011` | [PinMy 安装公司图纸钉点](https://pinmy.co/zh/blog/app-for-installers-zh/) | web | mention | proprietary（不可复用） | public |

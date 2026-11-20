@@ -3,8 +3,8 @@
 | 层级 | 数量 |
 | --- | ---: |
 | none | 0 |
-| mention | 1 |
-| evidence | 25 |
+| mention | 2 |
+| evidence | 24 |
 | strong | 0 |
 
 ## 管理模块
@@ -78,7 +78,7 @@
 | 来源 | 平台 | 等级 | 许可 | 访问 |
 | --- | --- | --- | --- | --- |
 | `SRC-013` | github | evidence | unknown | public |
-| `SRC-030` | docs | evidence | unknown | public |
+| `SRC-030` | docs | mention | unknown | public |
 
 ### M09 隐私与本地化 — evidence
 
@@ -110,7 +110,7 @@
 - **S10 向量化/embedding** — evidence（4 个来源）
 - **S11 RAG 问答** — evidence（7 个来源）
 - **S12 桌面客户端** — evidence（1 个来源）
-- **S13 移动端** — evidence（1 个来源）
+- **S13 移动端** — mention（1 个来源）
 - **S14 同步机制** — evidence（2 个来源）
 - **S15 复习/闪卡** — evidence（2 个来源）
 - **S16 本地模型运行** — evidence（2 个来源）

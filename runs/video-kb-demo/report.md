@@ -1,10 +1,10 @@
 # 视频转知识库 · 雷达运行报告
 
-Run: `20261120-031708` · Pack: `video-kb` v0.1.0 · Radar: v1.0.0
+Run: `20261120-084148` · Pack: `video-kb` v0.1.0 · Radar: v1.1.0
 
 ## 一句话
 
-本次用 30 条来源，覆盖 10 个管理模块 + 16 个子系统；强/证据/提及/空 = 0/25/1/0。
+本次用 30 条来源，覆盖 10 个管理模块 + 16 个子系统；强/证据/提及/空 = 0/24/2/0。
 
 ## 平台覆盖
 
@@ -27,18 +27,19 @@ Run: `20261120-031708` · Pack: `video-kb` v0.1.0 · Radar: v1.0.0
 - `SRC-027` access=public, license_status=needs_review：['仅公开 README/官网/metadata，未读代码；参考用']
 - `SRC-028` access=public, license_status=needs_review：['仅公开 README/官网/metadata，未读代码；参考用', 'covers 仅保留 quote 能直接支撑的单元']
 - `SRC-029` access=public, license_status=needs_review：['仅公开 README/官网/metadata，未读代码；参考用']
-- `SRC-030` access=public, license_status=needs_review：['仅公开 README/官网/metadata，未读代码；参考用', 'covers 仅保留 quote 能直接支撑的单元']
+- `SRC-030` access=public, license_status=needs_review：['仅公开 README/官网/metadata，未读代码；参考用', 'covers 仅保留 quote 能直接支撑的单元', '官网旧标语，未保留 quote；降为 mention']
 
 ## 单源模块
 
 - `M03` 文本结构化（evidence）
 - `M07` 跨端与同步（evidence）
+- `M08` 学习闭环（evidence）
 - `M09` 隐私与本地化（evidence）
 - `S01` 字幕优先抓取（evidence）
 - `S06` LLM 摘要与大纲（evidence）
 - `S09` 自动标签与聚类（evidence）
 - `S12` 桌面客户端（evidence）
-- `S13` 移动端（evidence）
+- `S15` 复习/闪卡（evidence）
 - `S16` 本地模型运行（evidence）
 
 ## 来源清单
@@ -74,7 +75,7 @@ Run: `20261120-031708` · Pack: `video-kb` v0.1.0 · Radar: v1.0.0
 | `SRC-027` | [LangChain 文档](https://docs.langchain.com/) | docs | mention | unknown（需复核） | public |
 | `SRC-028` | [Obsidian 官网](https://obsidian.md/) | docs | evidence | unknown（需复核） | public |
 | `SRC-029` | [Logseq 官网](https://logseq.com/) | docs | evidence | unknown（需复核） | public |
-| `SRC-030` | [Anki 官网](https://apps.ankiweb.net/) | docs | evidence | unknown（需复核） | public |
+| `SRC-030` | [Anki 官网](https://apps.ankiweb.net/) | docs | mention | unknown（需复核） | public |
 
 ## 边界
 

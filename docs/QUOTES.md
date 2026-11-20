@@ -1,4 +1,4 @@
-# Quote 验证（v0.6）
+# Quote 验证（v1.1）
 
 ## 字段
 
@@ -18,10 +18,13 @@
 
 ## 当前基线
 
-seeds 里不再有人工 `quote_verified: true`；当前没有 `--web` 机器验证过的 quote，所以 **strong = 0**。
+v1.1 用 `--verify-quotes --require-web-verify` 实抓：
 
-加 `--require-web-verify` 后，seeds 自带的 `quote_verified` 会被当作 `unknown`，只有本次 `--web` 验证通过才可能 strong。  
-有 quote 的来源最高 evidence；这不是数据退步，是门禁生效后的诚实结果。
+- weak-current：**2 strong**（M06/M13）、20 evidence、10 mention、5 none；
+- video-kb：**0 strong**、24 evidence、2 mention、0 none。
+
+没有匹配到正文的 quote 降为 mention。  
+加 `--require-web-verify` 后，seeds 自带的 `quote_verified` 会被当作 `unknown`，只有本次验证通过才可能 strong。
 
 ## 边界
 

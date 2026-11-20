@@ -856,7 +856,7 @@
       "access_status": "public",
       "license": "unknown",
       "license_status": "needs_review",
-      "evidence_level": "docs",
+      "evidence_level": "metadata",
       "derived_from_real_data": false,
       "stars": null,
       "covers": [
@@ -867,12 +867,11 @@
       "borrow_scope": [
         "workflow"
       ],
-      "quotes": [
-        "Anki - a program which makes remembering things easy."
-      ],
+      "quotes": [],
       "limitations": [
         "仅公开 README/官网/metadata，未读代码；参考用",
-        "covers 仅保留 quote 能直接支撑的单元"
+        "covers 仅保留 quote 能直接支撑的单元",
+        "官网旧标语，未保留 quote；降为 mention"
       ],
       "status": "needs_review",
       "why_selected": "v0.7 扩源：复习/闪卡"

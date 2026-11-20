@@ -10,7 +10,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 from urllib.robotparser import RobotFileParser
 
-UA = "radar-mvp/1.0.0"
+UA = "radar-mvp/1.1.0"
 
 
 class _Extractor(HTMLParser):
@@ -126,8 +126,13 @@ def detect_license(text, url=""):
     return "unknown", "needs_review", ""
 
 
+def _strip_markdown(text):
+    text = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", text or "")
+    return re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", text)
+
+
 def _norm(text):
-    return re.sub(r"[\W_]+", "", (text or "").lower())
+    return re.sub(r"[\W_]+", "", _strip_markdown(text).lower())
 
 
 def verify_quotes(quotes, text):

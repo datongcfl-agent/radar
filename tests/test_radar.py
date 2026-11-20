@@ -17,6 +17,7 @@ from radar.adapters import parse_gitee_items, gitee_search, github_search
 from radar.fetch import apply_fetch, parse_headers
 from radar.snowball import parse_github_repo, fork_source, snowball as run_snowball
 from radar.web import extract_html, detect_license, apply_web, enrich_web, verify_quotes
+from radar.verify import source_text, verify_source, verify_sources
 from radar.model import level_for_source
 from radar.claims import compute_confidence, evaluate_claims, write_claims
 from radar.diff import diff_runs
@@ -220,6 +221,15 @@ class TestCoverage(unittest.TestCase):
         a["quote_verified"] = "false"
         cov = compute_coverage(self.pack, [a])
         self.assertEqual(cov["modules"][0]["level"], "mention")
+
+    def test_one_verified_one_unknown_not_strong(self):
+        a = src("A", ["M01"], evidence="real_artifact")
+        b = src("B", ["M01"], evidence="docs")
+        b["url"] = "https://other.example/B"; b["quote_verified"] = "unknown"
+        b["quote_verified_by"] = None
+        cov = compute_coverage(self.pack, [a, b])
+        self.assertEqual(cov["modules"][0]["level"], "evidence")
+        self.assertEqual(cov["modules"][0]["verified_count"], 1)
 
     def test_bad_access_is_mention(self):
         a = src("A", ["M01"], evidence="production")
@@ -626,9 +636,9 @@ class TestCLI(unittest.TestCase):
             state = json.loads((scan_out / "state.json").read_text(encoding="utf-8"))
             self.assertEqual(state["mode"], "scan")
             self.assertEqual(state["since"], str(out1))
-            self.assertEqual(state["radar_version"], "1.0.0")
+            self.assertEqual(state["radar_version"], "1.1.0")
             self.assertIn("radar_commit", state)
-            self.assertIn("Radar: v1.0.0", (scan_out / "report.md").read_text(encoding="utf-8"))
+            self.assertIn("Radar: v1.1.0", (scan_out / "report.md").read_text(encoding="utf-8"))
 
             claims_file = tmp / "claims.json"
             claims_file.write_text(json.dumps({
@@ -643,7 +653,48 @@ class TestCLI(unittest.TestCase):
                            capture_output=True, text=True)
             self.assertTrue((claims_out / "claims.md").exists())
             self.assertTrue((claims_out / "review.csv").exists())
-            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "1.0.0")
+            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "1.1.0")
+
+
+class TestVerify(unittest.TestCase):
+    def test_verify_source_true(self):
+        with mock.patch("radar.verify.source_text", return_value=("弱电工程报价与成本管理说明", 200, None)):
+            out = verify_source({"id": "A", "url": "https://example.com", "platform": "web",
+                                 "quotes": ["弱电工程报价"]})
+        self.assertEqual(out["quote_verified"], "true")
+        self.assertEqual(out["quote_verified_by"], "web")
+        self.assertTrue(out["quote_verified_this_run"])
+
+    def test_verify_quotes_strip_markdown_links(self):
+        text = "Please see the [website](https://apps.ankiweb.net) to learn more."
+        self.assertEqual(verify_quotes(["Please see the website to learn more."], text), "true")
+
+    def test_github_description_included(self):
+        with mock.patch("radar.verify._curl_text", side_effect=[
+                ("README body", 200, None),
+                ('{"description": "repo description text"}', 200, None)]):
+            text, status, err = source_text({"platform": "github",
+                                             "url": "https://github.com/o/r"})
+        self.assertIsNone(err)
+        self.assertIn("repo description text", text)
+
+    def test_verify_source_false(self):
+        with mock.patch("radar.verify.source_text", return_value=("短", 200, None)):
+            out = verify_source({"id": "A", "url": "https://example.com", "platform": "web",
+                                 "quotes": ["不存在的句子"]})
+        self.assertEqual(out["quote_verified"], "unknown")
+
+    def test_verify_source_error(self):
+        with mock.patch("radar.verify.source_text", return_value=(None, 500, "HTTP 500")):
+            out = verify_source({"id": "A", "url": "https://example.com", "platform": "web",
+                                 "quotes": ["q"]})
+        self.assertEqual(out["quote_verified"], "unknown")
+        self.assertIn("HTTP 500", out["quote_verify_error"])
+
+    def test_verify_sources_skips_no_quote(self):
+        out, warnings = verify_sources([{"id": "A", "url": "https://example.com", "quotes": []}])
+        self.assertEqual(len(out), 1)
+        self.assertEqual(warnings, [])
 
 
 class TestSchemas(unittest.TestCase):

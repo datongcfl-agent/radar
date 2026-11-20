@@ -13,7 +13,7 @@ Pack: `video-kb` v0.1.0
 | `M05` | 归类与关联 | **evidence** | 3 | SRC-029 |
 | `M06` | 检索与问答 | **evidence** | 6 | SRC-021 |
 | `M07` | 跨端与同步 | **evidence**（单源） | 2 | SRC-028 |
-| `M08` | 学习闭环 | **evidence** | 2 | SRC-030 |
+| `M08` | 学习闭环 | **evidence**（单源） | 2 | SRC-013 |
 | `M09` | 隐私与本地化 | **evidence**（单源） | 4 | SRC-019 |
 | `M10` | 部署与运维 | **evidence** | 2 | SRC-019 |
 
@@ -33,9 +33,9 @@ Pack: `video-kb` v0.1.0
 | `S10` | 向量化/embedding | **evidence** | 4 | SRC-020 |
 | `S11` | RAG 问答 | **evidence** | 7 | SRC-021 |
 | `S12` | 桌面客户端 | **evidence**（单源） | 1 | SRC-009 |
-| `S13` | 移动端 | **evidence**（单源） | 1 | SRC-030 |
+| `S13` | 移动端 | **mention** | 1 | SRC-030 |
 | `S14` | 同步机制 | **evidence** | 2 | SRC-028 |
-| `S15` | 复习/闪卡 | **evidence** | 2 | SRC-030 |
+| `S15` | 复习/闪卡 | **evidence**（单源） | 2 | SRC-013 |
 | `S16` | 本地模型运行 | **evidence**（单源） | 2 | SRC-019 |
 
 ## 怎么读

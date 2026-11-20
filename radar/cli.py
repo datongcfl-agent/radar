@@ -15,6 +15,7 @@ from .adapters import collect_github, collect_gitee
 from .fetch import fetch_sources
 from .snowball import snowball
 from .web import enrich_web
+from .verify import verify_sources
 from .coverage import compute_coverage
 from .claims import evaluate_claims, write_claims
 from .diff import diff_runs
@@ -84,6 +85,10 @@ def cmd_run(args):
                                      respect_robots=args.respect_robots)
         warnings.extend(warns)
     sources = merge_sources(sources)
+    if args.verify_quotes:
+        sources, warns = verify_sources(sources, limit=args.verify_limit,
+                                        timeout=args.verify_timeout)
+        warnings.extend(warns)
     if args.require_web_verify:
         enforce_web_verification(sources)
     coverage = compute_coverage(pack, sources)
@@ -106,7 +111,8 @@ def cmd_run(args):
                     "snowball": bool(args.snowball), "fetch": bool(args.fetch),
                     "fetch_limit": args.fetch_limit, "web": bool(args.web),
                     "web_limit": args.web_limit, "respect_robots": bool(args.respect_robots),
-                    "require_web_verify": bool(args.require_web_verify), "limit": args.limit,
+                    "require_web_verify": bool(args.require_web_verify),
+                    "verify_quotes": bool(args.verify_quotes), "limit": args.limit,
                     "max_queries": args.max_queries, "strict": bool(args.strict)},
         "counts": {"sources": len(sources), "modules": len(coverage["modules"]),
                    "subsystems": len(coverage["subsystems"])},
@@ -213,7 +219,11 @@ def build_parser():
         p.add_argument("--web-timeout", type=int, default=20)
         p.add_argument("--respect-robots", action="store_true", help="可选：遵守 robots.txt")
         p.add_argument("--require-web-verify", action="store_true",
-                       help="只承认本次 --web 验证的 quote，忽略 seeds 自带标记")
+                       help="只承认本次验证的 quote，忽略 seeds 自带标记")
+        p.add_argument("--verify-quotes", action="store_true",
+                       help="抓取 source 正文校验 quote（GitHub/Gitee/网页）")
+        p.add_argument("--verify-limit", type=int, default=0)
+        p.add_argument("--verify-timeout", type=int, default=20)
         p.add_argument("--limit", type=int, default=3)
         p.add_argument("--max-queries", type=int, default=3)
         p.add_argument("--strict", action="store_true", help="要求 v0.1 的完整 12 字段")
