@@ -1,4 +1,4 @@
-# radar · 最小行业雷达（v1.1.0）
+# radar · 最小行业雷达（v1.2.0）
 
 **A minimal industry radar: does every module in your industry outline actually have evidence?**
 
@@ -86,8 +86,8 @@ python3 -m radar run \
 ## 弱电 pack 现状（v0.5）
 
 - **34 条公开来源**：30 selected / 4 needs_review；
-- 覆盖：**2 strong / 20 evidence / 10 mention / 5 none**；
-- 12 个单源、8 个同源待印证、5 个无证据；`gaps.md` 有真实缺口，不再写“无缺口”；
+- 覆盖：**3 strong / 19 evidence / 9 mention / 6 none**；
+- 11 个单源、8 个同源待印证、6 个无证据；`gaps.md` 有真实缺口，不再写“无缺口”；
 - 审计：无 `covers ≥5` 的万金油来源、无 <40 字的空壳 quote；
 - 来源包含弱电工程系统、报价/成本、设备台账、楼宇自控、视频、停车、IPTV、背景音乐、监控、工单等；
 - 完整基线：[docs/BASELINE.md](docs/BASELINE.md)。
@@ -164,7 +164,7 @@ token 只通过 `Authorization: Bearer` 发送，不拼进 URL、不写日志；
 - `false`：页面抓到了，但 quote 不在正文里（最高 mention）；
 - `unknown`：没有验证过（最高 evidence，不能 strong）。
 
-v1.1 用 `--verify-quotes --require-web-verify` 实际抓取后：weak-current 2 strong（M06/M13），video-kb 仍 0 strong；没匹配到的 quote 降为 mention。详见 [docs/QUOTES.md](docs/QUOTES.md)。
+v1.2 用 `--verify-quotes --require-web-verify` 实际抓取后：weak-current 3 strong（M01/M06/M13），video-kb 仍 0 strong；没匹配到的 quote 降为 mention。详见 [docs/QUOTES.md](docs/QUOTES.md)。
 
 ## 当前 MVP 的边界
 
@@ -183,7 +183,7 @@ v1.1 用 `--verify-quotes --require-web-verify` 实际抓取后：weak-current 2
 
 `report.md` 头部也会显示 `Radar: v...`。这样别人拿到一个 run，能知道是哪个版本/commit 跑出来的。
 
-当前代码版本 `1.1.0`。tag 由仓库 owner 打；Agent 不自行打标签。
+当前代码版本 `1.2.0`。tag 由仓库 owner 打；Agent 不自行打标签。
 
 ## Claim 账本（v0.4）
 
@@ -209,7 +209,7 @@ python3 -m radar claims \
 - [docs/SCHEMA.md](docs/SCHEMA.md)：字段/必填/兼容规则；
 - [docs/MIGRATION.md](docs/MIGRATION.md)：版本线与旧数据读取。
 
-`schema_version` 冻结为 `1`，软件版本 `1.1.0` 独立演进。
+`schema_version` 冻结为 `1`，软件版本 `1.2.0` 独立演进。
 
 ## 路线图
 

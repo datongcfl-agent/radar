@@ -2,25 +2,23 @@
 
 | 层级 | 数量 |
 | --- | ---: |
-| none | 5 |
-| mention | 10 |
-| evidence | 20 |
-| strong | 2 |
+| none | 6 |
+| mention | 9 |
+| evidence | 19 |
+| strong | 3 |
 
 ## 管理模块
 
-### M01 项目与往来单位 — evidence
+### M01 项目与往来单位 — strong
 
 | 来源 | 平台 | 等级 | 许可 | 访问 |
 | --- | --- | --- | --- | --- |
 | `SRC-001` | gitee | strong | proprietary | public |
-| `SRC-008` | docs | mention | GPL-3.0 | public |
+| `SRC-008` | github | evidence | GPL-3.0 | public |
 
-### M02 立项与项目台账 — mention
+### M02 立项与项目台账 — none
 
-| 来源 | 平台 | 等级 | 许可 | 访问 |
-| --- | --- | --- | --- | --- |
-| `SRC-008` | docs | mention | GPL-3.0 | public |
+没有来源。
 
 ### M03 现场勘测与图纸 — evidence
 
@@ -78,7 +76,6 @@
 
 | 来源 | 平台 | 等级 | 许可 | 访问 |
 | --- | --- | --- | --- | --- |
-| `SRC-008` | docs | mention | GPL-3.0 | public |
 | `SRC-012` | web | mention | proprietary | public |
 
 ### M11 实际成本与毛利 — evidence
