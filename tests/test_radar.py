@@ -653,9 +653,9 @@ class TestCLI(unittest.TestCase):
             state = json.loads((scan_out / "state.json").read_text(encoding="utf-8"))
             self.assertEqual(state["mode"], "scan")
             self.assertEqual(state["since"], str(out1))
-            self.assertEqual(state["radar_version"], "1.3.0")
+            self.assertEqual(state["radar_version"], "1.4.0")
             self.assertIn("radar_commit", state)
-            self.assertIn("Radar: v1.3.0", (scan_out / "report.md").read_text(encoding="utf-8"))
+            self.assertIn("Radar: v1.4.0", (scan_out / "report.md").read_text(encoding="utf-8"))
 
             claims_file = tmp / "claims.json"
             claims_file.write_text(json.dumps({
@@ -670,7 +670,7 @@ class TestCLI(unittest.TestCase):
                            capture_output=True, text=True)
             self.assertTrue((claims_out / "claims.md").exists())
             self.assertTrue((claims_out / "review.csv").exists())
-            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "1.3.0")
+            self.assertEqual(json.loads((claims_out / "state.json").read_text())["radar_version"], "1.4.0")
 
 
 class TestVerify(unittest.TestCase):
@@ -720,6 +720,26 @@ class TestSchemas(unittest.TestCase):
             data = json.loads(path.read_text(encoding="utf-8"))
             self.assertIn("$schema", data)
             self.assertIn("$id", data)
+
+
+class TestAutomation(unittest.TestCase):
+    def test_fail_on_change_exit_code(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp) / "base"
+            subprocess.run([sys.executable, "-m", "radar", "run", "--pack", str(PACK),
+                            "--seeds", str(SEEDS), "--title", "T", "--out", str(base)],
+                           cwd=ROOT, check=True, capture_output=True, text=True)
+            seed2 = Path(tmp) / "seeds2.json"
+            data = json.loads(SEEDS.read_text(encoding="utf-8"))
+            data["sources"] = [x for x in data["sources"] if x["id"] != "SRC-013"]
+            seed2.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+            out = Path(tmp) / "scan"
+            proc = subprocess.run([sys.executable, "-m", "radar", "scan", "--pack", str(PACK),
+                                   "--seeds", str(seed2), "--title", "T", "--out", str(out),
+                                   "--base", str(base), "--fail-on-change"],
+                                  cwd=ROOT, capture_output=True, text=True)
+            self.assertEqual(proc.returncode, 2)
+            self.assertTrue((out / "changes.md").exists())
 
 
 class TestAudit(unittest.TestCase):
