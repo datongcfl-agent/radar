@@ -4,34 +4,32 @@
       "id": "M01",
       "name": "项目与往来单位",
       "kind": "module",
-      "level": "evidence",
+      "level": "strong",
       "source_count": 2,
-      "evidence_count": 1,
-      "independent_count": 1,
-      "verified_count": 1,
-      "verified_independent_count": 1,
+      "evidence_count": 2,
+      "independent_count": 2,
+      "verified_count": 2,
+      "verified_independent_count": 2,
       "sources": [
         "SRC-001",
         "SRC-008"
       ],
       "strongest": "SRC-001",
       "reusable": false,
-      "single_source": true
+      "single_source": false
     },
     {
       "id": "M02",
       "name": "立项与项目台账",
       "kind": "module",
-      "level": "mention",
-      "source_count": 1,
+      "level": "none",
+      "source_count": 0,
       "evidence_count": 0,
       "independent_count": 0,
       "verified_count": 0,
       "verified_independent_count": 0,
-      "sources": [
-        "SRC-008"
-      ],
-      "strongest": "SRC-008",
+      "sources": [],
+      "strongest": null,
       "reusable": false,
       "single_source": false
     },
@@ -169,16 +167,15 @@
       "name": "竣工与验收",
       "kind": "module",
       "level": "mention",
-      "source_count": 2,
+      "source_count": 1,
       "evidence_count": 0,
       "independent_count": 0,
       "verified_count": 0,
       "verified_independent_count": 0,
       "sources": [
-        "SRC-008",
         "SRC-012"
       ],
-      "strongest": "SRC-008",
+      "strongest": "SRC-012",
       "reusable": false,
       "single_source": false
     },
@@ -673,16 +670,15 @@
     }
   ],
   "summary": {
-    "none": 5,
-    "mention": 10,
-    "evidence": 20,
-    "strong": 2
+    "none": 6,
+    "mention": 9,
+    "evidence": 19,
+    "strong": 3
   },
   "sources": 34,
   "platforms": {
     "gitee": 5,
     "web": 4,
-    "github": 24,
-    "docs": 1
+    "github": 25
   }
 }

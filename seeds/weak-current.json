@@ -210,21 +210,19 @@
     },
     {
       "id": "SRC-008",
-      "platform": "docs",
-      "url": "https://www.openproject.org/docs/getting-started/openproject-introduction/",
+      "platform": "github",
+      "url": "https://github.com/opf/openproject",
       "title": "OpenProject 项目管理",
-      "artifact_type": "docs",
-      "language": "en",
+      "artifact_type": "code",
+      "language": "Ruby",
       "retrieved_at": "2026-11-19T20:19:00+08:00",
       "access_status": "public",
       "license": "GPL-3.0",
       "license_status": "needs_review",
-      "evidence_level": "docs",
+      "evidence_level": "readme",
       "derived_from_real_data": false,
       "covers": [
-        "M01",
-        "M02",
-        "M10"
+        "M01"
       ],
       "borrow_scope": [
         "workflow",
@@ -232,11 +230,11 @@
         "engineering_practice"
       ],
       "quotes": [
-        "Project initiation request; Work packages; Gantt charts; Time and costs"
+        "OpenProject is a web-based open source project management software for teams and organizations that require transparency, flexibility, and data sovereignty."
       ],
-      "limitations": "通用项目管理，不是弱电专用；GPL 需注意分发。；covers 仅保留 quote 能直接支撑的单元",
+      "limitations": "通用项目管理，不是弱电专用；GPL 需注意分发。；covers 仅保留 quote 能直接支撑的单元；SRC-008 只支撑 M01 的项目管理半部分，不覆盖往来单位/客户/供应商/分包",
       "status": "selected",
-      "why_selected": "主流项目生命周期/工作包/甘特/成本权限，补 M01/M02/M09/M14。"
+      "why_selected": "主流项目生命周期/工作包/甘特/成本权限，补 M01/M02/M10；GitHub README 可验证"
     },
     {
       "id": "SRC-009",

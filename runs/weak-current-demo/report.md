@@ -1,18 +1,17 @@
 # 弱电管理系统 · 雷达运行报告
 
-Run: `20261120-084116` · Pack: `weak-current` v0.1.0 · Radar: v1.1.0
+Run: `20261120-091331` · Pack: `weak-current` v0.1.0 · Radar: v1.2.0
 
 ## 一句话
 
-本次用 34 条来源，覆盖 14 个管理模块 + 23 个子系统；强/证据/提及/空 = 2/20/10/5。
+本次用 34 条来源，覆盖 14 个管理模块 + 23 个子系统；强/证据/提及/空 = 3/19/9/6。
 
 ## 平台覆盖
 
 | 平台 | 来源数 |
 | --- | ---: |
-| docs | 1 |
 | gitee | 5 |
-| github | 24 |
+| github | 25 |
 | web | 4 |
 
 ## 低星但高覆盖的发现
@@ -32,7 +31,7 @@ Run: `20261120-084116` · Pack: `weak-current` v0.1.0 · Radar: v1.1.0
 - `SRC-003` access=public, license_status=proprietary：专有许可，禁止复制/修改/分发；README 是产品说明，不是独立验证；0 星。；covers 仅保留 quote 能直接支撑的单元；已移除过短 quote
 - `SRC-004` access=public, license_status=proprietary：专有许可；偏投标文件，不是项目管理全流程；不能抄代码/文档。
 - `SRC-006` access=public, license_status=needs_review：未声明许可证；只支持 DXF，不是 DWG；无版本/审计。；covers 仅保留 quote 能直接支撑的单元
-- `SRC-008` access=public, license_status=needs_review：通用项目管理，不是弱电专用；GPL 需注意分发。；covers 仅保留 quote 能直接支撑的单元
+- `SRC-008` access=public, license_status=needs_review：通用项目管理，不是弱电专用；GPL 需注意分发。；covers 仅保留 quote 能直接支撑的单元；SRC-008 只支撑 M01 的项目管理半部分，不覆盖往来单位/客户/供应商/分包
 - `SRC-011` access=public, license_status=proprietary：商业闭源产品博客，不是独立评测；不能抄实现。；covers 仅保留 quote 能直接支撑的单元；仅短标题/描述，降为 mention
 - `SRC-012` access=public, license_status=proprietary：厂商营销文章，不是规格；不能抄。；covers 仅保留 quote 能直接支撑的单元；仅短标题/描述，降为 mention
 - `SRC-013` access=public, license_status=proprietary：厂商官方页，产品视角；深度手册可能需登录；不代表行业通用。；仅短标题/描述，降为 mention
@@ -43,7 +42,6 @@ Run: `20261120-084116` · Pack: `weak-current` v0.1.0 · Radar: v1.1.0
 
 ## 单源模块
 
-- `M01` 项目与往来单位（evidence）
 - `M03` 现场勘测与图纸（evidence）
 - `M07` 合同与变更（evidence）
 - `M11` 实际成本与毛利（evidence）
@@ -67,7 +65,7 @@ Run: `20261120-084116` · Pack: `weak-current` v0.1.0 · Radar: v1.1.0
 | `SRC-005` | [smart-system-costing 智能化项目估算](https://github.com/wanglizuishuai-arch/smart-system-costing) | github | mention | MIT | public |
 | `SRC-006` | [CAD 弱电点位与网络拓扑存档系统](https://github.com/FnGas/cad-topo-system) | github | evidence | unknown（需复核） | public |
 | `SRC-007` | [myerp 弱电/安防工程商业务管理](https://github.com/kaier0922/myerp) | github | mention | MIT | public |
-| `SRC-008` | [OpenProject 项目管理](https://www.openproject.org/docs/getting-started/openproject-introduction/) | docs | mention | GPL-3.0（需复核） | public |
+| `SRC-008` | [OpenProject 项目管理](https://github.com/opf/openproject) | github | evidence | GPL-3.0（需复核） | public |
 | `SRC-009` | [HC 物联网系统（社区/园区设备）](https://gitee.com/bigstar2018/MicroCommunityIot) | gitee | mention | Apache-2.0 | public |
 | `SRC-010` | [idcops 数据中心资源管理](https://gitee.com/decbe/idcops) | gitee | mention | Apache-2.0 | public |
 | `SRC-011` | [PinMy 安装公司图纸钉点](https://pinmy.co/zh/blog/app-for-installers-zh/) | web | mention | proprietary（不可复用） | public |

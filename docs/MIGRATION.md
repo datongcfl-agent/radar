@@ -21,7 +21,7 @@
 ## schema_version 与 __version__
 
 - `schema_version`：数据格式，当前 `1`，不随软件版本自动变；
-- `__version__`：软件版本，当前 `1.1.0`；
+- `__version__`：软件版本，当前 `1.2.0`；
 - 新字段默认可选；旧数据缺失时由 `normalize_source` 补默认值。
 
 ## 旧 run 读取
