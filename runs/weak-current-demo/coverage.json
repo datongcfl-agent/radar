@@ -261,7 +261,7 @@
       "name": "综合布线",
       "kind": "subsystem",
       "level": "evidence",
-      "source_count": 6,
+      "source_count": 7,
       "evidence_count": 4,
       "independent_count": 1,
       "verified_count": 4,
@@ -272,7 +272,8 @@
         "SRC-011",
         "SRC-018",
         "SRC-024",
-        "SRC-025"
+        "SRC-025",
+        "SRC-035"
       ],
       "strongest": "SRC-025",
       "reusable": true,
@@ -675,10 +676,11 @@
     "evidence": 20,
     "strong": 3
   },
-  "sources": 34,
+  "sources": 35,
   "platforms": {
     "gitee": 5,
     "web": 4,
-    "github": 25
+    "github": 25,
+    "docs": 1
   }
 }

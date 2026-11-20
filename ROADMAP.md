@@ -103,9 +103,16 @@
 
 验收：每条关键主张有 URL + quote + 置信度；矛盾不被强行合并。
 
-## v1.4.1 — 缺口补证据（本 PR）
+## v1.5.0 — 通用来源底座（本 PR）
 
-- weak M02 由 SRC-001 全链条 quote 补证据，M10 由 SRC-012 竣工验收段落补证据；
+- `docs/SOURCES-BASE.md`：标准/招投标/企业/统计/报告五类；
+- weak-current 新增 SRC-035（GB 50311-2016）；
+- 35 条来源，30 selected / 5 needs_review；
+- 75 个单测。
+
+## v1.4.1 — 缺口补证据（已合并，v1.4.1）
+
+- weak M02 保持 none（“全链条”quote 不直接证明立项/台账）；M10 由 SRC-012 竣工验收段落补证据；
 - video S07 用 Obsidian Templates 官方文档、S13 用 Obsidian Mobile 官方页；
 - weak 3 strong / 20 evidence / 8 mention / 6 none；
 - video 0 strong / 26 evidence / 0 mention / 0 none；

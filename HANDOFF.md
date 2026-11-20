@@ -56,7 +56,7 @@ python3 -m radar run --pack packs/weak-current/pack.json --seeds seeds/weak-curr
 
 - 仓库：`<radar-repo>`
 - 当前提交：以 `git log -1` 为准
-- 版本：`1.4.1`（tag 由 owner 打）
+- 版本：`1.5.0`（tag 由 owner 打）
 - 运行模式：`run` / `scan --base` / `diff`
 
 ## 还没接

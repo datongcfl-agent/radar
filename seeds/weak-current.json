@@ -978,6 +978,33 @@
       "limitations": "仅公开 README/metadata，未读代码；参考用；仅短标题/描述，降为 mention",
       "status": "selected",
       "why_selected": "v0.5 扩源：背景音乐/多房间音频"
+    },
+    {
+      "id": "SRC-035",
+      "platform": "docs",
+      "url": "https://www.ndls.org.cn/standard/detail/a500845f55497d65da6786ef11060758",
+      "title": "GB 50311-2016 综合布线系统工程设计规范",
+      "artifact_type": "docs",
+      "language": "zh",
+      "retrieved_at": "2026-11-20",
+      "http_status": 200,
+      "access_status": "public",
+      "license": "unknown",
+      "license_status": "needs_review",
+      "evidence_level": "metadata",
+      "derived_from_real_data": false,
+      "covers": [
+        "S01"
+      ],
+      "borrow_scope": [
+        "engineering_practice"
+      ],
+      "quotes": [],
+      "limitations": [
+        "国家标准馆页面，正文/阅读器未完整抓取；仅 metadata"
+      ],
+      "status": "needs_review",
+      "why_selected": "通用底座：国标，补综合布线设计依据"
     }
   ]
 }
