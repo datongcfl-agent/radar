@@ -1,10 +1,10 @@
 # 弱电管理系统 · 雷达运行报告
 
-Run: `20261120-114323` · Pack: `weak-current` v0.1.0 · Radar: v1.4.1
+Run: `20261120-115759` · Pack: `weak-current` v0.1.0 · Radar: v1.4.1
 
 ## 一句话
 
-本次用 34 条来源，覆盖 14 个管理模块 + 23 个子系统；强/证据/提及/空 = 3/21/8/5。
+本次用 34 条来源，覆盖 14 个管理模块 + 23 个子系统；强/证据/提及/空 = 3/20/8/6。
 
 ## 平台覆盖
 
@@ -16,7 +16,7 @@ Run: `20261120-114323` · Pack: `weak-current` v0.1.0 · Radar: v1.4.1
 
 ## 低星但高覆盖的发现
 
-- `SRC-001` [EEOPS 弱电工程运营管理系统](https://gitee.com/shmilytqq/eeops) — 1★，覆盖 4 格，管理主线 + 18 子系统 + 报价 Excel 分析，最贴近弱电；但只能读，不能抄。
+- `SRC-001` [EEOPS 弱电工程运营管理系统](https://gitee.com/shmilytqq/eeops) — 1★，覆盖 3 格，管理主线 + 18 子系统 + 报价 Excel 分析，最贴近弱电；但只能读，不能抄。
 - `SRC-003` [弱电智能化工程项目管理系统（PMS）](https://github.com/fanzhuangzhuang000-svg/Project-Management-System) — 0★，覆盖 3 格，0 星但业务主线最完整，含实际成本/动态毛利/发票勾稽/UI 令牌。
 - `SRC-004` [BidCraft 弱电投标文件编制系统](https://github.com/yaoyongli1974-dotcom/BidCraft) — 0★，覆盖 2 格，事实台账 + 行业规则包 + 生成门禁，是证据/许可约束的最好参考。
 - `SRC-005` [smart-system-costing 智能化项目估算](https://github.com/wanglizuishuai-arch/smart-system-costing) — 0★，覆盖 3 格，MIT，容量/清单/取费/毛利公式可直接借鉴；0 星但对口。
@@ -42,7 +42,6 @@ Run: `20261120-114323` · Pack: `weak-current` v0.1.0 · Radar: v1.4.1
 
 ## 单源模块
 
-- `M02` 立项与项目台账（evidence）
 - `M07` 合同与变更（evidence）
 - `M10` 竣工与验收（evidence）
 - `M11` 实际成本与毛利（evidence）

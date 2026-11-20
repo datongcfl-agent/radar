@@ -9,7 +9,7 @@ Pack: `video-kb` v0.1.0
 | `M01` | 采集与导入 | **evidence** | 2 | SRC-017 |
 | `M02` | 语音转写 | **evidence** | 9 | SRC-022 |
 | `M03` | 文本结构化 | **evidence**（单源） | 3 | SRC-018 |
-| `M04` | 知识库存储 | **evidence** | 5 | SRC-031 |
+| `M04` | 知识库存储 | **evidence** | 4 | SRC-028 |
 | `M05` | 归类与关联 | **evidence** | 3 | SRC-029 |
 | `M06` | 检索与问答 | **evidence** | 6 | SRC-021 |
 | `M07` | 跨端与同步 | **evidence**（单源） | 2 | SRC-028 |

@@ -18,7 +18,6 @@
       "stars": 1,
       "covers": [
         "M01",
-        "M02",
         "M06",
         "M13"
       ],
@@ -345,7 +344,7 @@
       ],
       "limitations": "厂商文章，不是标准；作为竣工验收/资料断点参考。；covers 仅保留 quote 能直接支撑的单元",
       "status": "selected",
-      "why_selected": "CAD/BIM 版本、变更闭环、竣工资料归档，补 M03/M10/M13。"
+      "why_selected": "厂商文章，补 M03/M10 的真实资料断点；不是行业标准。"
     },
     {
       "id": "SRC-013",

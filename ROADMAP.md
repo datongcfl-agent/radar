@@ -107,7 +107,7 @@
 
 - weak M02 由 SRC-001 全链条 quote 补证据，M10 由 SRC-012 竣工验收段落补证据；
 - video S07 用 Obsidian Templates 官方文档、S13 用 Obsidian Mobile 官方页；
-- weak 3 strong / 21 evidence / 8 mention / 5 none；
+- weak 3 strong / 20 evidence / 8 mention / 6 none；
 - video 0 strong / 26 evidence / 0 mention / 0 none；
 - 75 个单测。
 

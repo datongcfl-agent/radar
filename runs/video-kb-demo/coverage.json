@@ -67,19 +67,18 @@
       "name": "知识库存储",
       "kind": "module",
       "level": "evidence",
-      "source_count": 5,
-      "evidence_count": 3,
-      "independent_count": 3,
+      "source_count": 4,
+      "evidence_count": 2,
+      "independent_count": 2,
       "verified_count": 1,
       "verified_independent_count": 1,
       "sources": [
         "SRC-006",
         "SRC-008",
         "SRC-028",
-        "SRC-029",
-        "SRC-031"
+        "SRC-029"
       ],
-      "strongest": "SRC-031",
+      "strongest": "SRC-028",
       "reusable": true,
       "single_source": false
     },
@@ -322,8 +321,8 @@
       "source_count": 2,
       "evidence_count": 1,
       "independent_count": 1,
-      "verified_count": 0,
-      "verified_independent_count": 0,
+      "verified_count": 1,
+      "verified_independent_count": 1,
       "sources": [
         "SRC-002",
         "SRC-031"

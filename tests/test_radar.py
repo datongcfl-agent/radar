@@ -688,11 +688,13 @@ class TestVerify(unittest.TestCase):
         self.assertEqual(verify_quotes(["Please see the website to learn more."], text), "true")
 
     def test_github_blob_file_included(self):
-        with mock.patch("radar.verify._curl_text", return_value=("Templates is a core plugin.", 200, None)):
+        with mock.patch("radar.verify._curl_text", return_value=("Templates is a core plugin.", 200, None)) as call:
             text, status, err = source_text({"platform": "github",
                                              "url": "https://github.com/o/r/blob/main/docs/T.md"})
         self.assertIsNone(err)
         self.assertIn("Templates is a core plugin", text)
+        self.assertIn("/repos/o/r/contents/docs/T.md?ref=main", call.call_args.args[0])
+        self.assertIn("Accept: application/vnd.github.raw", call.call_args.kwargs["headers"])
 
     def test_github_description_included(self):
         with mock.patch("radar.verify._curl_text", side_effect=[

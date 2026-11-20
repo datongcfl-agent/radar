@@ -20,7 +20,7 @@
 
 v1.1 用 `--verify-quotes --require-web-verify` 实抓：
 
-- weak-current：**3 strong**（M01/M06/M13）、21 evidence、8 mention、5 none；
+- weak-current：**3 strong**（M01/M06/M13）、20 evidence、8 mention、6 none；
 - video-kb：**0 strong**、26 evidence、0 mention、0 none。
 
 没有匹配到正文的 quote 降为 mention。  

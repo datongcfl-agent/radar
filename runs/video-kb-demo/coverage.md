@@ -46,7 +46,6 @@
 | `SRC-008` | github | mention | AGPL-3.0 | public |
 | `SRC-028` | docs | evidence | unknown | public |
 | `SRC-029` | docs | evidence | unknown | public |
-| `SRC-031` | github | evidence | unknown | public |
 
 ### M05 归类与关联 — evidence
 

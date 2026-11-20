@@ -2,9 +2,9 @@
 
 | 层级 | 数量 |
 | --- | ---: |
-| none | 5 |
+| none | 6 |
 | mention | 8 |
-| evidence | 21 |
+| evidence | 20 |
 | strong | 3 |
 
 ## 管理模块
@@ -16,11 +16,9 @@
 | `SRC-001` | gitee | strong | proprietary | public |
 | `SRC-008` | github | evidence | GPL-3.0 | public |
 
-### M02 立项与项目台账 — evidence
+### M02 立项与项目台账 — none
 
-| 来源 | 平台 | 等级 | 许可 | 访问 |
-| --- | --- | --- | --- | --- |
-| `SRC-001` | gitee | strong | proprietary | public |
+没有来源。
 
 ### M03 现场勘测与图纸 — evidence
 

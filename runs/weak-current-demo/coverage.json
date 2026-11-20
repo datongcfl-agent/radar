@@ -22,18 +22,16 @@
       "id": "M02",
       "name": "立项与项目台账",
       "kind": "module",
-      "level": "evidence",
-      "source_count": 1,
-      "evidence_count": 1,
-      "independent_count": 1,
-      "verified_count": 1,
-      "verified_independent_count": 1,
-      "sources": [
-        "SRC-001"
-      ],
-      "strongest": "SRC-001",
+      "level": "none",
+      "source_count": 0,
+      "evidence_count": 0,
+      "independent_count": 0,
+      "verified_count": 0,
+      "verified_independent_count": 0,
+      "sources": [],
+      "strongest": null,
       "reusable": false,
-      "single_source": true
+      "single_source": false
     },
     {
       "id": "M03",
@@ -672,9 +670,9 @@
     }
   ],
   "summary": {
-    "none": 5,
+    "none": 6,
     "mention": 8,
-    "evidence": 21,
+    "evidence": 20,
     "strong": 3
   },
   "sources": 34,
