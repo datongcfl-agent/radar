@@ -546,7 +546,7 @@
         "workflow"
       ],
       "quotes": [
-        "Power Distribution Intelligent Rack PDUs Inline Meters Intelligent Hybrid Rack Transfer Switch Branch Circuit Monitoring"
+        "Raritan's data center power products include rack power distribution units (rack PDUs), inline meters, transfer switches, and branch circuit monitoring systems."
       ],
       "limitations": [
         "厂商产品页，只作参考；不是独立评测"
@@ -1006,7 +1006,7 @@
       "why_selected": "v1.5.1 扩源：告警路由"
     },
     {
-      "id": "VND-CUMMINS",
+      "id": "VND-GENERAC",
       "platform": "web",
       "url": "https://www.generac.com/",
       "title": "Generac 发电机组",
@@ -1016,7 +1016,7 @@
       "access_status": "public",
       "license": "unknown",
       "license_status": "needs_review",
-      "evidence_level": "docs",
+      "evidence_level": "metadata",
       "derived_from_real_data": false,
       "covers": [
         "M02",
@@ -1025,11 +1025,9 @@
       "borrow_scope": [
         "workflow"
       ],
-      "quotes": [
-        "Since 1959, Generac Power Systems has been committed to building the most reliable, durable, efficient, and environmentally-friendly generators and power equipment."
-      ],
+      "quotes": [],
       "limitations": [
-        "厂商产品页，只作参考；不是独立评测"
+        "Generac 首页仅 metadata；首页正文未命中该句，不冒充 docs"
       ],
       "status": "needs_review",
       "why_selected": "行业垂直：柴发"

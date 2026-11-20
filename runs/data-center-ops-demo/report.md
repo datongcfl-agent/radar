@@ -1,6 +1,6 @@
 # 数据中心动环/DCIM · 雷达运行报告
 
-Run: `20261120-151033` · Pack: `data-center-ops` v0.1.0 · Radar: v1.6.0
+Run: `20261120-151808` · Pack: `data-center-ops` v0.1.0 · Radar: v1.6.0
 
 ## 一句话
 
@@ -45,7 +45,7 @@ Run: `20261120-151033` · Pack: `data-center-ops` v0.1.0 · Radar: v1.6.0
 - `VND-DCF` access=public, license_status=needs_review：['厂商/媒体页，仅 metadata；不是独立评测']
 - `VND-DCMAP` access=public, license_status=needs_review：['厂商/媒体页，仅 metadata；不是独立评测']
 - `DC-012` access=public, license_status=needs_review：['跨 pack 复用同一工具；不增加独立性']
-- `VND-CUMMINS` access=public, license_status=needs_review：['厂商产品页，只作参考；不是独立评测']
+- `VND-GENERAC` access=public, license_status=needs_review：['Generac 首页仅 metadata；首页正文未命中该句，不冒充 docs']
 - `VND-SIEMENS` access=public, license_status=needs_review：['厂商产品页，只作参考；不是独立评测']
 - `VND-HID` access=public, license_status=needs_review：['厂商页，仅 metadata；不是独立评测']
 - `VND-AXIS` access=public, license_status=needs_review：['厂商页，仅 metadata；不是独立评测']
@@ -108,7 +108,7 @@ Run: `20261120-151033` · Pack: `data-center-ops` v0.1.0 · Radar: v1.6.0
 | `DC-013` | [RackTables 机柜/端口](https://github.com/RackTables/racktables) | github | mention | GPL-2.0 | public |
 | `DC-014` | [ZoneMinder 视频监控](https://github.com/ZoneMinder/zoneminder) | github | evidence | GPL-2.0 | public |
 | `DC-015` | [Prometheus Alertmanager](https://github.com/prometheus/alertmanager) | github | evidence | Apache-2.0 | public |
-| `VND-CUMMINS` | [Generac 发电机组](https://www.generac.com/) | web | mention | unknown（需复核） | public |
+| `VND-GENERAC` | [Generac 发电机组](https://www.generac.com/) | web | mention | unknown（需复核） | public |
 | `VND-SIEMENS` | [Siemens 消防](https://www.siemens.com/global/en/products/buildings/fire-safety.html) | web | evidence | unknown（需复核） | public |
 | `VND-HID` | [HID 门禁](https://www.hidglobal.com/) | web | mention | unknown（需复核） | public |
 | `VND-AXIS` | [Axis 视频](https://www.axis.com/) | web | mention | unknown（需复核） | public |

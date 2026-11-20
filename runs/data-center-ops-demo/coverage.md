@@ -29,7 +29,7 @@
 | `VND-SCHNEIDER` | web | mention | unknown | public |
 | `VND-EATON` | web | mention | unknown | public |
 | `VND-RARITAN` | web | evidence | unknown | public |
-| `VND-CUMMINS` | web | mention | unknown | public |
+| `VND-GENERAC` | web | mention | unknown | public |
 
 ### M03 制冷与环境 — evidence
 

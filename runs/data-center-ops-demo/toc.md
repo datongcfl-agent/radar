@@ -24,7 +24,7 @@ Pack: `data-center-ops` v0.1.0
 | `S01` | 机柜/U位 | **evidence**（单源） | 2 | DC-011 |
 | `S02` | 配电/列头柜 | **evidence**（单源） | 1 | VND-RARITAN |
 | `S03` | UPS/电池 | **evidence**（单源） | 2 | DC-006 |
-| `S04` | 柴发 | **mention** | 1 | VND-CUMMINS |
+| `S04` | 柴发 | **mention** | 1 | VND-GENERAC |
 | `S05` | 精密空调 | **mention** | 1 | VND-VERTIV |
 | `S06` | 温湿度/漏水 | **evidence**（单源） | 2 | VND-SUNBIRD |
 | `S07` | 消防联动 | **evidence**（单源） | 1 | VND-SIEMENS |

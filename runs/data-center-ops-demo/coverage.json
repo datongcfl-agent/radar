@@ -38,7 +38,7 @@
         "VND-SCHNEIDER",
         "VND-EATON",
         "VND-RARITAN",
-        "VND-CUMMINS"
+        "VND-GENERAC"
       ],
       "strongest": "VND-RARITAN",
       "reusable": false,
@@ -272,9 +272,9 @@
       "verified_count": 0,
       "verified_independent_count": 0,
       "sources": [
-        "VND-CUMMINS"
+        "VND-GENERAC"
       ],
-      "strongest": "VND-CUMMINS",
+      "strongest": "VND-GENERAC",
       "reusable": false,
       "single_source": false
     },
